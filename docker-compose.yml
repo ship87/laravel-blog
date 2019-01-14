@@ -1,0 +1,65 @@
+    version: '3'
+    services:
+        nginx_for_php7_0:
+            build:
+                context: ./
+                dockerfile: nginx_for_php7_0.docker
+            volumes:
+                - ./:/var/www
+            ports:
+                - "8070:70"
+                - "8088:80"
+            links:
+                - php7_0
+        nginx_for_php7_1:
+            build:
+                context: ./
+                dockerfile: nginx_for_php7_1.docker
+            volumes:
+                - ./:/var/www
+            ports:
+                - "8071:71"
+                - "8089:81"
+            links:
+                - php7_1
+        nginx_for_php7_2:
+            build:
+                context: ./
+                dockerfile: nginx_for_php7_2.docker
+            volumes:
+                - ./:/var/www
+            ports:
+                - "8072:72"
+                - "8090:82"
+            links:
+                - php7_2
+        php7_0:
+            build:
+                context: ./
+                dockerfile: php7_0.docker
+            volumes:
+                - ./:/var/www
+            environment:
+                PHP_IDE_CONFIG: "serverName=docker"
+                PHP_XDEBUG_ENABLED: 1 # Set 1 to enable.
+                XDEBUG_CONFIG: remote_host=10.254.254.254
+        php7_1:
+            build:
+                context: ./
+                dockerfile: php7_1.docker
+            volumes:
+                - ./:/var/www
+            environment:
+                PHP_IDE_CONFIG: "serverName=docker"
+                PHP_XDEBUG_ENABLED: 1 # Set 1 to enable.
+                XDEBUG_CONFIG: remote_host=10.254.254.254
+        php7_2:
+            build:
+                context: ./
+                dockerfile: php7_2.docker
+            volumes:
+                - ./:/var/www
+            environment:
+                PHP_IDE_CONFIG: "serverName=docker"
+                PHP_XDEBUG_ENABLED: 1 # Set 1 to enable.
+                XDEBUG_CONFIG: remote_host=10.254.254.254

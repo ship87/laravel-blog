@@ -11,6 +11,17 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Auth::routes();
+
+Route::get('/'.config('app.url_admin'), 'AdminController@index')->name('admin');
+
+Route::any('/{any}',
+	/*
+	function ($any=null) {
+	dump($any);
+	die;
+	}
+*/
+	'PageController@index'
+)->where('any', '(.*)');
+
