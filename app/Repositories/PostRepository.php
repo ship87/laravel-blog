@@ -3,21 +3,12 @@
 namespace App\Repositories;
 
 use App\Models\Post;
+use App\Interfaces\Repositories\RepositoryInterface;
 
-class TaskRepository
+class PostRepository extends Repository implements RepositoryInterface
 {
-    /**
-     * Get all of the tasks for a given user.
-     *
-     * @param  User $user
-     * @return Collection
-     */
-    public function getPost($slug)
+    public function __construct(Post $model)
     {
-        $search=Post::where('slug', $slug)->get();
-
-        dd($search);
-
-        //return ;
+        $this->model = $model;
     }
 }

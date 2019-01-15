@@ -56,6 +56,8 @@ return [
 
 	'url_admin' => env('APP_URL_ADMIN', 'admin'),
 
+    'url_blog' => env('APP_URL_BLOG', 'blog'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Timezone

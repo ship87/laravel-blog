@@ -4,35 +4,33 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Repositories\PostRepository;
+use App\Services\BlogService;
 
 class PostController extends Controller
 {
-
-    /**
-     * Create a new controller instance.
-     *
-     * @param  TaskRepository $tasks
-     * @return void
-     */
-    public function __construct(PostRepository $tasks)
-    {
-        $this->middleware('auth');
-        $this->tasks = $tasks;
-    }
-
     /**
      * Display a list of all of the user's task.
      *
      * @param  Request $request
      * @return Response
      */
-    public function index(Request $request)
+    public function index(BlogService $blogService, $id, $slug)
     {
 
+        $post = $blogService->getPost($id, $slug);
 
-        return view('tasks.index', [
-            'tasks' => $this->tasks->forUser($request->user()),
-        ]);
+        if (! $post) {
+            abort(404);
+        }
+
+        dd($post);
+
+        // echo $id;
+
+        //  echo $slug;
+
+        // return view('tasks.index', [
+        //     'tasks' => $this->tasks->forUser($request->user()),
+        // ]);
     }
 }

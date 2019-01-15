@@ -15,13 +15,7 @@ Auth::routes();
 
 Route::get('/'.config('app.url_admin'), 'AdminController@index')->name('admin');
 
-Route::any('/{any}',
-	/*
-	function ($any=null) {
-	dump($any);
-	die;
-	}
-*/
-	'PageController@index'
-)->where('any', '(.*)');
+Route::get('/'.config('app.url_blog').'/{id?}/{slug?}', 'PostController@index');
+
+Route::any('/{any}', 'PageController@index')->where('any', '(.*)');
 
