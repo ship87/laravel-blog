@@ -22,4 +22,15 @@ class BlogService
 
         return $post;
     }
+
+	public function getPostsPaginated()
+	{
+		$posts=$this->postRepo->getWithPaginate(config('app.url_blog'),config('app.blog_post_pagination'));
+
+		foreach ($posts as $key=>$post) {
+			$posts[$key]->url = config('app.url_blog') . '/' . $post->id . '/' . $post->slug;
+		}
+
+		return $posts;
+	}
 }

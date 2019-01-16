@@ -58,6 +58,8 @@ return [
 
     'url_blog' => env('APP_URL_BLOG', 'blog'),
 
+    'blog_post_pagination' => env('APP_BLOG_POST_PAGINATION', 10),
+
     /*
     |--------------------------------------------------------------------------
     | Application Timezone

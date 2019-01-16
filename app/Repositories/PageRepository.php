@@ -3,9 +3,8 @@
 namespace App\Repositories;
 
 use App\Models\Page;
-use App\Interfaces\Repositories\RepositoryInterface;
 
-class PageRepository extends Repository implements RepositoryInterface
+class PageRepository extends Repository
 {
     public function __construct(Page $model)
     {

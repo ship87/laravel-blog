@@ -3,9 +3,8 @@
 namespace App\Repositories;
 
 use App\Models\Category;
-use App\Interfaces\Repositories\RepositoryInterface;
 
-class CategoryRepository extends Repository implements RepositoryInterface
+class CategoryRepository extends Repository
 {
     public function __construct(Category $model)
     {
