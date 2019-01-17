@@ -6,5 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Metatag extends Model
 {
-    //
+	public function post()
+	{
+		return $this->belongsTo('App\Models\Post');
+	}
+
+	public function page()
+	{
+		return $this->belongsTo('App\Models\Page');
+	}
 }

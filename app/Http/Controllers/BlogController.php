@@ -30,12 +30,15 @@ class BlogController extends Controller
 
     public function page(BlogService $blogService, $id, $slug)
     {
-        $post = $blogService->getPost($id, $slug);
+        $postData = $blogService->getPost($id, $slug);
 
-        if (! $post) {
+
+        if (! $postData) {
             abort(404);
         }
 
-        return view('client/blog/post', ['post' => $post]);
+        return view('client/blog/post', [
+            'postData' => $postData
+        ]);
     }
 }

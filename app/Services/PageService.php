@@ -6,9 +6,21 @@ use App\Repositories\PageRepository;
 
 class PageService
 {
+	protected $pageRepo;
 
-	public function doSomethingUseful() {
+	public function __construct(PageRepository $pageRepo)
+	{
+		$this->pageRepo = $pageRepo;
+	}
 
-		return 'Output from DemoOne';
+	public function getPage($slug)
+	{
+		$page = $this->pageRepo->getPage([
+			'slug' => $slug
+		]);
+
+		dd($page);
+
+		return $page;
 	}
 }

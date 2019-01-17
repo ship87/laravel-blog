@@ -19,7 +19,7 @@ Route::get('/'.config('app.url_blog').'/{id}/{slug}', 'BlogController@page');
 
 Route::get('/'.config('app.url_blog'), 'BlogController@index');
 
-Route::any('/{any}', 'PageController@index')->where('any', '(.*)');
+Route::any('/{any}', 'PageController@page')->where('any', '(.*)');
 
 /*
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth'], function() {

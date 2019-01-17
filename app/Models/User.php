@@ -26,4 +26,14 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+	public function post()
+	{
+		return $this->belongsTo('App\Models\Post');
+	}
+
+	public function page()
+	{
+		return $this->belongsTo('App\Models\Page');
+	}
 }

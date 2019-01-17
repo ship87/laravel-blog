@@ -13,7 +13,6 @@
 		{{ $post->content }}
 		@endforeach
 	</div>
-
 	<div class="col-md-8 col-md-offset-2">
 		{{ $posts->links() }}
 	</div>

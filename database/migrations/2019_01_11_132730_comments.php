@@ -16,15 +16,14 @@ class Comments extends Migration
 		Schema::create('comments', function (Blueprint $table) {
 			$table->increments('id');
 			$table->text('content');
-			$table->integer('page_id');
+			$table->enum('type', ['page','post']);
+			$table->integer('page_id')->index()->nullable();
+			$table->integer('post_id')->index()->nullable();
 			$table->integer('parent_id')->nullable();
-			$table->integer('created_user_id');
-			$table->integer('updated_user_id');
+			$table->integer('created_user_id')->index();
+			$table->integer('updated_user_id')->index();
 			$table->timestamps();
 			$table->softDeletes();
-			$table->index('page_id');
-			$table->index('created_user_id');
-			$table->index('updated_user_id');
 		});
 
 

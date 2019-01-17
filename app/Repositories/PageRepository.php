@@ -10,4 +10,9 @@ class PageRepository extends Repository
     {
         $this->model = $model;
     }
+
+	public function getPage(array $where=[])
+	{
+		return $this->model->with(['comments','metatags','createdUser','updatedUser'])->where($where)->get();
+	}
 }

@@ -14,11 +14,9 @@ class CategoryPost extends Migration
     public function up()
     {
 		Schema::create('category_post', function (Blueprint $table) {
-            $table->integer('category_id');
-			$table->integer('post_id');
+            $table->integer('category_id')->index();
+			$table->integer('post_id')->index();
 			$table->unique(['category_id','post_id']);
-            $table->index('category_id');
-			$table->index('post_id');
 		});
     }
 

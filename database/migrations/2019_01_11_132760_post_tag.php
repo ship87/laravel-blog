@@ -14,11 +14,9 @@ class PostTag extends Migration
     public function up()
     {
 		Schema::create('post_tag', function (Blueprint $table) {
-			$table->integer('post_id');
-			$table->integer('tag_id');
+			$table->integer('post_id')->index();
+			$table->integer('tag_id')->index();
 			$table->unique(['post_id','tag_id']);
-			$table->index('post_id');
-			$table->index('tag_id');
 		});
     }
 

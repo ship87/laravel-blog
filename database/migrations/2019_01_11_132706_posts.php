@@ -16,15 +16,13 @@ class Posts extends Migration
 		Schema::create('posts', function (Blueprint $table) {
 			$table->increments('id');
 			$table->string('title', 255)->nullable();
-			$table->string('slug', 255);
+			$table->string('slug', 255)->unique();
 			$table->text('content')->nullable();
-			$table->integer('created_user_id');
-			$table->integer('updated_user_id');
+			$table->enum('no_comments', ['Y','N']);
+			$table->integer('created_user_id')->index();
+			$table->integer('updated_user_id')->index();
 			$table->timestamps();
 			$table->softDeletes();
-            $table->unique('slug');
-			$table->index('created_user_id');
-			$table->index('updated_user_id');
 		});
     }
 

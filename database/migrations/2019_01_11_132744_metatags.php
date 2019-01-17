@@ -15,7 +15,9 @@ class MetaTags extends Migration
     {
 		Schema::create('metatags', function (Blueprint $table) {
 			$table->increments('id');
-			$table->integer('page_id');
+			$table->enum('type', ['page','post']);
+			$table->integer('page_id')->nullable();
+			$table->integer('post_id')->nullable();
 			$table->enum('name', ['title','description','keywords','robots']);
 			$table->string('content', 255);
 			$table->unique(['page_id','name']);

@@ -3,15 +3,15 @@
 @section('content')
 <div class="container">
 	<div class="col-md-8 col-md-offset-2">
-		@foreach ($postData as $post)
-		{{ $post->created_user_id }}
-		{{ $post->created_at }}
 
-		{{ $post->title }}
+		{{ $page->created_user_id }}
+		{{ $page->created_at }}
 
-		{{ $post->slug }}
-		{{ $post->content }}
-		@endforeach
+		{{ $page->title }}
+
+		{{ $page->slug }}
+		{{ $page->content }}
+
 	</div>
 	<div class="col-md-8 col-md-offset-2">
 

@@ -15,17 +15,13 @@ class Settings extends Migration
     {
 		Schema::create('settings', function (Blueprint $table) {
 			$table->increments('id');
-			$table->string('name', 255);
-			$table->string('caption', 255);
+			$table->string('name', 255)->unique();
+			$table->string('caption', 255)->unique();
 			$table->enum('datatype', ['float','int','text']);
 			$table->enum('system', ['y','n']);
-			$table->integer('created_user_id');
-			$table->integer('updated_user_id');
+			$table->integer('created_user_id')->index();
+			$table->integer('updated_user_id')->index();
 			$table->timestamps();
-			$table->unique('name');
-			$table->unique('caption');
-			$table->index('created_user_id');
-			$table->index('updated_user_id');
 		});
     }
 

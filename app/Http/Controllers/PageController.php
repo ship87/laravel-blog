@@ -2,23 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\PageService;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
-	/**
-	 * Show the application dashboard.
-	 *
-	 * @return \Illuminate\Http\Response
-	 */
-	public function index(Request $request)
+	public function page(PageService $pageService, $slug=false)
 	{
-		//dd($request->segments());
+		$page = $pageService->getPage($slug);
 
-		$arrUrl=$request->segments();
+		if (!$page) {
+			abort(404);
+		}
 
-		echo count($arrUrl);
-
-		//return view('welcome');
+		return view('client/page', ['page' => $page]);
 	}
 }

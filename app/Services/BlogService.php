@@ -15,7 +15,7 @@ class BlogService
 
     public function getPost($id, $slug)
     {
-        $post = $this->postRepo->getOne([
+        $post = $this->postRepo->getPost([
             'id' => $id,
             'slug' => $slug,
         ]);
@@ -23,14 +23,15 @@ class BlogService
         return $post;
     }
 
-	public function getPostsPaginated()
-	{
-		$posts=$this->postRepo->getWithPaginate(config('app.url_blog'),config('app.blog_post_pagination'));
+    public function getPostsPaginated()
+    {
 
-		foreach ($posts as $key=>$post) {
-			$posts[$key]->url = config('app.url_blog') . '/' . $post->id . '/' . $post->slug;
-		}
+        $posts = $this->postRepo->getPostsWithPaginate(config('app.url_blog'), config('app.blog_post_pagination'));
 
-		return $posts;
-	}
+        foreach ($posts as $key => $post) {
+            $posts[$key]->url = config('app.url_blog').'/'.$post->id.'/'.$post->slug;
+        }
+
+        return $posts;
+    }
 }
