@@ -6,39 +6,40 @@ use Illuminate\Http\Request;
 
 use App\Services\BlogService;
 
-class BlogController extends Controller
-{
-    public function index(BlogService $blogService, Request $request)
-    {
-        $posts = $blogService->getPostsPaginated();
+class BlogController extends Controller {
 
-        if (empty($posts)) {
-            abort(404);
-        }
+	public function index(BlogService $blogService, Request $request) {
 
-        $currentPage = $request->input('page');
+		$posts = $blogService->getPostsPaginated();
 
-        if (! empty($currentPage)) {
-            $currentPage = (int) $currentPage;
-            if ($currentPage == 0 || $currentPage > $posts->lastPage()) {
-                abort(404);
-            }
-        }
+		if (empty($posts)) {
+			abort(404);
+		}
 
-        return view('client/blog/index', ['posts' => $posts]);
-    }
+		$currentPage = $request->input('page');
 
-    public function page(BlogService $blogService, $id, $slug)
-    {
-        $postData = $blogService->getPost($id, $slug);
+		if (!empty($currentPage)) {
+			$currentPage = (int)$currentPage;
+			if ($currentPage == 0 || $currentPage > $posts->lastPage()) {
+				abort(404);
+			}
+		}
 
+		return view('client/blog/index', [
+			'posts' => $posts
+		]);
+	}
 
-        if (! $postData) {
-            abort(404);
-        }
+	public function page(BlogService $blogService, $id, $slug) {
 
-        return view('client/blog/post', [
-            'postData' => $postData
-        ]);
-    }
+		$pageData = $blogService->getPost($id, $slug);
+
+		if (!$pageData) {
+			abort(404);
+		}
+
+		return view('client/blog/post', [
+			'pageData' => $pageData
+		]);
+	}
 }

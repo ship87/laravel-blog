@@ -7,14 +7,22 @@ use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
-	public function page(PageService $pageService, $slug=false)
+	public function page(Request $request,PageService $pageService, $any=false)
 	{
-		$page = $pageService->getPage($slug);
 
-		if (!$page) {
+		$urlArr=$request->segments();
+		$lastSlug = array_pop($urlArr);
+
+		$pageData = $pageService->getPage($lastSlug);
+		if (!$pageData) {
 			abort(404);
 		}
 
-		return view('client/page', ['page' => $page]);
+		$resultUrl=$pageService->checkUrl($urlArr,$lastSlug);
+		if ($resultUrl!==$any) {
+			abort(404);
+		}
+
+		return view('client/page', ['pageData' => $pageData]);
 	}
 }

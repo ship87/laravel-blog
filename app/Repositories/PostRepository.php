@@ -20,7 +20,7 @@ class PostRepository extends Repository
             'categories',
             'createdUser',
             'updatedUser',
-        ])->where($where)->get();
+        ])->where($where)->first();
     }
 
     public function getPostsWithPaginate($path, $count, array $where = [])

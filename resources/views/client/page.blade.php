@@ -4,17 +4,17 @@
 <div class="container">
 	<div class="col-md-8 col-md-offset-2">
 
-		{{ $page->created_user_id }}
-		{{ $page->created_at }}
+		{{ $pageData->created_user_id }}
+		{{ $pageData->created_at }}
 
-		{{ $page->title }}
+		{{ $pageData->title }}
 
-		{{ $page->slug }}
-		{{ $page->content }}
+		{{ $pageData->slug }}
+		{{ $pageData->content }}
 
 	</div>
 	<div class="col-md-8 col-md-offset-2">
-
+		{{ $categories }}
 	</div>
 </div>
 @endsection

@@ -25,4 +25,5 @@ class Page extends Model
 	{
 		return $this->hasOne('App\Models\User','id','updated_user_id');
 	}
+
 }
