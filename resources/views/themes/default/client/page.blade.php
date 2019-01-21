@@ -1,12 +1,7 @@
-@extends('layouts.app')
+@extends('themes.default.layouts.app')
 
 @section('content')
 <div class="container">
-
-	<div class="col-md-8 col-md-offset-2">
-		@include('client.blog.categories', ['categories'=>$pageData->categories])
-	</div>
-
 	<div class="col-md-8 col-md-offset-2">
 
 		{{ $pageData->created_user_id }}
@@ -16,11 +11,10 @@
 
 		{{ $pageData->slug }}
 		{{ $pageData->content }}
-	</div>
 
+	</div>
 	<div class="col-md-8 col-md-offset-2">
-		@include('client.blog.tags', ['tags'=>$pageData->tags])
+		{{ $categories }}
 	</div>
-
 </div>
 @endsection

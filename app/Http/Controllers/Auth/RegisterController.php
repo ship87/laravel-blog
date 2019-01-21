@@ -52,7 +52,7 @@ class RegisterController extends CustomFolderController
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \App\User
+     * @return \App\Models\User
      */
     protected function create(array $data)
     {

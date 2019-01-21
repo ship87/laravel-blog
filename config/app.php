@@ -60,6 +60,8 @@ return [
 
     'blog_post_pagination' => env('APP_BLOG_POST_PAGINATION', 10),
 
+    'theme' => 'themes/'.env('APP_THEME', 'default').'/',
+
     /*
     |--------------------------------------------------------------------------
     | Application Timezone

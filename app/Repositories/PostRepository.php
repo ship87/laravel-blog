@@ -23,8 +23,15 @@ class PostRepository extends Repository
         ])->where($where)->first();
     }
 
-    public function getPostsWithPaginate($path, $count, array $where = [])
+    public function getPostsPaginated($path, $count)
     {
-        return $this->model->where($where)->paginate($count)->setPath($path);
+        return $this->model->paginate($count)->setPath($path);
     }
+
+	public function getCategoryPostsPaginated($path, $count,$category)
+	{
+		$this->model->setCategorySlug($category);
+
+		return $this->model->with(['categoriesSelected'])->paginate($count)->setPath($path);
+	}
 }

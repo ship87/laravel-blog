@@ -13,13 +13,25 @@
 
 Auth::routes();
 
-Route::get('/'.config('app.url_admin'), 'AdminController@index')->name('admin');
+Route::group(['namespace' => 'Admin'], function () {
 
-Route::get('/'.config('app.url_blog').'/{id}/{slug}', 'BlogController@page');
+    Route::get(config('app.url_admin'), 'AdminController@index')->name('admin');
+});
 
-Route::get('/'.config('app.url_blog'), 'BlogController@index');
+Route::group(['namespace' => 'Client'], function () {
 
-Route::any('/{any}', 'PageController@page')->where('any', '(.*)');
+	Route::get(config('app.url_blog').'/category/{category}', 'BlogController@indexCategory');
+
+	Route::get(config('app.url_blog').'/archive', 'BlogController@indexArchive');
+
+    Route::get(config('app.url_blog').'/{id}/{slug}', 'BlogController@page');
+
+    Route::get(config('app.url_blog').'/{slug?}', 'BlogController@index');
+
+    Route::any('/{any}', 'PageController@page')->where('any', '(.*)');
+});
+
+
 
 /*
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth'], function() {

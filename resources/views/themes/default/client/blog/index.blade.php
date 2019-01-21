@@ -1,8 +1,8 @@
-@extends('layouts.app')
+@extends(config('app.theme').'layouts.app')
 
 @section('content')
 <div class="container">
-	<div class="col-md-8 col-md-offset-2">
+	<div class="col-xs-12">
 		@foreach ($posts as $post)
 
 		{{ $post->created_user_id }}
@@ -13,7 +13,7 @@
 		{{ $post->content }}
 		@endforeach
 	</div>
-	<div class="col-md-8 col-md-offset-2">
+	<div class="col-xs-12">
 		{{ $posts->links() }}
 	</div>
 </div>
