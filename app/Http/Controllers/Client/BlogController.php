@@ -32,11 +32,10 @@ class BlogController extends Controller
         ]);
     }
 
-    public function indexArchive(BlogService $blogService, Request $request)
+    public function indexArchive(BlogService $blogService, Request $request, $year, $month = false, $day = false)
     {
-    	dd($request);
 
-        $posts = $blogService->getPostsPaginated();
+        $posts = $blogService->getArchivePostsPaginated($year, $month, $day);
 
         if (empty($posts)) {
             abort(404);

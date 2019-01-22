@@ -25,25 +25,41 @@ class BlogService
 
     public function getPostsPaginated()
     {
-
         $posts = $this->postRepo->getPostsPaginated(config('app.url_blog'), config('app.blog_post_pagination'));
 
+        return $this->addUrl($posts);
+    }
+
+    public function getCategoryPostsPaginated($category)
+    {
+        $posts = $this->postRepo->getCategoryPostsPaginated(config('app.url_blog').'/category/'.$category, config('app.blog_post_pagination'), $category);
+
+        return $this->addUrl($posts);
+    }
+
+    public function getArchivePostsPaginated($year, $month = false, $day = false)
+    {
+        $way = $year;
+
+        if ($day && $month) {
+
+            $way = $year.'/'.$month.'/'.$day;
+        } elseif ($month) {
+
+            $way = $year.'/'.$month;
+        }
+
+        $posts = $this->postRepo->getArchivePostsPaginated(config('app.url_blog').'/archive/'.$way, config('app.blog_post_pagination'), $year, $month, $day);
+
+        return $this->addUrl($posts);
+    }
+
+    private function addUrl($posts)
+    {
         foreach ($posts as $key => $post) {
             $posts[$key]->url = config('app.url_blog').'/'.$post->id.'/'.$post->slug;
         }
 
         return $posts;
     }
-
-	public function getCategoryPostsPaginated($category)
-	{
-
-		$posts = $this->postRepo->getCategoryPostsPaginated(config('app.url_blog').'/category/'.$category, config('app.blog_post_pagination'),$category);
-
-		foreach ($posts as $key => $post) {
-			$posts[$key]->url = config('app.url_blog').'/'.$post->id.'/'.$post->slug;
-		}
-
-		return $posts;
-	}
 }

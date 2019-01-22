@@ -20,9 +20,9 @@ Route::group(['namespace' => 'Admin'], function () {
 
 Route::group(['namespace' => 'Client'], function () {
 
-	Route::get(config('app.url_blog').'/category/{category}', 'BlogController@indexCategory');
+	Route::get(config('app.url_blog').'/archive/{year}/{month?}/{day?}', 'BlogController@indexArchive');
 
-	Route::get(config('app.url_blog').'/archive', 'BlogController@indexArchive');
+	Route::get(config('app.url_blog').'/category/{category}', 'BlogController@indexCategory');
 
     Route::get(config('app.url_blog').'/{id}/{slug}', 'BlogController@page');
 
