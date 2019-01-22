@@ -2,12 +2,17 @@ FROM php:7.1-fpm
 WORKDIR /var/www
 ADD . /var/www
 
+# Install dependencies
+RUN apt-get update && apt-get install -y \
+mysql-client
+
 # PHP
-RUN apt-get update && apt-get install -y mysql-client --no-install-recommends \
- && docker-php-ext-install pdo_mysql \
- && chown -R www-data:www-data /var/www
+RUN docker-php-ext-install mysqli pdo pdo_mysql \
+&& docker-php-ext-install calendar \
+&& chown -R www-data:www-data /var/www
 
 # Xdebug
 RUN pecl install xdebug \
-    && docker-php-ext-enable xdebug
+&& docker-php-ext-enable xdebug
+
 COPY ./xdebug.ini /usr/local/etc/php/conf.d/

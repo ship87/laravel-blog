@@ -30,4 +30,9 @@ class LoginController extends CustomFolderController
 
         $this->middleware('guest')->except('logout');
     }
+
+	public function showLoginForm()
+	{
+		return view(config('app.theme').'auth.login');
+	}
 }

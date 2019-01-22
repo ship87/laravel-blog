@@ -56,9 +56,12 @@ class BlogService
 
     private function addUrl($posts)
     {
-        foreach ($posts as $key => $post) {
-            $posts[$key]->url = config('app.url_blog').'/'.$post->id.'/'.$post->slug;
-        }
+
+		if (!empty($posts)) {
+			foreach ($posts as $key => $post) {
+				$posts[$key]->url = config('app.url_blog') . '/' . $post->id . '/' . $post->slug;
+			}
+		}
 
         return $posts;
     }
