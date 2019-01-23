@@ -77,6 +77,8 @@
     </nav>
 
     @yield('content')
+
+    @include(config('app.theme').'layouts.sidebar')
 </div>
 
 <!-- Scripts -->

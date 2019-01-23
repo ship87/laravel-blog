@@ -54,9 +54,9 @@ return [
 
     'url' => env('APP_URL', 'http://localhost'),
 
-	'url_admin' => env('APP_URL_ADMIN', 'admin'),
+	'url_admin' => env('APP_URL_ADMIN', '/admin'),
 
-    'url_blog' => env('APP_URL_BLOG', 'blog'),
+    'url_blog' => env('APP_URL_BLOG', '/blog'),
 
     'blog_post_pagination' => env('APP_BLOG_POST_PAGINATION', 10),
 
