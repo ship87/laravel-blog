@@ -3,5 +3,5 @@
 </div>
 
 <div class="sidebar__lastcomments">
-    @include(config('app.theme').'client.widgets.lastcomments')
+    @include(config('app.theme').'client.widgets.last-comments')
 </div>

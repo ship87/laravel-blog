@@ -7,31 +7,15 @@ use Illuminate\Support\ServiceProvider;
 
 class ComposerServiceProvider extends ServiceProvider
 {
-	/**
-	 * Регистрация привязок в контейнере.
-	 *
-	 * @return void
-	 */
 	public function boot()
 	{
-		// Использование построителей на основе класса...
-		View::composer(
-			'client/page', 'App\Http\ViewComposers\ProfileComposer'
-		);
+		View::composer(config('app.theme').'layouts/app','App\Http\ViewComposers\CategoryComposer');
 
-		// Использование построителей на основе замыканий...
-		//View::composer('dashboard', function ($view) {
-		//	//
-		//});
+		View::composer(config('app.theme').'layouts/app', 'App\Http\ViewComposers\LastCommentsComposer');
 	}
 
-	/**
-	 * Регистрация сервис-провайдера.
-	 *
-	 * @return void
-	 */
 	public function register()
 	{
-		//
+
 	}
 }

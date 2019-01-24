@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\View;
 
 use App\Http\Controllers\Controller;
 use App\Services\PageService;
@@ -13,6 +14,13 @@ class PageController extends Controller
     {
 
         $urlArr = $request->segments();
+
+        $staticPage = $this->staticPage($urlArr);
+
+        if ($staticPage) {
+            return view($staticPage);
+        }
+
         $lastSlug = array_pop($urlArr);
 
         $pageData = $pageService->getPage($lastSlug);
@@ -25,6 +33,18 @@ class PageController extends Controller
             abort(404);
         }
 
-        return view(config('app.theme').'/client/page', ['pageData' => $pageData]);
+        return view(config('app.theme').'client/page', ['pageData' => $pageData]);
+    }
+
+    private function staticPage($urlArr)
+    {
+
+        $url = config('app.theme').'client/pages/'.implode('/', $urlArr);
+
+        if (View::exists($url)) {
+            return $url;
+        }
+
+        return false;
     }
 }

@@ -15,7 +15,7 @@ class BlogController extends Controller
 
 		$this->isEmptyPosts($posts,$request);
 
-        return view(config('app.theme').'/client/blog/index', [
+        return view(config('app.theme').'client/blog/index', [
             'posts' => $posts,
         ]);
     }
@@ -26,7 +26,7 @@ class BlogController extends Controller
 
 		$this->isEmptyPosts($posts,$request);
 
-        return view(config('app.theme').'/client/blog/index', [
+        return view(config('app.theme').'client/blog/index', [
             'posts' => $posts,
         ]);
     }
@@ -37,7 +37,7 @@ class BlogController extends Controller
 
 		$this->isEmptyPosts($posts,$request);
 
-        return view(config('app.theme').'/client/blog/index', [
+        return view(config('app.theme').'client/blog/index', [
             'posts' => $posts,
         ]);
     }
@@ -50,7 +50,7 @@ class BlogController extends Controller
             abort(404);
         }
 
-        return view(config('app.theme').'/client/blog/post', [
+        return view(config('app.theme').'client/blog/post', [
             'pageData' => $pageData,
         ]);
     }
