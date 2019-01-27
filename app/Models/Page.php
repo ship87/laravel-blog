@@ -8,7 +8,7 @@ class Page extends Model
 {
 	public function comments()
 	{
-		return $this->hasMany('App\Models\Comment');
+		return $this->hasMany('App\Models\PageComment');
 	}
 
 	public function metatags()

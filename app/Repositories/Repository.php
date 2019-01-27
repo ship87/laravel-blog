@@ -4,7 +4,7 @@ namespace App\Repositories;
 
 use Illuminate\Database\Eloquent\Model;
 
-use App\Interfaces\Repositories\RepositoryInterface;
+use App\Interfaces\RepositoryInterface;
 
 abstract class Repository implements RepositoryInterface
 {

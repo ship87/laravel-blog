@@ -62,6 +62,8 @@ return [
 
     'theme' => 'themes/'.env('APP_THEME', 'default').'/',
 
+    'google_recaptcha' => env('APP_GOOGLE_RECAPTCHA', false),
+
     /*
     |--------------------------------------------------------------------------
     | Application Timezone
@@ -234,7 +236,6 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
     ],
 
 ];

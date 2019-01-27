@@ -33,7 +33,7 @@ class PageController extends Controller
             abort(404);
         }
 
-        return view(config('app.theme').'client/page', ['pageData' => $pageData]);
+        return view(config('app.theme').'client/page/page', ['pageData' => $pageData]);
     }
 
     private function staticPage($urlArr)

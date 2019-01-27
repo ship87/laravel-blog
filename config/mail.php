@@ -120,4 +120,6 @@ return [
         ],
     ],
 
+    'noreply_address' => env('MAIL_NOREPLY', 'support@example.com'),
+
 ];

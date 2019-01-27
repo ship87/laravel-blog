@@ -14,19 +14,18 @@
 Auth::routes();
 
 Route::group(['namespace' => 'Admin'], function () {
-
     Route::get(config('app.url_admin'), 'AdminController@index')->name('admin');
 });
 
 Route::group(['namespace' => 'Client'], function () {
 
 	Route::get(config('app.url_blog').'/archive/{year}/{month?}/{day?}', 'BlogController@indexArchive');
-
 	Route::get(config('app.url_blog').'/category/{category}', 'BlogController@indexCategory');
-
     Route::get(config('app.url_blog').'/{id}/{slug}', 'BlogController@page');
-
     Route::get(config('app.url_blog').'/{slug?}', 'BlogController@index');
+
+	Route::get('/contact', 'ContactController@create')->name('contact.create');
+	Route::post('/contact', 'ContactController@store')->name('contact.store');
 
     Route::any('/{any}', 'PageController@page')->where('any', '(.*)');
 });

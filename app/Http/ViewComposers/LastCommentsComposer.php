@@ -4,19 +4,19 @@ namespace App\Http\ViewComposers;
 
 use Illuminate\View\View;
 
-use App\Repositories\CommentRepository;
+use App\Repositories\PostCommentRepository;
 
 class LastCommentsComposer
 {
-    protected $commentRepo;
+    protected $postCommentRepo;
 
-    public function __construct(CommentRepository $commentRepository)
+    public function __construct(PostCommentRepository $postCommentRepository)
     {
-        $this->commentRepo = $commentRepository;
+        $this->postCommentRepo = $postCommentRepository;
     }
 
     public function compose(View $view)
     {
-        $view->with('lastComments', $this->commentRepo->getAll());
+        $view->with('lastComments', $this->postCommentRepo->getAll());
     }
 }
