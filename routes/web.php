@@ -14,7 +14,20 @@
 Auth::routes();
 
 Route::group(['namespace' => 'Admin'], function () {
+
     Route::get(config('app.url_admin'), 'AdminController@index')->name('admin');
+
+    Route::resource(config('app.url_admin').'/category', 'CategoryController');
+
+    Route::resource(config('app.url_admin').'/pagecomment', 'PageCommentController');
+    Route::resource(config('app.url_admin').'/page', 'PageController');
+
+    Route::resource(config('app.url_admin').'/postcomment', 'PostCommentController');
+    Route::resource(config('app.url_admin').'/post', 'PostController');
+
+    Route::resource(config('app.url_admin').'/tag', 'TagController');
+
+    Route::resource(config('app.url_admin').'/user', 'UserController');
 });
 
 Route::group(['namespace' => 'Client'], function () {
@@ -29,14 +42,3 @@ Route::group(['namespace' => 'Client'], function () {
 
     Route::any('/{any}', 'PageController@page')->where('any', '(.*)');
 });
-
-
-
-/*
-Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth'], function() {
-	Route::resource('/posts', 'PostController');
-	Route::resource('/categories', 'CategoryController');
-	Route::resource('/tags', 'TagController');
-	Route::resource('/comments', 'CommentController');
-});
-*/
