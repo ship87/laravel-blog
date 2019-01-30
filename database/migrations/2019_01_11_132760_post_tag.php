@@ -13,11 +13,11 @@ class PostTag extends Migration
      */
     public function up()
     {
-		Schema::create('post_tag', function (Blueprint $table) {
-			$table->integer('post_id')->index();
-			$table->integer('tag_id')->index();
-			$table->unique(['post_id','tag_id']);
-		});
+        Schema::create('post_tag', function (Blueprint $table) {
+            $table->integer('post_id')->index();
+            $table->integer('tag_id')->index();
+            $table->unique(['post_id', 'tag_id']);
+        });
     }
 
     /**
@@ -27,6 +27,6 @@ class PostTag extends Migration
      */
     public function down()
     {
-		Schema::dropIfExists('post_tag');
+        Schema::dropIfExists('post_tag');
     }
 }

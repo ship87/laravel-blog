@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+
 use App\Http\Controllers\Controller;
+use App\Services\PostCommentService;
 
 class PostCommentController extends Controller
 {
@@ -12,9 +14,13 @@ class PostCommentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(PostCommentService $postCommentService)
     {
-        //
+        $postComments = $postCommentService->getPaginated(config('app.url_admin').'/post-comments');
+
+        return view(config('app.theme').'admin/post-comments/index', [
+            'postComments' => $postComments,
+        ]);
     }
 
     /**
@@ -24,13 +30,13 @@ class PostCommentController extends Controller
      */
     public function create()
     {
-        //
+        return view(config('app.theme').'admin/post-comments/create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -41,7 +47,7 @@ class PostCommentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -52,19 +58,19 @@ class PostCommentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        //
+        return view(config('app.theme').'admin/post-comments/edit');
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -75,7 +81,7 @@ class PostCommentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

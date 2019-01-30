@@ -13,18 +13,18 @@ class Pages extends Migration
      */
     public function up()
     {
-		Schema::create('pages', function (Blueprint $table) {
-			$table->increments('id');
-			$table->string('title', 255)->nullable();
-			$table->string('slug', 255)->unique();
-			$table->text('content')->nullable();
+        Schema::create('pages', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('title', 255)->nullable();
+            $table->string('slug', 255)->unique();
+            $table->text('content')->nullable();
             $table->integer('parent_id')->nullable();
-			$table->enum('no_comments', ['Y','N']);
-			$table->integer('created_user_id')->index();
-			$table->integer('updated_user_id')->index();
-			$table->timestamps();
-			$table->softDeletes();
-		});
+            $table->enum('no_comments', ['Y', 'N']);
+            $table->integer('created_user_id')->index();
+            $table->integer('updated_user_id')->index();
+            $table->timestamps();
+            $table->softDeletes();
+        });
     }
 
     /**
@@ -34,6 +34,6 @@ class Pages extends Migration
      */
     public function down()
     {
-		Schema::dropIfExists('pages');
+        Schema::dropIfExists('pages');
     }
 }

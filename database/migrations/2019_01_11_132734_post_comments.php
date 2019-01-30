@@ -13,18 +13,16 @@ class PostComments extends Migration
      */
     public function up()
     {
-		Schema::create('post_comments', function (Blueprint $table) {
-			$table->increments('id');
-			$table->text('content');
-			$table->integer('post_id')->index()->nullable();
-			$table->integer('parent_id')->nullable();
-			$table->integer('created_user_id')->index();
-			$table->integer('updated_user_id')->index();
-			$table->timestamps();
-			$table->softDeletes();
-		});
-
-
+        Schema::create('post_comments', function (Blueprint $table) {
+            $table->increments('id');
+            $table->text('content');
+            $table->integer('post_id')->index()->nullable();
+            $table->integer('parent_id')->nullable();
+            $table->integer('created_user_id')->index();
+            $table->integer('updated_user_id')->index();
+            $table->timestamps();
+            $table->softDeletes();
+        });
     }
 
     /**
@@ -34,6 +32,6 @@ class PostComments extends Migration
      */
     public function down()
     {
-		Schema::dropIfExists('post_comments');
+        Schema::dropIfExists('post_comments');
     }
 }

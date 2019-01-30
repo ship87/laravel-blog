@@ -58,7 +58,9 @@ return [
 
     'url_blog' => env('APP_URL_BLOG', '/blog'),
 
-    'blog_post_pagination' => env('APP_BLOG_POST_PAGINATION', 10),
+    'blog_pagination' => env('APP_BLOG_PAGINATION', 10),
+
+    'admin_pagination' => env('APP_ADMIN_PAGINATION', 10),
 
     'theme' => 'themes/'.env('APP_THEME', 'default').'/',
 

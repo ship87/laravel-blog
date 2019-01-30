@@ -2,6 +2,9 @@
 
 @section('content')
     <div class="container">
+
+        {{ csrf_field() }}
+
         {!! Form::open(['route' => 'contact.store']) !!}
 
         <div class="form-group">
@@ -32,6 +35,10 @@
         {{ $errors->first('name') }}
         {{ $errors->first('email') }}
         {{ $errors->first('msg') }}
+
+        @if(config('app.google_recaptcha') and env('GOOGLE_RECAPTCHA_KEY'))
+        {{ $errors->first('g-recaptcha-response') }}
+        @endif
 
         {{ session()->get( 'sendMessage' ) }}
 

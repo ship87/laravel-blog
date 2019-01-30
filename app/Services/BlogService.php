@@ -23,16 +23,16 @@ class BlogService
         return $post;
     }
 
-    public function getPostsPaginated()
+    public function getPaginated()
     {
-        $posts = $this->postRepo->getPostsPaginated(config('app.url_blog'), config('app.blog_post_pagination'));
+        $posts = $this->postRepo->getPaginated(config('app.url_blog'), config('app.blog_pagination'));
 
         return $this->addUrl($posts);
     }
 
     public function getCategoryPostsPaginated($category)
     {
-        $posts = $this->postRepo->getCategoryPostsPaginated(config('app.url_blog').'/category/'.$category, config('app.blog_post_pagination'), $category);
+        $posts = $this->postRepo->getCategoryPostsPaginated(config('app.url_blog').'/category/'.$category, config('app.blog_pagination'), $category);
 
         return $this->addUrl($posts);
     }
@@ -51,7 +51,7 @@ class BlogService
 
         //dd(config('app.url_blog').'/archive/'.$way);
 
-        $posts = $this->postRepo->getArchivePostsPaginated(config('app.url_blog').'/archive/'.$way, config('app.blog_post_pagination'), $year, $month, $day);
+        $posts = $this->postRepo->getArchivePostsPaginated(config('app.url_blog').'/archive/'.$way, config('app.blog_pagination'), $year, $month, $day);
 
         return $this->addUrl($posts);
     }
@@ -59,11 +59,11 @@ class BlogService
     private function addUrl($posts)
     {
 
-		if (!empty($posts)) {
-			foreach ($posts as $key => $post) {
-				$posts[$key]->url = config('app.url_blog') . '/' . $post->id . '/' . $post->slug;
-			}
-		}
+        if (! empty($posts)) {
+            foreach ($posts as $key => $post) {
+                $posts[$key]->url = config('app.url_blog').'/'.$post->id.'/'.$post->slug;
+            }
+        }
 
         return $posts;
     }

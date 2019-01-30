@@ -9,10 +9,17 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     @isset($pageData)
-        @include(config('app.theme').'layouts.metatags', ['metatags'=>$pageData->metatags])
+        @forelse ($pageData->metatags as $metatag)
+            @if ($metatag->name == 'title')
+                <title>{{ $metatag->content }}</title>
+            @else
+                <meta name="{{ $metatag->name }}" content="{{ $metatag->content }}"/>
+        @endif
+        @empty
+        @endforelse
     @endisset
 
-    <!-- Styles -->
+<!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>

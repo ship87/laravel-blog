@@ -13,16 +13,16 @@ class Settings extends Migration
      */
     public function up()
     {
-		Schema::create('settings', function (Blueprint $table) {
-			$table->increments('id');
-			$table->string('name', 255)->unique();
-			$table->string('caption', 255)->unique();
-			$table->enum('datatype', ['float','int','text']);
-			$table->enum('system', ['y','n']);
-			$table->integer('created_user_id')->index();
-			$table->integer('updated_user_id')->index();
-			$table->timestamps();
-		});
+        Schema::create('settings', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name', 255)->unique();
+            $table->string('caption', 255)->unique();
+            $table->enum('datatype', ['float', 'int', 'text']);
+            $table->enum('system', ['y', 'n']);
+            $table->integer('created_user_id')->index();
+            $table->integer('updated_user_id')->index();
+            $table->timestamps();
+        });
     }
 
     /**
@@ -32,6 +32,6 @@ class Settings extends Migration
      */
     public function down()
     {
-		Schema::dropIfExists('settings');
+        Schema::dropIfExists('settings');
     }
 }

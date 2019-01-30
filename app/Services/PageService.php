@@ -37,4 +37,11 @@ class PageService
 
         return $resultUrl.$lastSlug;
     }
+
+    public function getPaginated($path)
+    {
+        $pages = $this->pageRepo->getPaginated($path, config('app.admin_pagination'));
+
+        return $pages;
+    }
 }

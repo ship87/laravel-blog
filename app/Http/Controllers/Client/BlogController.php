@@ -11,7 +11,7 @@ class BlogController extends Controller
 {
     public function index(BlogService $blogService, Request $request)
     {
-        $posts = $blogService->getPostsPaginated();
+        $posts = $blogService->getPaginated();
 
 		$this->isEmptyPosts($posts,$request);
 

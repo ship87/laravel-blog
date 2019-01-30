@@ -13,12 +13,11 @@ class Tags extends Migration
      */
     public function up()
     {
-		Schema::create('tags', function (Blueprint $table) {
-			$table->increments('id');
-			$table->string('name', 255);
-			$table->string('slug', 255);
-
-		});
+        Schema::create('tags', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name', 255);
+            $table->string('slug', 255);
+        });
     }
 
     /**
@@ -28,6 +27,6 @@ class Tags extends Migration
      */
     public function down()
     {
-		Schema::dropIfExists('tags');
+        Schema::dropIfExists('tags');
     }
 }

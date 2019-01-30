@@ -13,11 +13,11 @@ class Roles extends Migration
      */
     public function up()
     {
-		Schema::create('roles', function (Blueprint $table) {
-			$table->increments('id');
-			$table->string('name', 255)->unique();
-			$table->string('caption', 255)->unique();
-		});
+        Schema::create('roles', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name', 255)->unique();
+            $table->string('caption', 255)->unique();
+        });
     }
 
     /**
@@ -27,6 +27,6 @@ class Roles extends Migration
      */
     public function down()
     {
-		Schema::dropIfExists('roles');
+        Schema::dropIfExists('roles');
     }
 }

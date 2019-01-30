@@ -13,32 +13,35 @@
 
 Auth::routes();
 
-Route::group(['namespace' => 'Admin'], function () {
+Route::namespace('Admin')->prefix(config('app.url_admin'))->name(config('app.theme').'admin.')->group(function () {
 
-    Route::get(config('app.url_admin'), 'AdminController@index')->name('admin');
+    Route::get('', 'AdminController@index');
 
-    Route::resource(config('app.url_admin').'/category', 'CategoryController');
+    Route::resource('categories', 'CategoryController');
 
-    Route::resource(config('app.url_admin').'/pagecomment', 'PageCommentController');
-    Route::resource(config('app.url_admin').'/page', 'PageController');
+    Route::resource('page-comments', 'PageCommentController');
+    Route::resource('pages', 'PageController');
 
-    Route::resource(config('app.url_admin').'/postcomment', 'PostCommentController');
-    Route::resource(config('app.url_admin').'/post', 'PostController');
+    Route::resource('post-comments', 'PostCommentController');
+    Route::resource('posts', 'PostController');
 
-    Route::resource(config('app.url_admin').'/tag', 'TagController');
+    Route::resource('tags', 'TagController');
 
-    Route::resource(config('app.url_admin').'/user', 'UserController');
+    Route::resource('users', 'UserController');
 });
 
 Route::group(['namespace' => 'Client'], function () {
 
-	Route::get(config('app.url_blog').'/archive/{year}/{month?}/{day?}', 'BlogController@indexArchive');
-	Route::get(config('app.url_blog').'/category/{category}', 'BlogController@indexCategory');
-    Route::get(config('app.url_blog').'/{id}/{slug}', 'BlogController@page');
-    Route::get(config('app.url_blog').'/{slug?}', 'BlogController@index');
+    Route::get('/contact', 'ContactController@create')->name('contact.create');
+    Route::post('/contact', 'ContactController@store')->name('contact.store');
 
-	Route::get('/contact', 'ContactController@create')->name('contact.create');
-	Route::post('/contact', 'ContactController@store')->name('contact.store');
+    Route::prefix(config('app.url_blog'))->name(config('app.theme').'client'.config('app.url_blog'))->group(function () {
 
-    Route::any('/{any}', 'PageController@page')->where('any', '(.*)');
+        Route::get('archive/{year}/{month?}/{day?}', 'BlogController@indexArchive');
+        Route::get('category/{category}', 'BlogController@indexCategory');
+        Route::get('{id}/{slug}', 'BlogController@page');
+        Route::get('{slug?}', 'BlogController@index');
+    });
+
+    Route::get('/{any}', 'PageController@page')->where('any', '(.*)');
 });

@@ -53,4 +53,9 @@ abstract class Repository implements RepositoryInterface
 
         return $this;
     }
+
+    public function getPaginated($path, $count)
+    {
+        return $this->model->paginate($count)->setPath($path);
+    }
 }

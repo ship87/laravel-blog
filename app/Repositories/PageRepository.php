@@ -22,4 +22,5 @@ class PageRepository extends Repository
     {
         return DB::table($this->model->getTable())->where('slug', '=', $slug)->first();
     }
+
 }

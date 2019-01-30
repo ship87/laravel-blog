@@ -13,16 +13,15 @@ class MetaTags extends Migration
      */
     public function up()
     {
-		Schema::create('metatags', function (Blueprint $table) {
-			$table->increments('id');
-			$table->enum('type', ['page','post']);
-			$table->integer('page_id')->nullable();
-			$table->integer('post_id')->nullable();
-			$table->enum('name', ['title','description','keywords','robots']);
-			$table->string('content', 255);
-			$table->unique(['page_id','name']);
-
-		});
+        Schema::create('metatags', function (Blueprint $table) {
+            $table->increments('id');
+            $table->enum('type', ['page', 'post']);
+            $table->integer('page_id')->nullable();
+            $table->integer('post_id')->nullable();
+            $table->enum('name', ['title', 'description', 'keywords', 'robots']);
+            $table->string('content', 255);
+            $table->unique(['page_id', 'name']);
+        });
     }
 
     /**
@@ -32,6 +31,6 @@ class MetaTags extends Migration
      */
     public function down()
     {
-		Schema::dropIfExists('metatags');
+        Schema::dropIfExists('metatags');
     }
 }
