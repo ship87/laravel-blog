@@ -13,8 +13,8 @@
 
 Auth::routes();
 
-Route::namespace('Admin')->prefix(config('app.url_admin'))->name(config('app.theme').'admin.')->group(function () {
-
+Route::namespace('Admin')->name(config('app.theme').'admin.')->middleware(['auth'])->prefix(config('app.url_admin'))->group(function (
+) {
     Route::get('', 'AdminController@index');
 
     Route::resource('categories', 'CategoryController');
@@ -35,8 +35,8 @@ Route::group(['namespace' => 'Client'], function () {
     Route::get('/contact', 'ContactController@create')->name('contact.create');
     Route::post('/contact', 'ContactController@store')->name('contact.store');
 
-    Route::prefix(config('app.url_blog'))->name(config('app.theme').'client'.config('app.url_blog'))->group(function () {
-
+    Route::prefix(config('app.url_blog'))->name(config('app.theme').'client'.config('app.url_blog'))->group(function (
+    ) {
         Route::get('archive/{year}/{month?}/{day?}', 'BlogController@indexArchive');
         Route::get('category/{category}', 'BlogController@indexCategory');
         Route::get('{id}/{slug}', 'BlogController@page');
