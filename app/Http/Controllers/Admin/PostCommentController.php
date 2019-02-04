@@ -61,9 +61,13 @@ class PostCommentController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, PostCommentService $postCommentService)
     {
-        return view(config('app.theme').'admin/post-comments/edit');
+        $postComment = $postCommentService->show($id);
+
+        return view(config('app.theme').'admin/post-comments/edit', [
+            'postComment' => $postComment,
+        ]);
     }
 
     /**
@@ -84,8 +88,10 @@ class PostCommentController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, PostCommentService $postCommentService)
     {
-        //
+        $postCommentService->destroy($id);
+
+        return redirect()->route(config('app.theme').'admin.post-comments.index');
     }
 }

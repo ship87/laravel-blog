@@ -8,6 +8,8 @@ class Post extends Model
 {
 	public $url;
 
+	protected $guarded = [];
+
 	public function comments()
 	{
 		return $this->hasMany('App\Models\PostComment');

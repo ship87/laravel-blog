@@ -18,7 +18,7 @@ class UserController extends Controller
     {
         $users = $userService->getPaginated(config('app.url_admin').'/users');
 
-        return view(config('app.theme').'admin/users/index', [
+        return view(config('app.theme').'admin.users.index', [
             'users' => $users,
         ]);
     }
@@ -30,7 +30,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view(config('app.theme').'admin/users/create');
+        return view(config('app.theme').'admin.users.create');
     }
 
     /**
@@ -61,9 +61,13 @@ class UserController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, UserService $userService)
     {
-        return view(config('app.theme').'admin/users/edit');
+        $user = $userService->show($id);
+
+        return view(config('app.theme').'admin.users.edit', [
+            'user' => $user,
+        ]);
     }
 
     /**
@@ -84,8 +88,10 @@ class UserController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, UserService $userService)
     {
-        //
+        $userService->destroy($id);
+
+        return redirect()->route(config('app.theme').'admin.users.index');
     }
 }

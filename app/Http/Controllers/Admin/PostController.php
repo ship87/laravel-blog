@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use Illuminate\Contracts\Auth\Authenticatable;
 
 use App\Http\Controllers\Controller;
 use App\Services\PostService;
@@ -18,7 +19,7 @@ class PostController extends Controller
     {
         $posts = $postService->getPaginated(config('app.url_admin').'/posts');
 
-        return view(config('app.theme').'admin/posts/index', [
+        return view(config('app.theme').'admin.posts.index', [
             'posts' => $posts,
         ]);
     }
@@ -30,7 +31,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view(config('app.theme').'admin/posts/create');
+        return view(config('app.theme').'admin.posts.create');
     }
 
     /**
@@ -39,9 +40,11 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, PostService $postService, Authenticatable $auth)
     {
-        //
+        $postService->create($request->all(), $auth);
+
+        return redirect()->route(config('app.theme').'admin.posts.index');
     }
 
     /**
@@ -61,9 +64,13 @@ class PostController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, PostService $postService)
     {
-        return view(config('app.theme').'admin/posts/edit');
+        $post = $postService->show($id);
+
+        return view(config('app.theme').'admin.posts.edit', [
+            'post' => $post,
+        ]);
     }
 
     /**
@@ -84,8 +91,10 @@ class PostController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, PostService $postService)
     {
-        //
+        $postService->destroy($id);
+
+        return redirect()->route(config('app.theme').'admin.posts.index');
     }
 }

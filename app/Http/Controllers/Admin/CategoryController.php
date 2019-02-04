@@ -18,7 +18,7 @@ class CategoryController extends Controller
     {
         $categories = $categoryService->getPaginated(config('app.url_admin').'/categories');
 
-        return view(config('app.theme').'admin/categories/index', [
+        return view(config('app.theme').'admin.categories.index', [
             'categories' => $categories,
         ]);
     }
@@ -30,7 +30,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view(config('app.theme').'admin/categories/create');
+        return view(config('app.theme').'admin.categories.create');
     }
 
     /**
@@ -39,9 +39,11 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, CategoryService $categoryService)
     {
-        //
+        $categoryService->create($request->all());
+
+        return redirect()->route(config('app.theme').'admin.categories.index');
     }
 
     /**
@@ -61,9 +63,13 @@ class CategoryController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, CategoryService $categoryService)
     {
-        return view(config('app.theme').'admin/categories/edit');
+        $category = $categoryService->show($id);
+
+        return view(config('app.theme').'admin.categories.edit', [
+            'category' => $category,
+        ]);
     }
 
     /**
@@ -84,8 +90,10 @@ class CategoryController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, CategoryService $categoryService)
     {
-        //
+        $categoryService->destroy($id);
+
+        return redirect()->route(config('app.theme').'admin.categories.index');
     }
 }

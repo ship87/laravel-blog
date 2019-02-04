@@ -4,21 +4,21 @@
     <div class="row">
         <article>
             <div class="form-body">
-
+				{{ Form::open(['method' => 'POST','route' => [config('app.theme').'admin.categories.store'],'style'=>'form-horizontal']) }}
                 {{ csrf_field() }}
 
                 <div class="form-group">
-                    {!! Form::label('title', 'Title') !!}
+                    {!! Form::label('title', u__('admin.title')) !!}
                     {{ Form::text('title', null, ['class'=>'form-control', 'placeholder'=>'Title' ]) }}
                 </div>
 
                 <div class="form-group">
-                    {!! Form::label('slug', 'Slug') !!}
-                    {{ Form::text('text', null, ['class'=>'form-control', 'placeholder'=> 'Slug' ]) }}
+                    {!! Form::label('slug', u__('admin.slug')) !!}
+                    {{ Form::text('slug', null, ['class'=>'form-control', 'placeholder'=> 'Slug' ]) }}
                 </div>
 
                 <div class="form-group">
-                    {!! Form::label('parent', 'Parent') !!}
+                    {!! Form::label('parent', u__('admin.parent')) !!}
                     {{ Form::text('parent_id', null, ['class'=>'form-control', 'placeholder'=> 'Parent' ]) }}
                 </div>
 

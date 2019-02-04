@@ -18,7 +18,7 @@ class PageController extends Controller
     {
         $pages = $pageService->getPaginated(config('app.url_admin').'/pages');
 
-        return view(config('app.theme').'admin/pages/index', [
+        return view(config('app.theme').'admin.pages.index', [
             'pages' => $pages,
         ]);
     }
@@ -30,7 +30,7 @@ class PageController extends Controller
      */
     public function create()
     {
-        return view(config('app.theme').'admin/pages/create');
+        return view(config('app.theme').'admin.pages.create');
     }
 
     /**
@@ -61,9 +61,13 @@ class PageController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, PageService $pageService)
     {
-        return view(config('app.theme').'admin/pages/edit');
+        $page = $pageService->show($id);
+
+        return view(config('app.theme').'admin.pages.edit', [
+            'page' => $page,
+        ]);
     }
 
     /**
@@ -84,8 +88,10 @@ class PageController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, PageService $pageService)
     {
-        //
+        $pageService->destroy($id);
+
+        return redirect()->route(config('app.theme').'admin.pages.index');
     }
 }

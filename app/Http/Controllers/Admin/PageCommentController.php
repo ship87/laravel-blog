@@ -18,7 +18,7 @@ class PageCommentController extends Controller
     {
         $pageComments = $pageCommentService->getPaginated(config('app.url_admin').'/page-comments');
 
-        return view(config('app.theme').'admin/page-comments/index', [
+        return view(config('app.theme').'admin.page-comments.index', [
             'pageComments' => $pageComments,
         ]);
     }
@@ -30,7 +30,7 @@ class PageCommentController extends Controller
      */
     public function create()
     {
-        return view(config('app.theme').'admin/page-comments/create');
+        return view(config('app.theme').'admin.page-comments.create');
     }
 
     /**
@@ -61,9 +61,14 @@ class PageCommentController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, PageCommentService $pageCommentService)
     {
-        return view(config('app.theme').'admin/page-comments/edit');
+
+        $pageComment = $pageCommentService->show($id);
+
+        return view(config('app.theme').'admin.page-comments.edit', [
+            'pageComment' => $pageComment,
+        ]);
     }
 
     /**
@@ -84,8 +89,10 @@ class PageCommentController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, PageCommentService $pageCommentService)
     {
-        //
+        $pageCommentService->destroy($id);
+
+        return redirect()->route(config('app.theme').'admin.page-comments.index');
     }
 }

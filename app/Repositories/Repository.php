@@ -15,6 +15,11 @@ abstract class Repository implements RepositoryInterface
         $this->model = $model;
     }
 
+	public function show($id)
+	{
+		return $this->model->findOrFail($id);
+	}
+
     public function create(array $data)
     {
         return $this->model->create($data);
@@ -27,7 +32,7 @@ abstract class Repository implements RepositoryInterface
         return $record->update($data);
     }
 
-    public function delete($id)
+    public function destroy($id)
     {
         return $this->model->destroy($id);
     }

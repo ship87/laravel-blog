@@ -51,4 +51,9 @@ class PostRepository extends Repository
 
         return $this->model->whereBetween('created_at', [$startDate, $endDate])->paginate($count)->setPath($path);
     }
+
+    public function create(array $data)
+    {
+        return $this->model->create($data);
+    }
 }

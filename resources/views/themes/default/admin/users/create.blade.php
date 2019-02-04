@@ -4,7 +4,7 @@
     <div class="row">
         <article>
             <div class="form-body">
-
+				{{ Form::open(['method' => 'POST','route' => [config('app.theme').'admin.users.store'],'style'=>'form-horizontal']) }}
                 {{ csrf_field() }}
 
                 <div class="form-group">

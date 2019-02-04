@@ -18,7 +18,7 @@ class TagController extends Controller
     {
         $tags = $tagService->getPaginated(config('app.url_admin').'/tags');
 
-        return view(config('app.theme').'admin/tags/index', [
+        return view(config('app.theme').'admin.tags.index', [
             'tags' => $tags,
         ]);
     }
@@ -30,7 +30,7 @@ class TagController extends Controller
      */
     public function create()
     {
-        return view(config('app.theme').'admin/tags/create');
+        return view(config('app.theme').'admin.tags.create');
     }
 
     /**
@@ -61,9 +61,13 @@ class TagController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, TagService $tagService)
     {
-        return view(config('app.theme').'admin/tags/edit');
+        $tag = $tagService->show($id);
+
+        return view(config('app.theme').'admin.tags.edit', [
+            'tag' => $tag,
+        ]);
     }
 
     /**
@@ -84,8 +88,10 @@ class TagController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, TagService $tagService)
     {
-        //
+        $tagService->destroy($id);
+
+        return redirect()->route(config('app.theme').'admin.tags.index');
     }
 }

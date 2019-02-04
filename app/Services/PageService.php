@@ -13,6 +13,13 @@ class PageService
         $this->pageRepo = $pageRepo;
     }
 
+    public function show($id)
+    {
+        $result = $this->pageRepo->show($id);
+
+        return $result;
+    }
+
     public function getPage($slug)
     {
         $page = $this->pageRepo->getPage([
@@ -44,4 +51,18 @@ class PageService
 
         return $pages;
     }
+
+	public function create(array $data)
+	{
+		$result = $this->pageRepo->create($data);
+
+		return $result;
+	}
+
+	public function destroy(int $id)
+	{
+		$result = $this->pageRepo->destroy($id);
+
+		return $result;
+	}
 }

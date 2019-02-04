@@ -8,10 +8,13 @@
                 {{$postComment->id}}
             </div>
             <div class="col-xs-1">
-                <a href="{{ route(config('app.theme').'admin.post-comments.edit', $postComment->id) }}">Edit</a>
+                <a href="{{ route(config('app.theme').'admin.post-comments.edit', $postComment->id) }}">{{ Form::submit('Edit', ['class' => 'btn btn-info']) }}</a>
             </div>
             <div class="col-xs-1">
-                <a href="{{ route(config('app.theme').'admin.post-comments.destroy', $postComment->id) }}">Delete</a>
+				{{ Form::open(['method' => 'DELETE','route' => [config('app.theme').'admin.post-comments.destroy', $postComment->id],'style'=>'form-inline']) }}
+				{{ csrf_field() }}
+				{{ Form::submit('Delete', ['class' => 'btn btn-info']) }}
+				{{ Form::close() }}
             </div>
             <div class="col-xs-5">
                 {{ $postComment->content }}
