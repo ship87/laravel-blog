@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\PageCommentService;
 
+
 class PageCommentController extends Controller
 {
     /**
@@ -67,7 +68,7 @@ class PageCommentController extends Controller
         $pageComment = $pageCommentService->show($id);
 
         return view(config('app.theme').'admin.page-comments.edit', [
-            'pageComment' => $pageComment,
+            'pageComment' => $pageComment
         ]);
     }
 
@@ -78,9 +79,11 @@ class PageCommentController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(Request $request, $id, PageCommentService $pageCommentService)
+	{
+		$pageCommentService->update($request->all(),$id);
+
+		return redirect()->route(config('app.theme').'admin.page-comments.index');
     }
 
     /**

@@ -77,9 +77,11 @@ class UserController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(Request $request, $id, UserService $userService)
+	{
+		$userService->update($request->all(),$id);
+
+		return redirect()->route(config('app.theme').'admin.users.index');
     }
 
     /**

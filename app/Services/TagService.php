@@ -34,6 +34,13 @@ class TagService
 		return $result;
 	}
 
+	public function update(array $data, $id)
+	{
+		$result = $this->tagRepo->update($data, $id);
+
+		return $result;
+	}
+
 	public function destroy(int $id)
 	{
 		$result = $this->tagRepo->destroy($id);

@@ -79,9 +79,11 @@ class CategoryController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id, CategoryService $categoryService)
     {
-        //
+		$categoryService->update($request->all(),$id);
+
+		return redirect()->route(config('app.theme').'admin.categories.index');
     }
 
     /**

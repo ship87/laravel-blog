@@ -80,9 +80,11 @@ class PostController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(Request $request, $id, PostService $postService)
+	{
+		$postService->update($request->all(),$id);
+
+		return redirect()->route(config('app.theme').'admin.posts.index');
     }
 
     /**

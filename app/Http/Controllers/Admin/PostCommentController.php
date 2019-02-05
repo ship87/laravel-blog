@@ -77,9 +77,11 @@ class PostCommentController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(Request $request, $id, PostCommentService $postCommentService)
+	{
+		$postCommentService->update($request->all(),$id);
+
+		return redirect()->route(config('app.theme').'admin.post-comments.index');
     }
 
     /**

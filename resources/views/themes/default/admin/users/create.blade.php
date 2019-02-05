@@ -8,18 +8,18 @@
                 {{ csrf_field() }}
 
                 <div class="form-group">
-                    {!! Form::label('name', 'Name') !!}
-                    {{ Form::text('name', null, ['class'=>'form-control', 'placeholder'=>'Name' ]) }}
+                    {!! Form::label('name', u__('admin.name')) !!}
+                    {{ Form::text('name', old('name'), ['class'=>'form-control', 'placeholder'=>u__('admin.name') ]) }}
                 </div>
 
                 <div class="form-group">
-                    {!! Form::label('email', 'Email') !!}
-                    {{ Form::text('email', null, ['class'=>'form-control', 'placeholder'=> 'Email' ]) }}
+                    {!! Form::label('email', u__('admin.email')) !!}
+                    {{ Form::text('email', old('email'), ['class'=>'form-control', 'placeholder'=> u__('admin.email') ]) }}
                 </div>
 
                 <div class="form-group">
-                    {!! Form::label('password', 'Password') !!}
-                    {{ Form::password('password', null, ['class'=>'form-control', 'placeholder'=> 'Password' ]) }}
+                    {!! Form::label('password', u__('admin.password')) !!}
+                    {{ Form::password('password', old('password'), ['class'=>'form-control', 'placeholder'=> u__('admin.password') ]) }}
                 </div>
 
                 {{ Form::submit('Save', ['class' => 'btn btn-info']) }}

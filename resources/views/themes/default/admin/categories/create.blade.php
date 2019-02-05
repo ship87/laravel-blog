@@ -9,17 +9,17 @@
 
                 <div class="form-group">
                     {!! Form::label('title', u__('admin.title')) !!}
-                    {{ Form::text('title', null, ['class'=>'form-control', 'placeholder'=>'Title' ]) }}
+                    {{ Form::text('title', old('title'), ['class'=>'form-control', 'placeholder'=>u__('admin.title') ]) }}
                 </div>
 
                 <div class="form-group">
                     {!! Form::label('slug', u__('admin.slug')) !!}
-                    {{ Form::text('slug', null, ['class'=>'form-control', 'placeholder'=> 'Slug' ]) }}
+                    {{ Form::text('slug', old('slug'), ['class'=>'form-control', 'placeholder'=> u__('admin.slug') ]) }}
                 </div>
 
                 <div class="form-group">
                     {!! Form::label('parent', u__('admin.parent')) !!}
-                    {{ Form::text('parent_id', null, ['class'=>'form-control', 'placeholder'=> 'Parent' ]) }}
+                    {{ Form::text('parent_id', old('parent_id'), ['class'=>'form-control', 'placeholder'=> u__('admin.parent') ]) }}
                 </div>
 
                 {{ Form::submit('Save', ['class' => 'btn btn-info']) }}

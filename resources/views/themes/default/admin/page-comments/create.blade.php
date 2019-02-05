@@ -8,23 +8,23 @@
                 {{ csrf_field() }}
 
                 <div class="form-group">
-                    {!! Form::label('title', 'Title') !!}
-                    {{ Form::text('title', null, ['class'=>'form-control', 'placeholder'=>'Title' ]) }}
+                    {!! Form::label('title', u__('admin.title')) !!}
+                    {{ Form::text('title', old('title'), ['class'=>'form-control', 'placeholder'=>u__('admin.title') ]) }}
                 </div>
 
                 <div class="form-group">
-                    {!! Form::label('content', 'Content') !!}
-                    {{ Form::textarea('content', null, ['class'=>'form-control', 'placeholder'=> 'Content' ]) }}
+                    {!! Form::label('content', u__('admin.content')) !!}
+                    {{ Form::textarea('content', old('content'), ['class'=>'form-control', 'placeholder'=> u__('admin.content') ]) }}
                 </div>
 
                 <div class="form-group">
-                    {!! Form::label('parent page', 'Parent page') !!}
-                    {{ Form::text('page_id', null, ['class'=>'form-control', 'placeholder'=> 'Parent page' ]) }}
+                    {!! Form::label('parent page', u__('admin.parent page')) !!}
+                    {{ Form::text('page_id', old('page_id'), ['class'=>'form-control', 'placeholder'=> u__('admin.parent page') ]) }}
                 </div>
 
                 <div class="form-group">
-                    {!! Form::label('parent comment', 'Parent comment') !!}
-                    {{ Form::text('parent_id', null, ['class'=>'form-control', 'placeholder'=> 'Parent comment' ]) }}
+                    {!! Form::label('parent comment', u__('admin.parent comment')) !!}
+                    {{ Form::text('parent_id', old('parent_id'), ['class'=>'form-control', 'placeholder'=> u__('admin.parent comment') ]) }}
                 </div>
 
                 {{ Form::submit('Save', ['class' => 'btn btn-info']) }}

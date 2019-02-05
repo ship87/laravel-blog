@@ -8,13 +8,13 @@
                 {{ csrf_field() }}
 
                 <div class="form-group">
-                    {!! Form::label('name', 'Name') !!}
-                    {{ Form::text('name', null, ['class'=>'form-control', 'placeholder'=>'Name' ]) }}
+                    {!! Form::label('name', u__('admin.name')) !!}
+                    {{ Form::text('name', old('name'), ['class'=>'form-control', 'placeholder'=>u__('admin.name') ]) }}
                 </div>
 
                 <div class="form-group">
-                    {!! Form::label('slug', 'Slug') !!}
-                    {{ Form::text('text', null, ['class'=>'form-control', 'placeholder'=> 'Slug' ]) }}
+                    {!! Form::label('slug', u__('admin.slug')) !!}
+                    {{ Form::text('text', old('text'), ['class'=>'form-control', 'placeholder'=> u__('admin.slug') ]) }}
                 </div>
 
                 {{ Form::submit('Save', ['class' => 'btn btn-info']) }}

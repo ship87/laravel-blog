@@ -8,23 +8,23 @@
                 {{ csrf_field() }}
 
                 <div class="form-group">
-                    {!! Form::label('title', 'Title') !!}
-                    {{ Form::text('title', old('title'), ['class'=>'form-control', 'placeholder'=>'Title' ]) }}
+                    {!! Form::label('title', u__('admin.title')) !!}
+                    {{ Form::text('title', old('title'), ['class'=>'form-control', 'placeholder'=>u__('admin.title') ]) }}
                 </div>
 
                 <div class="form-group">
-                    {!! Form::label('slug', 'Slug') !!}
-                    {{ Form::text('slug', old('slug'), ['class'=>'form-control', 'placeholder'=> 'Slug' ]) }}
+                    {!! Form::label('slug', u__('admin.slug')) !!}
+                    {{ Form::text('slug', old('slug'), ['class'=>'form-control', 'placeholder'=> u__('admin.slug') ]) }}
                 </div>
 
                 <div class="form-group">
-                    {!! Form::label('content', 'Content') !!}
-                    {{ Form::textarea('content', old('content'), ['class'=>'form-control', 'placeholder'=> 'Content' ]) }}
+                    {!! Form::label('content', u__('admin.content')) !!}
+                    {{ Form::textarea('content', old('content'), ['class'=>'form-control', 'placeholder'=> u__('admin.content') ]) }}
                 </div>
 
                 <div class="form-group">
                     {!! Form::label('no_comments', u__('admin.no comments')) !!}
-                    {{ Form::select('no_comments', ['Y' => 'Yes', 'N' => 'No'], old('no_comments')?old('no_comments'):'N') }}
+                    {{ Form::select('no_comments', ['Y' => 'Yes', 'N' => 'No'], is_null(old('no_comments'))?'N':old('no_comments')) }}
                 </div>
 
                 {{ Form::submit('Save', ['class' => 'btn btn-info']) }}
