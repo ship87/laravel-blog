@@ -40,4 +40,5 @@ return [
 	'create page comment' => 'create page comment',
 	'users'               => 'users',
 	'create user'         => 'create user',
+	'images'         => 'images',
 ];

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use Illuminate\Contracts\Auth\Authenticatable;
 
 use App\Http\Controllers\Controller;
 use App\Services\PageCommentService;
@@ -40,21 +41,12 @@ class PageCommentController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
-    }
+    public function store(Request $request, PageCommentService $pageCommentService, Authenticatable $auth)
+	{
+		$pageCommentService->create($request->all(),$auth);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+		return redirect()->route(config('app.theme').'admin.page-comments.index');
+	}
 
     /**
      * Show the form for editing the specified resource.
@@ -79,9 +71,9 @@ class PageCommentController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id, PageCommentService $pageCommentService)
+    public function update(Request $request, $id, PageCommentService $pageCommentService, Authenticatable $auth)
 	{
-		$pageCommentService->update($request->all(),$id);
+		$pageCommentService->update($request->all(),$id,$auth);
 
 		return redirect()->route(config('app.theme').'admin.page-comments.index');
     }

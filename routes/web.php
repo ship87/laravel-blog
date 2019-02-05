@@ -15,19 +15,25 @@ Auth::routes();
 
 Route::namespace('Admin')->name(config('app.theme').'admin.')->middleware(['auth'])->prefix(config('app.url_admin'))->group(function (
 ) {
+
     Route::get('', 'AdminController@index');
 
-    Route::resource('categories', 'CategoryController');
+    Route::get('images', 'ImageController@index');
 
-    Route::resource('page-comments', 'PageCommentController');
-    Route::resource('pages', 'PageController');
+    Route::group(['except' => 'show'], function () {
 
-    Route::resource('post-comments', 'PostCommentController');
-    Route::resource('posts', 'PostController');
+        Route::resource('categories', 'CategoryController');
 
-    Route::resource('tags', 'TagController');
+        Route::resource('page-comments', 'PageCommentController');
+        Route::resource('pages', 'PageController');
 
-    Route::resource('users', 'UserController');
+        Route::resource('post-comments', 'PostCommentController');
+        Route::resource('posts', 'PostController');
+
+        Route::resource('tags', 'TagController');
+
+        Route::resource('users', 'UserController');
+    });
 });
 
 Route::group(['namespace' => 'Client'], function () {

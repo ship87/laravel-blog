@@ -48,25 +48,14 @@ class PostController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id, PostService $postService)
+    public function edit($id, PostService $postService, Authenticatable $auth)
     {
-        $post = $postService->show($id);
+        $post = $postService->getPost($id, $auth);
 
         return view(config('app.theme').'admin.posts.edit', [
             'post' => $post,
@@ -80,9 +69,9 @@ class PostController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id, PostService $postService)
+    public function update(Request $request, $id, PostService $postService, Authenticatable $auth)
 	{
-		$postService->update($request->all(),$id);
+		$postService->update($request->all(),$id,$auth);
 
 		return redirect()->route(config('app.theme').'admin.posts.index');
     }

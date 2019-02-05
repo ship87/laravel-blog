@@ -19,7 +19,7 @@
 
                 <div class="form-group">
                     {!! Form::label('content', u__('admin.content')) !!}
-                    {{ Form::textarea('content', old('content'), ['class'=>'form-control', 'placeholder'=> u__('admin.content') ]) }}
+                    {{ Form::textarea('content', old('content'), ['class'=>'form-control', 'placeholder'=> u__('admin.content'),'id'=>'editor' ]) }}
                 </div>
 
                 <div class="form-group">

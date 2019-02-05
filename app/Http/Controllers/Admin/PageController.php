@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use Illuminate\Contracts\Auth\Authenticatable;
 
 use App\Http\Controllers\Controller;
 use App\Services\PageService;
@@ -39,21 +40,12 @@ class PageController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
-    }
+    public function store(Request $request, PageService $pageService, Authenticatable $auth)
+	{
+		$pageService->create($request->all(),$auth);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+		return redirect()->route(config('app.theme').'admin.pages.index');
+	}
 
     /**
      * Show the form for editing the specified resource.
@@ -77,9 +69,9 @@ class PageController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id, PageService $pageService)
+    public function update(Request $request, $id, PageService $pageService, Authenticatable $auth)
 	{
-		$pageService->update($request->all(),$id);
+		$pageService->update($request->all(),$id, $auth);
 
 		return redirect()->route(config('app.theme').'admin.pages.index');
     }

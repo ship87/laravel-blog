@@ -39,21 +39,12 @@ class TagController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
-    }
+    public function store(Request $request, TagService $tagService)
+	{
+		$tagService->create($request->all());
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+		return redirect()->route(config('app.theme').'admin.tags.index');
+	}
 
     /**
      * Show the form for editing the specified resource.

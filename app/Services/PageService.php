@@ -52,15 +52,19 @@ class PageService
         return $pages;
     }
 
-	public function create(array $data)
+	public function create(array $data,$auth)
 	{
+		$data['created_user_id'] = $data['updated_user_id'] = $auth->id;
+
 		$result = $this->pageRepo->create($data);
 
 		return $result;
 	}
 
-	public function update(array $data, $id)
+	public function update(array $data, $id,$auth)
 	{
+		$data['updated_user_id'] = $auth->id;
+
 		$result = $this->pageRepo->update($data, $id);
 
 		return $result;

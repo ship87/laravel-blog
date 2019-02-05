@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use Illuminate\Contracts\Auth\Authenticatable;
 
 use App\Http\Controllers\Controller;
 use App\Services\PostCommentService;
@@ -18,7 +19,7 @@ class PostCommentController extends Controller
     {
         $postComments = $postCommentService->getPaginated(config('app.url_admin').'/post-comments');
 
-        return view(config('app.theme').'admin/post-comments/index', [
+        return view(config('app.theme').'admin.post-comments.index', [
             'postComments' => $postComments,
         ]);
     }
@@ -30,7 +31,7 @@ class PostCommentController extends Controller
      */
     public function create()
     {
-        return view(config('app.theme').'admin/post-comments/create');
+        return view(config('app.theme').'admin.post-comments.create');
     }
 
     /**
@@ -39,20 +40,11 @@ class PostCommentController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
-    }
+    public function store(Request $request, PostCommentService $postCommentService, Authenticatable $auth)
+	{
+		$postCommentService->create($request->all(),$auth);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+		return redirect()->route(config('app.theme').'admin.post-comments.index');
     }
 
     /**
@@ -65,7 +57,7 @@ class PostCommentController extends Controller
     {
         $postComment = $postCommentService->show($id);
 
-        return view(config('app.theme').'admin/post-comments/edit', [
+        return view(config('app.theme').'admin.post-comments.edit', [
             'postComment' => $postComment,
         ]);
     }
@@ -77,9 +69,9 @@ class PostCommentController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id, PostCommentService $postCommentService)
+    public function update(Request $request, $id, PostCommentService $postCommentService, Authenticatable $auth)
 	{
-		$postCommentService->update($request->all(),$id);
+		$postCommentService->update($request->all(),$id,$auth);
 
 		return redirect()->route(config('app.theme').'admin.post-comments.index');
     }

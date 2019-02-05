@@ -7,10 +7,11 @@
     "require": {
         "php": ">=7.0.0",
         "fideloper/proxy": "~3.3",
-        "guzzlehttp/guzzle": "^6.3",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
-        "laravelcollective/html": "5.5.*"
+        "laravelcollective/html": "5.5.*",
+        "guzzlehttp/guzzle": "6.*",
+        "unisharp/laravel-filemanager": "1.*"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",
@@ -39,9 +40,13 @@
     },
     "extra": {
         "laravel": {
+			"providers": [
+				"UniSharp\\LaravelFilemanager\\LaravelFilemanagerServiceProvider"
+			],
 			"aliases": {
 				"Form": "Collective\\Html\\FormFacade",
-				"Html": "Collective\\Html\\HtmlFacade"
+				"Html": "Collective\\Html\\HtmlFacade",
+				"Lfm": "UniSharp\\LaravelFilemanager\\Lfm"
 			},
             "dont-discover": [
             ]

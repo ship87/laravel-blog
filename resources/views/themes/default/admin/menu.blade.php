@@ -24,3 +24,6 @@
 
 <p><a href="{{ config('app.url_admin').'/users/create' }}">{{ u__('admin.create user') }}</a></p>
 <hr>
+
+<p><a href="{{ config('app.url_admin').'/images' }}">{{ u__('admin.images') }}</a></p>
+<hr>

@@ -14,7 +14,7 @@
 
                 <div class="form-group">
                     {!! Form::label('slug', u__('admin.slug')) !!}
-                    {{ Form::text('text', $tag->slug, ['class'=>'form-control', 'placeholder'=> u__('admin.slug') ]) }}
+                    {{ Form::text('slug', $tag->slug, ['class'=>'form-control', 'placeholder'=> u__('admin.slug') ]) }}
                 </div>
 
                 {{ Form::submit('Save', ['class' => 'btn btn-info']) }}

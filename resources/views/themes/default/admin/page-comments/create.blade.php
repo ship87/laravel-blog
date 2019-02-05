@@ -8,11 +8,6 @@
                 {{ csrf_field() }}
 
                 <div class="form-group">
-                    {!! Form::label('title', u__('admin.title')) !!}
-                    {{ Form::text('title', old('title'), ['class'=>'form-control', 'placeholder'=>u__('admin.title') ]) }}
-                </div>
-
-                <div class="form-group">
                     {!! Form::label('content', u__('admin.content')) !!}
                     {{ Form::textarea('content', old('content'), ['class'=>'form-control', 'placeholder'=> u__('admin.content') ]) }}
                 </div>

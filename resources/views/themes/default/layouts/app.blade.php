@@ -92,5 +92,18 @@
 @if(env('GOOGLE_RECAPTCHA_KEY'))
     <script src='https://www.google.com/recaptcha/api.js'></script>
 @endif
+
+<script src="//cdn.ckeditor.com/4.6.2/standard/ckeditor.js"></script>
+<script>
+	var options = {
+		filebrowserImageBrowseUrl: '{!! config("app.url_admin") !!}/filemanager?type=Images',
+		filebrowserImageUploadUrl: '{!! config("app.url_admin") !!}/filemanager/upload?type=Images&_token=',
+		filebrowserBrowseUrl: '{!! config("app.url_admin") !!}/filemanager?type=Files',
+		filebrowserUploadUrl: '{!! config("app.url_admin") !!}/filemanager/upload?type=Files&_token='
+	};
+</script>
+<script>
+	CKEDITOR.replace('editor', options);
+</script>
 </body>
 </html>

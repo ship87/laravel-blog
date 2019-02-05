@@ -14,12 +14,12 @@
 
                 <div class="form-group">
                     {!! Form::label('slug', u__('admin.slug')) !!}
-                    {{ Form::text('text', $page->slug, ['class'=>'form-control', 'placeholder'=> u__('admin.slug') ]) }}
+                    {{ Form::text('slug', $page->slug, ['class'=>'form-control', 'placeholder'=> u__('admin.slug') ]) }}
                 </div>
 
                 <div class="form-group">
                     {!! Form::label('content', u__('admin.content')) !!}
-                    {{ Form::textarea('content', $page->content, ['class'=>'form-control', 'placeholder'=> u__('admin.content') ]) }}
+                    {{ Form::textarea('content', $page->content, ['class'=>'form-control', 'placeholder'=> u__('admin.content'),'id'=>'editor' ]) }}
                 </div>
 
                 <div class="form-group">
