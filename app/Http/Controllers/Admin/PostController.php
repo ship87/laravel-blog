@@ -55,7 +55,7 @@ class PostController extends Controller
      */
     public function edit($id, PostService $postService, Authenticatable $auth)
     {
-        $post = $postService->getPost($id, $auth);
+        $post = $postService->getById($id, $auth);
 
         return view(config('app.theme').'admin.posts.edit', [
             'post' => $post,

@@ -13,14 +13,14 @@ class PostService
         $this->postRepo = $postRepo;
     }
 
-	public function getPost($id)
-	{
-		$post = $this->postRepo->getPost([
-			'id' => $id
-		]);
+    public function getById($id)
+    {
+        $post = $this->postRepo->getPost([
+            'id' => $id,
+        ]);
 
-		return $post;
-	}
+        return $post;
+    }
 
     public function getPaginated($path)
     {
@@ -38,14 +38,14 @@ class PostService
         return $result;
     }
 
-	public function update(array $data, $id, $auth)
-	{
-		$data['updated_user_id'] = $auth->id;
+    public function update(array $data, $id, $auth)
+    {
+        $data['updated_user_id'] = $auth->id;
 
-		$result = $this->postRepo->update($data, $id);
+        $result = $this->postRepo->update($data, $id);
 
-		return $result;
-	}
+        return $result;
+    }
 
     public function destroy(int $id)
     {

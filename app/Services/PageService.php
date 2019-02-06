@@ -20,10 +20,19 @@ class PageService
         return $result;
     }
 
-    public function getPage($slug)
+    public function getBySlug($slug)
     {
         $page = $this->pageRepo->getPage([
             'slug' => $slug,
+        ]);
+
+        return $page;
+    }
+
+    public function getById($id)
+    {
+        $page = $this->pageRepo->getPage([
+            'id' => $id,
         ]);
 
         return $page;

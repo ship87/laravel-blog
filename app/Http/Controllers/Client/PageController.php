@@ -23,7 +23,7 @@ class PageController extends Controller
 
         $lastSlug = array_pop($urlArr);
 
-        $pageData = $pageService->getPage($lastSlug);
+        $pageData = $pageService->getBySlug($lastSlug);
         if (! $pageData) {
             abort(404);
         }
