@@ -6,6 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Page extends Model
 {
+	public $seotitle;
+
+	public $seodescription;
+
+	public $seokeywords;
+
 	protected $guarded = [];
 
 	public function comments()

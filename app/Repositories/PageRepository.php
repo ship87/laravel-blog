@@ -13,14 +13,13 @@ class PageRepository extends Repository
         $this->model = $model;
     }
 
-    public function getPage(array $where = [])
+    public function getByParam(array $where = [])
     {
         return $this->model->with(['comments', 'metatags', 'createdUser', 'updatedUser'])->where($where)->first();
     }
 
-    public function getPageUrl($slug)
+    public function getUrl($slug)
     {
         return DB::table($this->model->getTable())->where('slug', '=', $slug)->first();
     }
-
 }

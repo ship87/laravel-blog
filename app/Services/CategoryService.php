@@ -3,48 +3,14 @@
 namespace App\Services;
 
 use App\Repositories\CategoryRepository;
+use App\Traits\AdminActions;
 
 class CategoryService
 {
-	protected $categoryRepo;
+    use AdminActions;
 
-	public function __construct(CategoryRepository $categoryRepo)
-	{
-		$this->categoryRepo = $categoryRepo;
-	}
-
-	public function show($id)
-	{
-		$result = $this->categoryRepo->show($id);
-
-		return $result;
-	}
-
-	public function getPaginated($path)
-	{
-		$categories = $this->categoryRepo->getPaginated($path, config('app.admin_pagination'));
-
-		return $categories;
-	}
-
-	public function create(array $data)
-	{
-		$result = $this->categoryRepo->create($data);
-
-		return $result;
-	}
-
-	public function update(array $data, $id)
-	{
-		$result = $this->categoryRepo->update($data, $id);
-
-		return $result;
-	}
-
-	public function destroy(int $id)
-	{
-		$result = $this->categoryRepo->destroy($id);
-
-		return $result;
-	}
+    public function __construct(CategoryRepository $categoryRepo)
+    {
+        $this->baseRepo = $categoryRepo;
+    }
 }

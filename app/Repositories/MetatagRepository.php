@@ -10,4 +10,9 @@ class MetatagRepository extends Repository
     {
         $this->model = $model;
     }
+
+    public function getByName($metatags, $name)
+    {
+        return $metatags->where('name', $name)->first();
+    }
 }

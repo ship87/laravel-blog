@@ -1,4 +1,4 @@
-@extends('themes.default.layouts.app')
+@extends(config('app.theme').'client.index')
 
 @section('content')
 <div class="container">

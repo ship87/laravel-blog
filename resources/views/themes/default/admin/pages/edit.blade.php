@@ -32,6 +32,30 @@
                     {{ Form::text('parent_id', $page->parent_id, ['class'=>'form-control', 'placeholder'=> u__('admin.parent') ]) }}
                 </div>
 
+				<h3>{{ s__('admin.seo') }}</h3>
+
+				<div class="form-group">
+					{!! Form::label('title', u__('admin.title')) !!}
+					{{ Form::text('seotitle', $page->seotitle->content??'', ['class'=>'form-control', 'placeholder'=> u__('admin.title') ]) }}
+				</div>
+
+				<div class="form-group">
+					{!! Form::label('description', u__('admin.description')) !!}
+					{{ Form::text('seodescription', $page->seodescription->content??'', ['class'=>'form-control', 'placeholder'=> u__('admin.description') ]) }}
+				</div>
+
+				<div class="form-group">
+					{!! Form::label('keywords', u__('admin.keywords')) !!}
+					{{ Form::text('seokeywords', $page->seokeywords->content??'', ['class'=>'form-control', 'placeholder'=> u__('admin.keywords') ]) }}
+				</div>
+
+                <h3>{{ s__('admin.categories') }}</h3>
+
+                <div class="form-group">
+                    {!! Form::label('keywords', u__('admin.keywords')) !!}
+                    {{ Form::text('seokeywords', $page->seokeywords->content??'', ['class'=>'form-control', 'placeholder'=> u__('admin.keywords') ]) }}
+                </div>
+
                 {{ Form::submit('Save', ['class' => 'btn btn-info']) }}
                 {{ Form::close() }}
 

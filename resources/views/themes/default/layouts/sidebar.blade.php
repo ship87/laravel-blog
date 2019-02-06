@@ -1,7 +1,11 @@
 <div class="sidebar__categories">
-    @include(config('app.theme').'client.widgets.categories')
+	@isset($categories)
+   		@include(config('app.theme').'client.widgets.categories')
+	@endisset
 </div>
 
 <div class="sidebar__lastcomments">
-    @include(config('app.theme').'client.widgets.last-comments')
+	@isset($lastComments)
+    	@include(config('app.theme').'client.widgets.last-comments')
+	@endisset
 </div>

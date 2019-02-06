@@ -18,9 +18,9 @@ class CategoryComposer
 
 	public function compose(View $view)
 	{
-		$buildTree=new BuildTree($this->categoryRepo->getAll());
+		//$buildTree=new BuildTree($this->categoryRepo->getAll());
 
-		$view->with('categories', $buildTree->getTree());
+		//$view->with('categories', $buildTree->getTree());
 	}
 
 }

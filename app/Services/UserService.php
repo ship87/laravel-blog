@@ -3,48 +3,14 @@
 namespace App\Services;
 
 use App\Repositories\UserRepository;
+use App\Traits\AdminActions;
 
 class UserService
 {
-	protected $userRepo;
+    use AdminActions;
 
-	public function __construct(UserRepository $userRepo)
-	{
-		$this->userRepo = $userRepo;
-	}
-
-    public function show($id)
+    public function __construct(UserRepository $userRepo)
     {
-        $result = $this->userRepo->show($id);
-
-        return $result;
+        $this->baseRepo = $userRepo;
     }
-
-	public function getPaginated($path)
-	{
-		$categories = $this->userRepo->getPaginated($path, config('app.admin_pagination'));
-
-		return $categories;
-	}
-
-	public function create(array $data)
-	{
-		$result = $this->userRepo->create($data);
-
-		return $result;
-	}
-
-	public function update(array $data, $id)
-	{
-		$result = $this->userRepo->update($data, $id);
-
-		return $result;
-	}
-
-	public function destroy(int $id)
-	{
-		$result = $this->userRepo->destroy($id);
-
-		return $result;
-	}
 }

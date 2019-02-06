@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Services\TagService;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\Authenticatable;
 
 use App\Http\Controllers\Controller;
 use App\Services\PostService;
+use App\Services\CategoryService;
 
 class PostController extends Controller
 {
@@ -17,10 +19,8 @@ class PostController extends Controller
      */
     public function index(PostService $postService)
     {
-        $posts = $postService->getPaginated(config('app.url_admin').'/posts');
-
         return view(config('app.theme').'admin.posts.index', [
-            'posts' => $posts,
+            'posts' => $postService->getPaginated(config('app.url_admin').'/posts'),
         ]);
     }
 
@@ -53,12 +53,12 @@ class PostController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id, PostService $postService, Authenticatable $auth)
+    public function edit($id, PostService $postService, CategoryService $categoryService, TagService $tagService)
     {
-        $post = $postService->getById($id, $auth);
-
         return view(config('app.theme').'admin.posts.edit', [
-            'post' => $post,
+            'post' => $postService->getByIdWithSeo($id),
+            'tags' => $tagService->getAll(),
+            'categories' => $categoryService->getAll(),
         ]);
     }
 
@@ -70,10 +70,10 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id, PostService $postService, Authenticatable $auth)
-	{
-		$postService->update($request->all(),$id,$auth);
+    {
+        $postService->update($request->all(), $id, $auth);
 
-		return redirect()->route(config('app.theme').'admin.posts.index');
+        return redirect()->route(config('app.theme').'admin.posts.index');
     }
 
     /**

@@ -55,7 +55,7 @@ class PageController extends Controller
      */
     public function edit($id, PageService $pageService)
     {
-        $page = $pageService->getById($id);
+        $page = $pageService->getByIdWithSeo($id);
 
         return view(config('app.theme').'admin.pages.edit', [
             'page' => $page,

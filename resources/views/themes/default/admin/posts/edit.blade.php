@@ -27,6 +27,25 @@
                     {{ Form::select('no_comments', ['Y' => 'Yes', 'N' => 'No'], $post->no_comments) }}
                 </div>
 
+                <h3>{{ s__('admin.SEO') }}</h3>
+
+                <div class="form-group">
+                    {!! Form::label('title', u__('admin.title')) !!}
+                    {{ Form::text('seotitle', $post->seotitle->content??'', ['class'=>'form-control', 'placeholder'=> u__('admin.title') ]) }}
+                </div>
+
+                <div class="form-group">
+                    {!! Form::label('description', u__('admin.description')) !!}
+                    {{ Form::text('seodescription', $post->seodescription->content??'', ['class'=>'form-control', 'placeholder'=> u__('admin.description') ]) }}
+                </div>
+
+                <div class="form-group">
+                    {!! Form::label('keywords', u__('admin.keywords')) !!}
+                    {{ Form::text('seokeywords', $post->seokeywords->content??'', ['class'=>'form-control', 'placeholder'=> u__('admin.keywords') ]) }}
+                </div>
+
+                <h3>{{ s__('admin.categories') }}</h3>
+
                 {{ Form::submit('Save', ['class' => 'btn btn-info']) }}
                 {{ Form::close() }}
 

@@ -3,86 +3,50 @@
 namespace App\Services;
 
 use App\Repositories\PageRepository;
+use App\Repositories\MetatagRepository;
+
+use App\Traits\ClientActions;
 
 class PageService
 {
-    protected $pageRepo;
+    use ClientActions;
 
-    public function __construct(PageRepository $pageRepo)
+    public function __construct(PageRepository $pageRepo, MetatagRepository $metatagRepo)
     {
-        $this->pageRepo = $pageRepo;
+        $this->baseRepo = $pageRepo;
+        $this->metatagRepo = $metatagRepo;
     }
 
     public function show($id)
     {
-        $result = $this->pageRepo->show($id);
+        $result = $this->baseRepo->show($id);
 
         return $result;
     }
 
     public function getBySlug($slug)
     {
-        $page = $this->pageRepo->getPage([
+        $page = $this->baseRepo->getByParam([
             'slug' => $slug,
         ]);
 
         return $page;
     }
 
-    public function getById($id)
+    public function getUrl($slug)
     {
-        $page = $this->pageRepo->getPage([
-            'id' => $id,
-        ]);
-
-        return $page;
-    }
-
-    public function getPageUrl($slug)
-    {
-        return $this->pageRepo->getPageUrl($slug);
+        return $this->baseRepo->getUrl($slug);
     }
 
     public function checkUrl($urlArr, $lastSlug)
     {
         $resultUrl = '';
         foreach ($urlArr as $url) {
-            $page = $this->getPageUrl($url);
+            $page = $this->getUrl($url);
             $resultUrl = $resultUrl.$page->slug.'/';
         }
 
         return $resultUrl.$lastSlug;
     }
 
-    public function getPaginated($path)
-    {
-        $pages = $this->pageRepo->getPaginated($path, config('app.admin_pagination'));
-
-        return $pages;
-    }
-
-	public function create(array $data,$auth)
-	{
-		$data['created_user_id'] = $data['updated_user_id'] = $auth->id;
-
-		$result = $this->pageRepo->create($data);
-
-		return $result;
-	}
-
-	public function update(array $data, $id,$auth)
-	{
-		$data['updated_user_id'] = $auth->id;
-
-		$result = $this->pageRepo->update($data, $id);
-
-		return $result;
-	}
-
-	public function destroy(int $id)
-	{
-		$result = $this->pageRepo->destroy($id);
-
-		return $result;
-	}
 }

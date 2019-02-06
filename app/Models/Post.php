@@ -6,6 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
+	public $seotitle;
+
+	public $seodescription;
+
+	public $seokeywords;
+
 	public $url;
 
 	protected $guarded = [];

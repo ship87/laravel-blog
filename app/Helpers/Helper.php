@@ -6,3 +6,10 @@ if (!function_exists('u__')) {
 		return ucfirst(__($message));
 	}
 }
+
+if (!function_exists('s__')) {
+	function s__($message)
+	{
+		return strtoupper(__($message));
+	}
+}

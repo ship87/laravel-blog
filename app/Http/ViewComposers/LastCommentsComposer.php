@@ -17,6 +17,6 @@ class LastCommentsComposer
 
     public function compose(View $view)
     {
-        $view->with('lastComments', $this->postCommentRepo->getAll());
+       // $view->with('lastComments', $this->postCommentRepo->getAll());
     }
 }

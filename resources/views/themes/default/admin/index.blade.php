@@ -27,3 +27,7 @@
 </div>
 
 @endsection
+
+@section('scripts')
+	@include(config('app.theme').'layouts.scripts.admin')
+@endsection

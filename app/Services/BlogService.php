@@ -15,7 +15,7 @@ class BlogService
 
     public function getPost($id, $slug)
     {
-        $post = $this->postRepo->getPost([
+        $post = $this->postRepo->getByParam([
             'id' => $id,
             'slug' => $slug,
         ]);
@@ -48,8 +48,6 @@ class BlogService
 
             $way = $year.'/'.$month;
         }
-
-        //dd(config('app.url_blog').'/archive/'.$way);
 
         $posts = $this->postRepo->getArchivePostsPaginated(config('app.url_blog').'/archive/'.$way, config('app.blog_pagination'), $year, $month, $day);
 
