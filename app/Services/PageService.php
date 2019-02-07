@@ -5,23 +5,22 @@ namespace App\Services;
 use App\Repositories\PageRepository;
 use App\Repositories\MetatagRepository;
 
-use App\Traits\ClientActions;
+use App\Traits\AdminPageTrait;
+use App\Traits\ClientPageTrait;
+use App\Traits\CreateUpdateUserTrait;
 
 class PageService
 {
-    use ClientActions;
+	use AdminPageTrait;
+
+    use ClientPageTrait;
+
+	use CreateUpdateUserTrait;
 
     public function __construct(PageRepository $pageRepo, MetatagRepository $metatagRepo)
     {
         $this->baseRepo = $pageRepo;
         $this->metatagRepo = $metatagRepo;
-    }
-
-    public function show($id)
-    {
-        $result = $this->baseRepo->show($id);
-
-        return $result;
     }
 
     public function getBySlug($slug)

@@ -1,5 +1,5 @@
 <ul>
-@forelse ($lastComments as $lastComment)
+@forelse ($lastCommentsWidget as $lastComment)
 
 	<li>{{ $lastComment->id }}{{ $lastComment->content }}</li>
 

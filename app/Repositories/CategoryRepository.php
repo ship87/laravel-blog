@@ -10,4 +10,9 @@ class CategoryRepository extends Repository
     {
         $this->model = $model;
     }
+
+	public function getAllTitles()
+	{
+		return $this->model->pluck('title','id')->all();
+	}
 }

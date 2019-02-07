@@ -6,17 +6,22 @@ use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
 use App\Services\UserService;
+use App\Traits\HttpPageTrait;
 
 class UserController extends Controller
 {
+    use HttpPageTrait;
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(UserService $userService)
+    public function index(UserService $userService, Request $request)
     {
         $users = $userService->getPaginated(config('app.url_admin').'/users');
+
+        $this->isEmptyPaginated($users, $request);
 
         return view(config('app.theme').'admin.users.index', [
             'users' => $users,
@@ -54,7 +59,9 @@ class UserController extends Controller
      */
     public function edit($id, UserService $userService)
     {
-        $user = $userService->show($id);
+        $user = $userService->getById($id);
+
+        $this->isEmptyPage($user);
 
         return view(config('app.theme').'admin.users.edit', [
             'user' => $user,

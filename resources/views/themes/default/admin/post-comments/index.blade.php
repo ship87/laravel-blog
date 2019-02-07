@@ -13,7 +13,7 @@
             <div class="col-xs-1">
 				{{ Form::open(['method' => 'DELETE','route' => [config('app.theme').'admin.post-comments.destroy', $postComment->id],'style'=>'form-inline']) }}
 				{{ csrf_field() }}
-				{{ Form::submit('Delete', ['class' => 'btn btn-info']) }}
+				{{ Form::submit('Delete', ['class' => 'btn btn-info','onclick'=>'confirmDelete()']) }}
 				{{ Form::close() }}
             </div>
             <div class="col-xs-5">

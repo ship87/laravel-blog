@@ -6,17 +6,22 @@ use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
 use App\Services\TagService;
+use App\Traits\HttpPageTrait;
 
 class TagController extends Controller
 {
+    use HttpPageTrait;
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(TagService $tagService)
+    public function index(TagService $tagService, Request $request)
     {
         $tags = $tagService->getPaginated(config('app.url_admin').'/tags');
+
+        $this->isEmptyPaginated($tags, $request);
 
         return view(config('app.theme').'admin.tags.index', [
             'tags' => $tags,
@@ -54,7 +59,9 @@ class TagController extends Controller
      */
     public function edit($id, TagService $tagService)
     {
-        $tag = $tagService->show($id);
+        $tag = $tagService->getById($id);
+
+        $this->isEmptyPage($tag);
 
         return view(config('app.theme').'admin.tags.edit', [
             'tag' => $tag,

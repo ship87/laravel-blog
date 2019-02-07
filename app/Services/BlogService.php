@@ -13,7 +13,7 @@ class BlogService
         $this->postRepo = $postRepo;
     }
 
-    public function getPost($id, $slug)
+    public function getByIdSlug($id, $slug)
     {
         $post = $this->postRepo->getByParam([
             'id' => $id,

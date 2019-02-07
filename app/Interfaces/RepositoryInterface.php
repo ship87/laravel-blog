@@ -10,7 +10,9 @@ interface RepositoryInterface
 
     public function destroy($id);
 
-    public function getOne(array $where);
+    public function getById($id);
+
+    public function getByParam(array $where);
 
     public function getAll();
 

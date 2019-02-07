@@ -7,17 +7,22 @@ use Illuminate\Contracts\Auth\Authenticatable;
 
 use App\Http\Controllers\Controller;
 use App\Services\PageService;
+use App\Traits\HttpPageTrait;
 
 class PageController extends Controller
 {
+    use HttpPageTrait;
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(PageService $pageService)
+    public function index(PageService $pageService, Request $request)
     {
         $pages = $pageService->getPaginated(config('app.url_admin').'/pages');
+
+        $this->isEmptyPaginated($pages, $request);
 
         return view(config('app.theme').'admin.pages.index', [
             'pages' => $pages,
@@ -42,7 +47,7 @@ class PageController extends Controller
      */
     public function store(Request $request, PageService $pageService, Authenticatable $auth)
 	{
-		$pageService->create($request->all(),$auth);
+		$pageService->create($request->except(['seotitle','seodescription','seokeywords']),$auth);
 
 		return redirect()->route(config('app.theme').'admin.pages.index');
 	}
@@ -56,6 +61,8 @@ class PageController extends Controller
     public function edit($id, PageService $pageService)
     {
         $page = $pageService->getByIdWithSeo($id);
+
+        $this->isEmptyPage($page);
 
         return view(config('app.theme').'admin.pages.edit', [
             'page' => $page,
@@ -71,7 +78,7 @@ class PageController extends Controller
      */
     public function update(Request $request, $id, PageService $pageService, Authenticatable $auth)
 	{
-		$pageService->update($request->all(),$id, $auth);
+		$pageService->update($request->except(['seotitle','seodescription','seokeywords']),$id, $auth);
 
 		return redirect()->route(config('app.theme').'admin.pages.index');
     }

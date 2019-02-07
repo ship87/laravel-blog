@@ -6,17 +6,22 @@ use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
 use App\Services\CategoryService;
+use App\Traits\HttpPageTrait;
 
 class CategoryController extends Controller
 {
+    use HttpPageTrait;
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(CategoryService $categoryService)
+    public function index(CategoryService $categoryService, Request $request)
     {
         $categories = $categoryService->getPaginated(config('app.url_admin').'/categories');
+
+        $this->isEmptyPaginated($categories, $request);
 
         return view(config('app.theme').'admin.categories.index', [
             'categories' => $categories,
@@ -54,7 +59,9 @@ class CategoryController extends Controller
      */
     public function edit($id, CategoryService $categoryService)
     {
-        $category = $categoryService->show($id);
+        $category = $categoryService->getById($id);
+
+        $this->isEmptyPage($category);
 
         return view(config('app.theme').'admin.categories.edit', [
             'category' => $category,

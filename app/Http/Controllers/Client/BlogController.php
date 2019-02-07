@@ -6,14 +6,17 @@ use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
 use App\Services\BlogService;
+use App\Traits\HttpPageTrait;
 
 class BlogController extends Controller
 {
+    use HttpPageTrait;
+
     public function index(BlogService $blogService, Request $request)
     {
         $posts = $blogService->getPaginated();
 
-		$this->isEmptyPosts($posts,$request);
+        $this->isEmptyPaginated($posts, $request);
 
         return view(config('app.theme').'client/blog/index', [
             'posts' => $posts,
@@ -24,7 +27,7 @@ class BlogController extends Controller
     {
         $posts = $blogService->getArchivePostsPaginated($year, $month, $day);
 
-		$this->isEmptyPosts($posts,$request);
+        $this->isEmptyPaginated($posts, $request);
 
         return view(config('app.theme').'client/blog/index', [
             'posts' => $posts,
@@ -35,7 +38,7 @@ class BlogController extends Controller
     {
         $posts = $blogService->getCategoryPostsPaginated($category);
 
-		$this->isEmptyPosts($posts,$request);
+        $this->isEmptyPaginated($posts, $request);
 
         return view(config('app.theme').'client/blog/index', [
             'posts' => $posts,
@@ -44,30 +47,12 @@ class BlogController extends Controller
 
     public function page(BlogService $blogService, $id, $slug)
     {
-        $pageData = $blogService->getPost($id, $slug);
+        $pageData = $blogService->getByIdSlug($id, $slug);
 
-        if (! $pageData) {
-            abort(404);
-        }
+        $this->isEmptyPage($pageData);
 
         return view(config('app.theme').'client/blog/post', [
             'pageData' => $pageData,
         ]);
     }
-
-	private function isEmptyPosts($posts, Request $request)
-	{
-		if ($posts->isEmpty()) {
-			abort(404);
-		}
-
-		$currentPage = $request->input('page');
-
-		if (! empty($currentPage)) {
-			$currentPage = (int) $currentPage;
-			if ($currentPage == 0 || $currentPage > $posts->lastPage()) {
-				abort(404);
-			}
-		}
-	}
 }

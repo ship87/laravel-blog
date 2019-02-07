@@ -7,18 +7,22 @@ use Illuminate\Contracts\Auth\Authenticatable;
 
 use App\Http\Controllers\Controller;
 use App\Services\PageCommentService;
-
+use App\Traits\HttpPageTrait;
 
 class PageCommentController extends Controller
 {
+    use HttpPageTrait;
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(PageCommentService $pageCommentService)
+    public function index(PageCommentService $pageCommentService, Request $request)
     {
         $pageComments = $pageCommentService->getPaginated(config('app.url_admin').'/page-comments');
+
+        $this->isEmptyPaginated($pageComments, $request);
 
         return view(config('app.theme').'admin.page-comments.index', [
             'pageComments' => $pageComments,
@@ -56,8 +60,9 @@ class PageCommentController extends Controller
      */
     public function edit($id, PageCommentService $pageCommentService)
     {
+        $pageComment = $pageCommentService->getById($id);
 
-        $pageComment = $pageCommentService->show($id);
+        $this->isEmptyPage($pageComment);
 
         return view(config('app.theme').'admin.page-comments.edit', [
             'pageComment' => $pageComment

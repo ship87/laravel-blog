@@ -15,10 +15,15 @@ abstract class Repository implements RepositoryInterface
         $this->model = $model;
     }
 
-	public function show($id)
+	public function getById($id)
 	{
-		return $this->model->findOrFail($id);
+		return $this->model->find($id);
 	}
+
+    public function getByParam(array $where)
+    {
+        return $this->model->where($where)->first();
+    }
 
     public function create(array $data)
     {
@@ -35,11 +40,6 @@ abstract class Repository implements RepositoryInterface
     public function destroy($id)
     {
         return $this->model->destroy($id);
-    }
-
-    public function getOne(array $where)
-    {
-        return $this->model->where($where)->first();
     }
 
     public function getAll()

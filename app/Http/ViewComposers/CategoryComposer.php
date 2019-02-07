@@ -20,7 +20,7 @@ class CategoryComposer
 	{
 		//$buildTree=new BuildTree($this->categoryRepo->getAll());
 
-		//$view->with('categories', $buildTree->getTree());
+		//$view->with('categoriesWidget', $buildTree->getTree());
 	}
 
 }

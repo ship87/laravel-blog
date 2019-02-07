@@ -2,25 +2,32 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Services\TagService;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\Authenticatable;
 
 use App\Http\Controllers\Controller;
 use App\Services\PostService;
 use App\Services\CategoryService;
+use App\Services\TagService;
+use App\Traits\HttpPageTrait;
 
 class PostController extends Controller
 {
+    use HttpPageTrait;
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(PostService $postService)
+    public function index(PostService $postService, Request $request)
     {
+        $posts = $postService->getPaginated(config('app.url_admin').'/posts');
+
+        $this->isEmptyPaginated($posts, $request);
+
         return view(config('app.theme').'admin.posts.index', [
-            'posts' => $postService->getPaginated(config('app.url_admin').'/posts'),
+            'posts' => $posts,
         ]);
     }
 
@@ -29,9 +36,12 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(CategoryService $categoryService, TagService $tagService)
     {
-        return view(config('app.theme').'admin.posts.create');
+        return view(config('app.theme').'admin.posts.create', [
+            'tags' => $tagService->getAllNames(),
+            'categories' => $categoryService->getAllTitles(),
+        ]);
     }
 
     /**
@@ -40,9 +50,24 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, PostService $postService, Authenticatable $auth)
-    {
-        $postService->create($request->all(), $auth);
+    public function store(
+        Request $request,
+        PostService $postService,
+        CategoryService $categoryService,
+        TagService $tagService,
+        Authenticatable $auth
+    ) {
+        $post = $postService->create($request->except([
+            'seotitle',
+            'seodescription',
+            'seokeywords',
+            'categories',
+            'tags',
+        ]), $auth);
+
+        dd($request);
+
+        //$post->id;
 
         return redirect()->route(config('app.theme').'admin.posts.index');
     }
@@ -55,10 +80,14 @@ class PostController extends Controller
      */
     public function edit($id, PostService $postService, CategoryService $categoryService, TagService $tagService)
     {
+        $post=$postService->getByIdWithSeo($id);
+
+        $this->isEmptyPage($post);
+
         return view(config('app.theme').'admin.posts.edit', [
-            'post' => $postService->getByIdWithSeo($id),
-            'tags' => $tagService->getAll(),
-            'categories' => $categoryService->getAll(),
+            'post' => $post,
+            'tags' => $tagService->getAllNames(),
+            'categories' => $categoryService->getAllTitles(),
         ]);
     }
 
@@ -69,9 +98,25 @@ class PostController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id, PostService $postService, Authenticatable $auth)
-    {
-        $postService->update($request->all(), $id, $auth);
+    public function update(
+        Request $request,
+        $id,
+        PostService $postService,
+        CategoryService $categoryService,
+        TagService $tagService,
+        Authenticatable $auth
+    ) {
+        $postService->update($request->except([
+            'seotitle',
+            'seodescription',
+            'seokeywords',
+            'categories',
+            'tags',
+        ]), $id, $auth);
+
+        //  $categoryService->update($request->except(['seotitle','seodescription','seokeywords']), $id, $auth);
+
+        //$tagService->update($request->except(['seotitle','seodescription','seokeywords']), $id, $auth);
 
         return redirect()->route(config('app.theme').'admin.posts.index');
     }

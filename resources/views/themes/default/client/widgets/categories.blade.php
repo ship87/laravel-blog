@@ -1,4 +1,4 @@
-@forelse ($categories as $category)
+@forelse ($categoriesWidget as $category)
 <ul>
     <li>{{ $category->slug }}</li>
 	@if(count($category->childs) > 0)

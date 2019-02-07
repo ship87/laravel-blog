@@ -4,11 +4,18 @@ namespace App\Services;
 
 use App\Repositories\PostRepository;
 use App\Repositories\MetatagRepository;
-use App\Traits\ClientActions;
+
+use App\Traits\AdminPageTrait;
+use App\Traits\ClientPageTrait;
+use App\Traits\CreateUpdateUserTrait;
 
 class PostService
 {
-    use ClientActions;
+    use AdminPageTrait;
+
+    use ClientPageTrait;
+
+	use CreateUpdateUserTrait;
 
     public function __construct(PostRepository $postRepo, MetatagRepository $metatagRepo)
     {
@@ -16,8 +23,4 @@ class PostService
         $this->metatagRepo = $metatagRepo;
     }
 
-    public function getPaginated($path)
-    {
-        return $this->baseRepo->getPaginated($path, config('app.admin_pagination'));
-    }
 }

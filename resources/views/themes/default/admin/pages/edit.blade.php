@@ -49,13 +49,6 @@
 					{{ Form::text('seokeywords', $page->seokeywords->content??'', ['class'=>'form-control', 'placeholder'=> u__('admin.keywords') ]) }}
 				</div>
 
-                <h3>{{ s__('admin.categories') }}</h3>
-
-                <div class="form-group">
-                    {!! Form::label('keywords', u__('admin.keywords')) !!}
-                    {{ Form::text('seokeywords', $page->seokeywords->content??'', ['class'=>'form-control', 'placeholder'=> u__('admin.keywords') ]) }}
-                </div>
-
                 {{ Form::submit('Save', ['class' => 'btn btn-info']) }}
                 {{ Form::close() }}
 

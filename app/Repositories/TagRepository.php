@@ -10,4 +10,9 @@ class TagRepository extends Repository
     {
         $this->model = $model;
     }
+
+	public function getAllNames()
+	{
+		return $this->model->pluck('name','id')->all();
+	}
 }
