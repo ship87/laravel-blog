@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CategoryRequest;
 use App\Services\CategoryService;
 use App\Traits\HttpPageTrait;
 
@@ -44,7 +45,7 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, CategoryService $categoryService)
+    public function store(CategoryRequest $request, CategoryService $categoryService)
     {
         $categoryService->create($request->all());
 
@@ -75,7 +76,7 @@ class CategoryController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id, CategoryService $categoryService)
+    public function update(CategoryRequest $request, $id, CategoryService $categoryService)
     {
 		$categoryService->update($request->all(),$id);
 

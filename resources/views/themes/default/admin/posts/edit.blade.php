@@ -7,6 +7,8 @@
 				{{ Form::open(['method' => 'PUT','route' => [config('app.theme').'admin.posts.update',$post->id],'style'=>'form-horizontal']) }}
                 {{ csrf_field() }}
 
+                @include(config('app.theme').'admin.previous-page')
+
                 <div class="form-group">
                     {!! Form::label('title', u__('admin.title')) !!}
                     {{ Form::text('title', $post->title, ['class'=>'form-control', 'placeholder'=>u__('admin.title') ]) }}
@@ -29,12 +31,12 @@
 
 				<div class="form-group">
 					{{ Form::label('categories[]', u__('admin.categories')) }}
-					{{ Form::select('categories[]', $categories, null, ['class'=>'form-control', 'multiple']) }}
+					{{ Form::select('categories[]', $categories, $selectedCategories, ['class'=>'form-control', 'multiple']) }}
 				</div>
 
 				<div class="form-group">
 					{{ Form::label('tags[]', u__('admin.tags')) }}
-					{{ Form::select('tags[]', $tags, null, ['class'=>'form-control', 'multiple']) }}
+					{{ Form::select('tags[]', $tags, $selectedTags, ['class'=>'form-control', 'multiple']) }}
 				</div>
 
                 <h3>{{ s__('admin.seo') }}</h3>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserRequest;
 use App\Services\UserService;
 use App\Traits\HttpPageTrait;
 
@@ -44,7 +45,7 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, UserService $userService)
+    public function store(UserRequest $request, UserService $userService)
 	{
 		$userService->create($request->all());
 
@@ -75,7 +76,7 @@ class UserController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id, UserService $userService)
+    public function update(UserRequest $request, $id, UserService $userService)
 	{
 		$userService->update($request->all(),$id);
 

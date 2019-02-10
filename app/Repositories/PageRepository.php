@@ -22,4 +22,14 @@ class PageRepository extends Repository
     {
         return DB::table($this->model->getTable())->where('slug', '=', $slug)->first();
     }
+
+    public function getAllTitleId()
+    {
+        return $this->model->pluck('title','id')->all();
+    }
+
+    public function getParentTitleId($id)
+    {
+        return $this->model->pluck('title','id')->find($id);
+    }
 }

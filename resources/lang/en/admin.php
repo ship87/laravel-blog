@@ -44,5 +44,7 @@ return [
     'description' => 'description',
     'keywords' => 'keywords',
     'robots' => 'robots',
+    'images' => 'images',
+    'back to previous page' => 'back to previous page',
     'are you sure to delete this item?' => 'are you sure to delete this item?',
 ];

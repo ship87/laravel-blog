@@ -34,7 +34,9 @@ abstract class Repository implements RepositoryInterface
     {
         $record = $this->model->find($id);
 
-        return $record->update($data);
+        $record->update($data);
+
+        return $record;
     }
 
     public function destroy($id)

@@ -7,6 +7,8 @@
 				{{ Form::open(['method' => 'POST','route' => [config('app.theme').'admin.posts.store'],'style'=>'form-horizontal']) }}
                 {{ csrf_field() }}
 
+                @include(config('app.theme').'admin.previous-page')
+
                 <div class="form-group">
                     {!! Form::label('title', u__('admin.title')) !!}
                     {{ Form::text('title', old('title'), ['class'=>'form-control', 'placeholder'=>u__('admin.title') ]) }}
@@ -30,29 +32,29 @@
 
 				<div class="form-group">
 					{{ Form::label('categories[]', u__('admin.categories')) }}
-					{{ Form::select('categories[]', $categories, null, ['class'=>'form-control', 'multiple']) }}
+					{{ Form::select('categories[]', $categories, old('categories[]'), ['class'=>'form-control', 'multiple']) }}
 				</div>
 
 				<div class="form-group">
 					{{ Form::label('tags[]', u__('admin.tags')) }}
-					{{ Form::select('tags[]', $tags, null, ['class'=>'form-control', 'multiple']) }}
+					{{ Form::select('tags[]', $tags, old('tags[]'), ['class'=>'form-control', 'multiple']) }}
 				</div>
 
 				<h3>{{ s__('admin.seo') }}</h3>
 
 				<div class="form-group">
 					{!! Form::label('title', u__('admin.title')) !!}
-					{{ Form::text('seotitle', $post->seotitle->content??'', ['class'=>'form-control', 'placeholder'=> u__('admin.title') ]) }}
+					{{ Form::text('seotitle', old('seotitle'), ['class'=>'form-control', 'placeholder'=> u__('admin.title') ]) }}
 				</div>
 
 				<div class="form-group">
 					{!! Form::label('description', u__('admin.description')) !!}
-					{{ Form::text('seodescription', $post->seodescription->content??'', ['class'=>'form-control', 'placeholder'=> u__('admin.description') ]) }}
+					{{ Form::text('seodescription', old('seodescription'), ['class'=>'form-control', 'placeholder'=> u__('admin.description') ]) }}
 				</div>
 
 				<div class="form-group">
 					{!! Form::label('keywords', u__('admin.keywords')) !!}
-					{{ Form::text('seokeywords', $post->seokeywords->content??'', ['class'=>'form-control', 'placeholder'=> u__('admin.keywords') ]) }}
+					{{ Form::text('seokeywords', old('seokeywords'), ['class'=>'form-control', 'placeholder'=> u__('admin.keywords') ]) }}
 				</div>
 
                 {{ Form::submit('Save', ['class' => 'btn btn-info']) }}

@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Metatag extends Model
 {
+	public $timestamps = false;
+
+	protected $guarded = [];
+
 	public function post()
 	{
 		return $this->belongsTo('App\Models\Post');

@@ -7,6 +7,8 @@
 				{{ Form::open(['method' => 'POST','route' => [config('app.theme').'admin.post-comments.store'],'style'=>'form-horizontal']) }}
                 {{ csrf_field() }}
 
+                @include(config('app.theme').'admin.previous-page')
+
                 <div class="form-group">
                     {!! Form::label('content', u__('admin.content')) !!}
                     {{ Form::textarea('content', old('content'), ['class'=>'form-control', 'placeholder'=> u__('admin.content')]) }}

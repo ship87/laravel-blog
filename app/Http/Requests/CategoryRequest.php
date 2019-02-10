@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 use App\Traits\PreviousPageTrait;
 
-class UserRequest extends FormRequest
+class CategoryRequest extends FormRequest
 {
     use PreviousPageTrait;
 

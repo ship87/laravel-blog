@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\TagRequest;
 use App\Services\TagService;
 use App\Traits\HttpPageTrait;
 
@@ -44,7 +45,7 @@ class TagController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, TagService $tagService)
+    public function store(TagRequest $request, TagService $tagService)
 	{
 		$tagService->create($request->all());
 
@@ -75,7 +76,7 @@ class TagController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id, TagService $tagService)
+    public function update(TagRequest $request, $id, TagService $tagService)
 	{
 		$tagService->update($request->all(),$id);
 

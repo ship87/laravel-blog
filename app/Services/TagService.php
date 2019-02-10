@@ -18,8 +18,13 @@ class TagService
         $this->baseRepo = $tagRepo;
     }
 
-	public function getAllNames()
+	public function getAllNameId()
 	{
-		return $this->baseRepo->getAllNames();
+		return $this->baseRepo->getAllNameId();
+	}
+
+	public function getId($tags)
+	{
+		return $this->baseRepo->getId($tags);
 	}
 }

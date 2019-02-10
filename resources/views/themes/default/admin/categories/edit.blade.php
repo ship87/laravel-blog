@@ -7,6 +7,8 @@
 				{{ Form::open(['method' => 'PUT','route' => [config('app.theme').'admin.categories.update', $category->id],'style'=>'form-horizontal']) }}
                 {{ csrf_field() }}
 
+                @include(config('app.theme').'admin.previous-page')
+
                 <div class="form-group">
                     {!! Form::label('title', u__('admin.title')) !!}
                     {{ Form::text('title', $category->title, ['class'=>'form-control', 'placeholder'=>u__('admin.title') ]) }}

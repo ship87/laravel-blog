@@ -7,6 +7,8 @@
                 {{ Form::open(['method' => 'PUT','route' => [config('app.theme').'admin.page-comments.update', $pageComment->id],'style'=>'form-horizontal']) }}
                 {{ csrf_field() }}
 
+                @include(config('app.theme').'admin.previous-page')
+
                 <div class="form-group">
                     {!! Form::label('content', u__('admin.content')) !!}
                     {{ Form::textarea('content', $pageComment->content, ['class'=>'form-control', 'placeholder'=> u__('admin.content') ]) }}

@@ -7,6 +7,8 @@
 				{{ Form::open(['method' => 'POST','route' => [config('app.theme').'admin.tags.store'],'style'=>'form-horizontal']) }}
                 {{ csrf_field() }}
 
+                @include(config('app.theme').'admin.previous-page')
+
                 <div class="form-group">
                     {!! Form::label('name', u__('admin.name')) !!}
                     {{ Form::text('name', old('name'), ['class'=>'form-control', 'placeholder'=>u__('admin.name') ]) }}

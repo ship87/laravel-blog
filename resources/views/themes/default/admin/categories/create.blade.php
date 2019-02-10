@@ -7,6 +7,8 @@
 				{{ Form::open(['method' => 'POST','route' => [config('app.theme').'admin.categories.store'],'style'=>'form-horizontal']) }}
                 {{ csrf_field() }}
 
+                @include(config('app.theme').'admin.previous-page')
+
                 <div class="form-group">
                     {!! Form::label('title', u__('admin.title')) !!}
                     {{ Form::text('title', old('title'), ['class'=>'form-control', 'placeholder'=>u__('admin.title') ]) }}

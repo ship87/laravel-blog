@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\Authenticatable;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PageRequest;
 use App\Services\PageService;
 use App\Traits\HttpPageTrait;
 
@@ -34,9 +35,11 @@ class PageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(PageService $pageService)
     {
-        return view(config('app.theme').'admin.pages.create');
+        return view(config('app.theme').'admin.pages.create', [
+            'parentPages' => $pageService->getAllTitleId(),
+        ]);
     }
 
     /**
@@ -45,12 +48,12 @@ class PageController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, PageService $pageService, Authenticatable $auth)
-	{
-		$pageService->create($request->except(['seotitle','seodescription','seokeywords']),$auth);
+    public function store(PageRequest $request, PageService $pageService, Authenticatable $auth)
+    {
+        $pageService->create($request->all(), $request->relationData, $auth);
 
-		return redirect()->route(config('app.theme').'admin.pages.index');
-	}
+        return redirect($request->previousUrl);
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -66,21 +69,24 @@ class PageController extends Controller
 
         return view(config('app.theme').'admin.pages.edit', [
             'page' => $page,
+            'parentPages' => $pageService->getAllTitleId(),
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @param $id
+     * @param \App\Services\PageService $pageService
+     * @param \Illuminate\Contracts\Auth\Authenticatable $auth
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id, PageService $pageService, Authenticatable $auth)
-	{
-		$pageService->update($request->except(['seotitle','seodescription','seokeywords']),$id, $auth);
+    public function update(PageRequest $request, $id, PageService $pageService, Authenticatable $auth)
+    {
+        $pageService->update($request->all(), $request->relationData, $id, $auth);
 
-		return redirect()->route(config('app.theme').'admin.pages.index');
+        return redirect($request->previousUrl);
     }
 
     /**

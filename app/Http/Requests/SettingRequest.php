@@ -4,8 +4,12 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+use App\Traits\PreviousPageTrait;
+
 class SettingRequest extends FormRequest
 {
+    use PreviousPageTrait;
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -13,7 +17,7 @@ class SettingRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**

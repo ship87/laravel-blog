@@ -4,8 +4,21 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+use App\Traits\FilterRelationsTrait;
+use App\Traits\PreviousPageTrait;
+
 class PageRequest extends FormRequest
 {
+    use PreviousPageTrait;
+
+    use FilterRelationsTrait;
+
+    protected $filterRelations = [
+        'seotitle',
+        'seodescription',
+        'seokeywords',
+    ];
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -13,7 +26,7 @@ class PageRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +36,21 @@ class PageRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            //
+        return [//
         ];
+    }
+
+    /**
+     * Get data to be validated from the request.
+     *
+     * @return array
+     */
+    protected function validationData()
+    {
+        $this->filterPreviousPage();
+
+        $this->filterRelations();
+
+        return parent::validationData();
     }
 }

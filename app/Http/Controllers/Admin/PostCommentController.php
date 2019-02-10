@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\Authenticatable;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PostCommentRequest;
 use App\Services\PostCommentService;
 use App\Traits\HttpPageTrait;
 
@@ -45,7 +46,7 @@ class PostCommentController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, PostCommentService $postCommentService, Authenticatable $auth)
+    public function store(PostCommentRequest $request, PostCommentService $postCommentService, Authenticatable $auth)
 	{
 		$postCommentService->create($request->all(),$auth);
 
@@ -76,7 +77,7 @@ class PostCommentController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id, PostCommentService $postCommentService, Authenticatable $auth)
+    public function update(PostCommentRequest $request, $id, PostCommentService $postCommentService, Authenticatable $auth)
 	{
 		$postCommentService->update($request->all(),$id,$auth);
 

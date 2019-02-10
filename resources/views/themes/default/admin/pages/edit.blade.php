@@ -7,6 +7,8 @@
 				{{ Form::open(['method' => 'PUT','route' => [config('app.theme').'admin.pages.update', $page->id],'style'=>'form-horizontal']) }}
                 {{ csrf_field() }}
 
+                @include(config('app.theme').'admin.previous-page')
+
                 <div class="form-group">
                     {!! Form::label('title', u__('admin.title')) !!}
                     {{ Form::text('title', $page->title, ['class'=>'form-control', 'placeholder'=>u__('admin.title') ]) }}
@@ -29,7 +31,7 @@
 
                 <div class="form-group">
                     {!! Form::label('parent', u__('admin.parent')) !!}
-                    {{ Form::text('parent_id', $page->parent_id, ['class'=>'form-control', 'placeholder'=> u__('admin.parent') ]) }}
+                    {{ Form::select('parent_id', $parentPages ,$page->parent_id) }}
                 </div>
 
 				<h3>{{ s__('admin.seo') }}</h3>
