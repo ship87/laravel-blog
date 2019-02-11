@@ -27,9 +27,4 @@ class PageRepository extends Repository
     {
         return $this->model->pluck('title','id')->all();
     }
-
-    public function getParentTitleId($id)
-    {
-        return $this->model->pluck('title','id')->find($id);
-    }
 }

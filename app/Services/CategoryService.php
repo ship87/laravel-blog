@@ -18,13 +18,13 @@ class CategoryService
         $this->baseRepo = $categoryRepo;
     }
 
-	public function getAllTitleId()
-	{
-		return $this->baseRepo->getAllTitleId();
-	}
+    public function getAllTitleId($excludeCategory = false)
+    {
+        return $this->baseRepo->getAllTitleId($excludeCategory);
+    }
 
-	public function getId($categories)
-	{
-		return $this->baseRepo->getId($categories);
-	}
+    public function getId($categories)
+    {
+        return $this->baseRepo->getId($categories);
+    }
 }

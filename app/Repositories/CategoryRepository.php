@@ -11,13 +11,17 @@ class CategoryRepository extends Repository
         $this->model = $model;
     }
 
-	public function getAllTitleId()
-	{
-		return $this->model->pluck('title','id')->all();
-	}
+    public function getAllTitleId($excludeCategory = false)
+    {
+        if ($excludeCategory) {
+            return $this->model->where('id', '!=', $excludeCategory->id)->pluck('title', 'id')->all();
+        } else {
+            return $this->model->pluck('title', 'id')->all();
+        }
+    }
 
-	public function getId($categories)
-	{
-		return $categories->pluck('id')->all();
-	}
+    public function getId($categories)
+    {
+        return $categories->pluck('id')->all();
+    }
 }

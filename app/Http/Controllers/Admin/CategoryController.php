@@ -34,9 +34,11 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(CategoryService $categoryService)
     {
-        return view(config('app.theme').'admin.categories.create');
+        return view(config('app.theme').'admin.categories.create', [
+            'categories' => $categoryService->getAllTitleId(),
+        ]);
     }
 
     /**
@@ -66,6 +68,8 @@ class CategoryController extends Controller
 
         return view(config('app.theme').'admin.categories.edit', [
             'category' => $category,
+            'categories' => $categoryService->getAllTitleId($category),
+            'selectedCategories' => $categoryService->getId($category),
         ]);
     }
 
@@ -78,9 +82,9 @@ class CategoryController extends Controller
      */
     public function update(CategoryRequest $request, $id, CategoryService $categoryService)
     {
-		$categoryService->update($request->all(),$id);
+        $categoryService->update($request->all(), $id);
 
-		return redirect()->route(config('app.theme').'admin.categories.index');
+        return redirect()->route(config('app.theme').'admin.categories.index');
     }
 
     /**

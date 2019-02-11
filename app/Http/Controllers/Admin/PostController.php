@@ -75,7 +75,7 @@ class PostController extends Controller
             'tags' => $tagService->getAllNameId(),
             'selectedTags' => $tagService->getId($post->tags),
             'categories' => $categoryService->getAllTitleId(),
-            'selectedCategories' => $tagService->getId($post->categories),
+            'selectedCategories' => $categoryService->getId($post->categories),
         ]);
     }
 
