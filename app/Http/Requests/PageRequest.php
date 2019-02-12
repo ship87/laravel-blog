@@ -36,8 +36,17 @@ class PageRequest extends FormRequest
      */
     public function rules()
     {
-        return [//
-        ];
+		$rules = [
+			'title' => 'required|unique',
+			'slug' => 'required|unique',
+			'content'=>'required',
+		];
+
+		if (config('app.comment_google_recaptcha')) {
+			$rules['g-recaptcha-response'] = 'required|recaptcha';
+		}
+
+		return $rules;
     }
 
     /**

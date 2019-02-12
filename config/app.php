@@ -64,7 +64,9 @@ return [
 
     'theme' => 'themes/'.env('APP_THEME', 'default').'/',
 
-    'google_recaptcha' => env('APP_GOOGLE_RECAPTCHA', false),
+    'contact_google_recaptcha' => env('APP_CONTACT_GOOGLE_RECAPTCHA', false),
+
+    'comment_google_recaptcha' => env('APP_COMMENT_GOOGLE_RECAPTCHA', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -90,7 +92,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => env('APP_LOCALE', 'en'),
 
     /*
     |--------------------------------------------------------------------------

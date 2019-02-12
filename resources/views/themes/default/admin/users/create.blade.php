@@ -12,19 +12,22 @@
                 <div class="form-group">
                     {!! Form::label('name', u__('admin.name')) !!}
                     {{ Form::text('name', old('name'), ['class'=>'form-control', 'placeholder'=>u__('admin.name') ]) }}
+					{{ $errors->first('name') }}
                 </div>
 
                 <div class="form-group">
                     {!! Form::label('email', u__('admin.email')) !!}
                     {{ Form::text('email', old('email'), ['class'=>'form-control', 'placeholder'=> u__('admin.email') ]) }}
+					{{ $errors->first('email') }}
                 </div>
 
                 <div class="form-group">
                     {!! Form::label('password', u__('admin.password')) !!}
                     {{ Form::password('password', old('password'), ['class'=>'form-control', 'placeholder'=> u__('admin.password') ]) }}
+					{{ $errors->first('password') }}
                 </div>
 
-                {{ Form::submit('Save', ['class' => 'btn btn-info']) }}
+                {{ Form::submit(u__('admin.save'), ['class' => 'btn btn-info']) }}
                 {{ Form::close() }}
 
             </div>

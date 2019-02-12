@@ -19,6 +19,10 @@
             @include(config('app.theme').'client.blog.tags', ['tags'=>$pageData->tags])
         </div>
 
+		<div class="add-comment">
+			@include(config('app.theme').'client.blog.create-comment', ['postId'=>$pageData->id])
+		</div>
+
         <div class="comments">
             @include(config('app.theme').'client.blog.comments', ['comments'=>$pageData->comments])
         </div>

@@ -13,8 +13,13 @@
 		{{ $pageData->content }}
 
 	</div>
+
+	<div class="add-comment">
+		@include(config('app.theme').'client.page.create-comment', ['pageId'=>$pageData->id])
+	</div>
+
 	<div class="comments">
-		@include(config('app.theme').'client.blog.comments', ['comments'=>$pageData->comments])
+		@include(config('app.theme').'client.page.comments', ['comments'=>$pageData->comments])
 	</div>
 </div>
 @endsection

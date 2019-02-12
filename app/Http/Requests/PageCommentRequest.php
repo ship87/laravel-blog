@@ -28,7 +28,8 @@ class PageCommentRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'content'=>'required',
+            'page_id'=>'required',
         ];
     }
 }

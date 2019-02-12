@@ -12,11 +12,13 @@
                 <div class="form-group">
                     {!! Form::label('title', u__('admin.title')) !!}
                     {{ Form::text('title', old('title'), ['class'=>'form-control', 'placeholder'=>u__('admin.title') ]) }}
+					{{ $errors->first('title') }}
                 </div>
 
                 <div class="form-group">
                     {!! Form::label('slug', u__('admin.slug')) !!}
                     {{ Form::text('slug', old('slug'), ['class'=>'form-control', 'placeholder'=> u__('admin.slug') ]) }}
+					{{ $errors->first('name') }}
                 </div>
 
                 <div class="form-group">
@@ -24,7 +26,7 @@
                     {{ Form::select('parent_id', $categories, old('parent_id')) }}
                 </div>
 
-                {{ Form::submit('Save', ['class' => 'btn btn-info']) }}
+                {{ Form::submit(u__('admin.save'), ['class' => 'btn btn-info']) }}
                 {{ Form::close() }}
 
             </div>

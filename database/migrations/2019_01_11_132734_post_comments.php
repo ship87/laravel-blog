@@ -15,8 +15,8 @@ class PostComments extends Migration
     {
         Schema::create('post_comments', function (Blueprint $table) {
             $table->increments('id');
-            $table->text('content');
-            $table->integer('post_id')->index()->nullable();
+            $table->text('content')->nullable(false);
+            $table->integer('post_id')->index()->nullable(false);
             $table->integer('parent_id')->nullable();
             $table->integer('created_user_id')->index();
             $table->integer('updated_user_id')->index();

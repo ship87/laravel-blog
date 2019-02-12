@@ -23,8 +23,8 @@ Route::namespace('Admin')->name(config('app.theme').'admin.')->middleware(['auth
     Route::resource('posts', 'PostController')->except('show');
     Route::resource('tags', 'TagController')->except('show');
     Route::resource('users', 'UserController')->except('show');
-    Route::resource('page-comments', 'PageCommentController')->except(['show', 'create', 'store']);
-    Route::resource('post-comments', 'PostCommentController')->except(['show', 'create', 'store']);
+    Route::resource('page-comments', 'PageCommentController')->except('show');
+    Route::resource('post-comments', 'PostCommentController')->except('show');
 });
 
 Route::group(['namespace' => 'Client'], function () {

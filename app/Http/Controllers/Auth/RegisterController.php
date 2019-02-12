@@ -62,4 +62,9 @@ class RegisterController extends CustomFolderController
             'password' => bcrypt($data['password']),
         ]);
     }
+
+    public function showRegistrationForm()
+    {
+        return view(config('app.theme').'auth.register');
+    }
 }

@@ -12,14 +12,16 @@
                 <div class="form-group">
                     {!! Form::label('name', u__('admin.name')) !!}
                     {{ Form::text('name', $user->name, ['class'=>'form-control', 'placeholder'=>u__('admin.name') ]) }}
+					{{ $errors->first('name') }}
                 </div>
 
                 <div class="form-group">
                     {!! Form::label('email', u__('admin.email')) !!}
                     {{ Form::text('email', $user->email, ['class'=>'form-control', 'placeholder'=> u__('admin.email') ]) }}
+					{{ $errors->first('email') }}
                 </div>
 
-                {{ Form::submit('Save', ['class' => 'btn btn-info']) }}
+                {{ Form::submit(u__('admin.save'), ['class' => 'btn btn-info']) }}
                 {{ Form::close() }}
 
             </div>

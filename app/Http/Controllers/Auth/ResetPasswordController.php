@@ -30,4 +30,5 @@ class ResetPasswordController extends CustomFolderController
 
         $this->middleware('guest');
     }
+
 }

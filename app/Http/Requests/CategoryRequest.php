@@ -28,7 +28,8 @@ class CategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+			'title' => 'required|unique',
+			'slug' => 'required|unique',
         ];
     }
 }

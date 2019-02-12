@@ -15,9 +15,9 @@ class Posts extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title', 255)->nullable();
-            $table->string('slug', 255)->unique();
-            $table->text('content')->nullable();
+            $table->string('title', 255)->nullable(false);
+            $table->string('slug', 255)->unique()->nullable(false);
+            $table->text('content')->nullable(false);
             $table->enum('no_comments', ['Y', 'N']);
             $table->integer('created_user_id')->index();
             $table->integer('updated_user_id')->index();

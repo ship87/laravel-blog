@@ -15,9 +15,9 @@ class Pages extends Migration
     {
         Schema::create('pages', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title', 255)->nullable();
-            $table->string('slug', 255)->unique();
-            $table->text('content')->nullable();
+            $table->string('title', 255)->nullable(false);
+            $table->string('slug', 255)->unique()->nullable(false);
+            $table->text('content')->nullable(false);
             $table->integer('parent_id')->nullable();
             $table->enum('no_comments', ['Y', 'N']);
             $table->integer('created_user_id')->index();

@@ -12,19 +12,10 @@
                 <div class="form-group">
                     {!! Form::label('content', u__('admin.content')) !!}
                     {{ Form::textarea('content', $pageComment->content, ['class'=>'form-control', 'placeholder'=> u__('admin.content') ]) }}
+					{{ $errors->first('content') }}
                 </div>
 
-                <div class="form-group">
-                    {!! Form::label('parent page', u__('admin.parent page')) !!}
-                    {{ Form::text('page_id', $pageComment->page_id, ['class'=>'form-control', 'placeholder'=> u__('admin.parent page') ]) }}
-                </div>
-
-                <div class="form-group">
-                    {!! Form::label('parent comment', u__('admin.parent comment')) !!}
-                    {{ Form::text('parent_id', $pageComment->parent_id, ['class'=>'form-control', 'placeholder'=> u__('admin.parent comment') ]) }}
-                </div>
-
-                {{ Form::submit('Save', ['class' => 'btn btn-info']) }}
+                {{ Form::submit(u__('admin.save'), ['class' => 'btn btn-info']) }}
                 {{ Form::close() }}
 
             </div>

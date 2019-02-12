@@ -29,20 +29,10 @@ class ContactFormRequest extends FormRequest
             'msg' => 'required',
         ];
 
-        if (config('app.google_recaptcha')) {
+        if (config('app.contact_google_recaptcha')) {
             $rules['g-recaptcha-response'] = 'required|recaptcha';
         }
 
         return $rules;
-    }
-
-    public function messages()
-    {
-        return [
-            'name' => 'The name field is required.',
-            'msg' => 'The message field is required.',
-            'email.required' => 'The email field is required.',
-            'email.email' => 'The email must be a valid email address.',
-        ];
     }
 }

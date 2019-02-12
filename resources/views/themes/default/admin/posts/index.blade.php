@@ -8,12 +8,12 @@
                 {{$post->id}}
             </div>
             <div class="col-xs-1">
-                <a href="{{ route(config('app.theme').'admin.posts.edit', $post->id) }}">{{ Form::submit('Edit', ['class' => 'btn btn-info']) }}</a>
+                <a href="{{ route(config('app.theme').'admin.posts.edit', $post->id) }}">{{ Form::submit(u__('admin.edit'), ['class' => 'btn btn-info']) }}</a>
             </div>
             <div class="col-xs-1">
-                {{ Form::open(['method' => 'DELETE','route' => [config('app.theme').'admin.posts.destroy', $post->id],'style'=>'form-inline']) }}
+                {{ Form::open(['method' => u__('admin.delete'),'route' => [config('app.theme').'admin.posts.destroy', $post->id],'style'=>'form-inline']) }}
                 {{ csrf_field() }}
-                {{ Form::submit('Delete', ['class' => 'btn btn-info','onclick'=>'confirmDelete()']) }}
+                {{ Form::submit(u__('admin.delete'), ['class' => 'btn btn-info','onclick'=>'confirmDelete()']) }}
                 {{ Form::close() }}
             </div>
             <div class="col-xs-5">

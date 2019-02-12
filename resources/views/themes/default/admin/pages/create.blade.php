@@ -12,16 +12,19 @@
                 <div class="form-group">
                     {!! Form::label('title', u__('admin.title')) !!}
                     {{ Form::text('title', old('title'), ['class'=>'form-control', 'placeholder'=>u__('admin.title') ]) }}
+					{{ $errors->first('title') }}
                 </div>
 
                 <div class="form-group">
                     {!! Form::label('slug', u__('admin.slug')) !!}
                     {{ Form::text('slug', old('slug'), ['class'=>'form-control', 'placeholder'=> u__('admin.slug') ]) }}
+					{{ $errors->first('slug') }}
                 </div>
 
                 <div class="form-group">
                     {!! Form::label('content', u__('admin.content')) !!}
                     {{ Form::textarea('content', old('content'), ['class'=>'form-control', 'placeholder'=> u__('admin.content'),'id'=>'editor' ]) }}
+					{{ $errors->first('content') }}
                 </div>
 
                 <div class="form-group">
@@ -51,7 +54,7 @@
                     {{ Form::text('seokeywords', old('seokeywords'), ['class'=>'form-control', 'placeholder'=> u__('admin.keywords') ]) }}
                 </div>
 
-                {{ Form::submit('Save', ['class' => 'btn btn-info']) }}
+                {{ Form::submit(u__('admin.save'), ['class' => 'btn btn-info']) }}
                 {{ Form::close() }}
 
             </div>

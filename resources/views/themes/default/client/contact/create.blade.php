@@ -2,43 +2,35 @@
 
 @section('content')
     <div class="container">
-
+        {!! Form::open(['route' => 'contact.store']) !!}
         {{ csrf_field() }}
 
-        {!! Form::open(['route' => 'contact.store']) !!}
-
         <div class="form-group">
-            {!! Form::label('name', 'Your Name') !!}
+            {!! Form::label('name', u__('client.your name')) !!}
             {!! Form::text('name', null, ['class' => 'form-control']) !!}
+            {{ $errors->first('name') }}
         </div>
 
         <div class="form-group">
-            {!! Form::label('email', 'E-mail Address') !!}
+            {!! Form::label('email', u__('client.e-mail address')) !!}
             {!! Form::text('email', null, ['class' => 'form-control']) !!}
+            {{ $errors->first('email') }}
         </div>
 
         <div class="form-group">
-            {!! Form::label('message', 'Message') !!}
+            {!! Form::label('message', u__('client.message')) !!}
             {!! Form::textarea('msg', null, ['class' => 'form-control']) !!}
+            {{ $errors->first('msg') }}
         </div>
 
-        @if(config('app.google_recaptcha') and env('GOOGLE_RECAPTCHA_KEY'))
-            <div class="g-recaptcha"
-                 data-sitekey="{{env('GOOGLE_RECAPTCHA_KEY')}}">
+        @if(config('app.contact_google_recaptcha') and env('GOOGLE_RECAPTCHA_KEY'))
+            <div class="g-recaptcha" data-sitekey="{{env('GOOGLE_RECAPTCHA_KEY')}}">
             </div>
+            {{ $errors->first('g-recaptcha-response') }}
         @endif
 
-        {!! Form::submit('Submit', ['class' => 'btn btn-info']) !!}
-
+        {!! Form::submit(u__('client.submit'), ['class' => 'btn btn-info']) !!}
         {!! Form::close() !!}
-
-        {{ $errors->first('name') }}
-        {{ $errors->first('email') }}
-        {{ $errors->first('msg') }}
-
-        @if(config('app.google_recaptcha') and env('GOOGLE_RECAPTCHA_KEY'))
-        {{ $errors->first('g-recaptcha-response') }}
-        @endif
 
         {{ session()->get( 'sendMessage' ) }}
 
