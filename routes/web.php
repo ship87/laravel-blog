@@ -17,23 +17,14 @@ Route::namespace('Admin')->name(config('app.theme').'admin.')->middleware(['auth
 ) {
 
     Route::get('', 'AdminController@index');
-
     Route::get('images', 'ImageController@index');
-
-    Route::group(['except' => 'show'], function () {
-
-        Route::resource('categories', 'CategoryController');
-
-        Route::resource('page-comments', 'PageCommentController');
-        Route::resource('pages', 'PageController');
-
-        Route::resource('post-comments', 'PostCommentController');
-        Route::resource('posts', 'PostController');
-
-        Route::resource('tags', 'TagController');
-
-        Route::resource('users', 'UserController');
-    });
+    Route::resource('categories', 'CategoryController')->except('show');
+    Route::resource('pages', 'PageController')->except('show');
+    Route::resource('posts', 'PostController')->except('show');
+    Route::resource('tags', 'TagController')->except('show');
+    Route::resource('users', 'UserController')->except('show');
+    Route::resource('page-comments', 'PageCommentController')->except(['show', 'create', 'store']);
+    Route::resource('post-comments', 'PostCommentController')->except(['show', 'create', 'store']);
 });
 
 Route::group(['namespace' => 'Client'], function () {

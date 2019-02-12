@@ -26,7 +26,7 @@ class ContactController extends Controller
 
         $mail->to(config('mail.noreply_address'))->send(new ContactEmail($contact));
 
-        $sendMessage = 'Thank you for your email';
+        $sendMessage = u__('admin.thank you for your email');
 
         return redirect()->route('contact.create')->with(['sendMessage' => $sendMessage]);
     }
