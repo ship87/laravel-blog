@@ -39,8 +39,7 @@ class PostRequest extends FormRequest
     public function rules()
     {
 		$rules = [
-			'title' => 'required|unique',
-			'slug' => 'required|unique',
+			'title' => 'required|unique:posts',
 			'content'=>'required',
 		];
 

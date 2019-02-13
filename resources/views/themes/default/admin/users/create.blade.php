@@ -9,22 +9,22 @@
 
                 @include(config('app.theme').'admin.previous-page')
 
-                <div class="form-group">
+                <div class="form-group {{ $errors->first('name') ? 'has-error' : '' }}">
                     {!! Form::label('name', u__('admin.name')) !!}
                     {{ Form::text('name', old('name'), ['class'=>'form-control', 'placeholder'=>u__('admin.name') ]) }}
-					{{ $errors->first('name') }}
+					<span class="help-block">{{ $errors->first('name') }}</span>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group {{ $errors->first('email') ? 'has-error' : '' }}">
                     {!! Form::label('email', u__('admin.email')) !!}
                     {{ Form::text('email', old('email'), ['class'=>'form-control', 'placeholder'=> u__('admin.email') ]) }}
-					{{ $errors->first('email') }}
+					<span class="help-block">{{ $errors->first('email') }}</span>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group {{ $errors->first('password') ? 'has-error' : '' }}">
                     {!! Form::label('password', u__('admin.password')) !!}
                     {{ Form::password('password', old('password'), ['class'=>'form-control', 'placeholder'=> u__('admin.password') ]) }}
-					{{ $errors->first('password') }}
+					<span class="help-block">{{ $errors->first('password') }}</span>
                 </div>
 
                 {{ Form::submit(u__('admin.save'), ['class' => 'btn btn-info']) }}

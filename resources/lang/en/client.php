@@ -16,9 +16,11 @@ return [
     'your name' => 'your name',
     'comment' => 'comment',
     'add'=>'add',
+    'message'=>'message',
     'e-mail address'=>'e-mail address',
     'submit'=>'submit',
     'thank you for your email' => 'thank you for your email',
     'login'=>'login',
+    'logout'=>'logout',
     'register'=>'register',
 ];

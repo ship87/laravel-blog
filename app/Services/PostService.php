@@ -9,13 +9,15 @@ use App\Repositories\MetatagRepository;
 use App\Repositories\PostTagRepository;
 use App\Traits\AdminPageTrait;
 use App\Traits\ClientPageTrait;
-use App\Traits\CreateUpdateUserTrait;
+use App\Traits\CreateUpdateSlugTrait;
 
 class PostService
 {
     use AdminPageTrait;
 
     use ClientPageTrait;
+
+    use CreateUpdateSlugTrait;
 
     protected $categoryPostRepo;
 
@@ -35,8 +37,8 @@ class PostService
 
     public function update(array $data, array $relationData, $id, $auth)
     {
-
         $data['updated_user_id'] = $auth->id;
+		$data['slug'] = $this->checkSlug($data['slug'], $data['title']);
 
         $post = $this->baseRepo->update($data, $id);
 
@@ -51,8 +53,8 @@ class PostService
 
     public function create(array $data, array $relationData, $auth)
     {
-
         $data['created_user_id'] = $data['updated_user_id'] = $auth->id;
+		$data['slug'] = $this->checkSlug($data['slug'], $data['title']);
 
         $post = $this->baseRepo->create($data);
 
@@ -73,8 +75,12 @@ class PostService
             'keywords' => $relationData['seokeywords'],
         ]);
 
+		if (!empty($relationData['categories'])){
         $this->categoryPostRepo->saveMany($post, array_values($relationData['categories']));
+		}
 
+		if (!empty($relationData['categories'])){
         $this->postTagRepo->saveMany($post, array_values($relationData['tags']));
+		}
     }
 }

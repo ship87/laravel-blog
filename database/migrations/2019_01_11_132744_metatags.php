@@ -19,7 +19,7 @@ class MetaTags extends Migration
             $table->integer('page_id')->nullable();
             $table->integer('post_id')->nullable();
             $table->enum('name', ['title', 'description', 'keywords', 'robots']);
-            $table->string('content', 255);
+            $table->string('content', 255)->nullable();
             $table->unique(['page_id', 'name']);
         });
     }

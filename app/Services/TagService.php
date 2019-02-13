@@ -5,13 +5,14 @@ namespace App\Services;
 use App\Repositories\TagRepository;
 
 use App\Traits\AdminPageTrait;
+use App\Traits\CreateUpdateSlugTrait;
 use App\Traits\CreateUpdateTrait;
 
 class TagService
 {
 	use AdminPageTrait;
 
-	use CreateUpdateTrait;
+	use CreateUpdateSlugTrait;
 
     public function __construct(TagRepository $tagRepo)
     {

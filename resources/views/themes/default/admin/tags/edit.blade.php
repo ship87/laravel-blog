@@ -9,16 +9,15 @@
 
                 @include(config('app.theme').'admin.previous-page')
 
-                <div class="form-group">
-                    {!! Form::label('name', u__('admin.name')) !!}
-                    {{ Form::text('name', $tag->name, ['class'=>'form-control', 'placeholder'=>u__('admin.name') ]) }}
-					{{ $errors->first('name') }}
+                <div class="form-group {{ $errors->first('title') ? 'has-error' : '' }}">
+                    {!! Form::label('title', u__('admin.title')) !!}
+                    {{ Form::text('title', $tag->title, ['class'=>'form-control', 'placeholder'=>u__('admin.title') ]) }}
+					<span class="help-block">{{ $errors->first('title') }}</span>
                 </div>
 
                 <div class="form-group">
                     {!! Form::label('slug', u__('admin.slug')) !!}
                     {{ Form::text('slug', $tag->slug, ['class'=>'form-control', 'placeholder'=> u__('admin.slug') ]) }}
-					{{ $errors->first('slug') }}
                 </div>
 
                 {{ Form::submit(u__('admin.save'), ['class' => 'btn btn-info']) }}

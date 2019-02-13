@@ -5,13 +5,14 @@ namespace App\Services;
 use App\Repositories\CategoryRepository;
 
 use App\Traits\AdminPageTrait;
+use App\Traits\CreateUpdateSlugTrait;
 use App\Traits\CreateUpdateTrait;
 
 class CategoryService
 {
     use AdminPageTrait;
 
-    use CreateUpdateTrait;
+    use CreateUpdateSlugTrait;
 
     public function __construct(CategoryRepository $categoryRepo)
     {

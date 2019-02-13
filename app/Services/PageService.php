@@ -7,13 +7,15 @@ use App\Repositories\MetatagRepository;
 
 use App\Traits\AdminPageTrait;
 use App\Traits\ClientPageTrait;
-use App\Traits\CreateUpdateUserTrait;
+use App\Traits\CreateUpdateSlugTrait;
 
 class PageService
 {
     use AdminPageTrait;
 
     use ClientPageTrait;
+
+    use CreateUpdateSlugTrait;
 
     public function __construct(PageRepository $pageRepo, MetatagRepository $metatagRepo)
     {
@@ -53,8 +55,8 @@ class PageService
 
     public function update(array $data, array $relationData, $id, $auth)
     {
-
         $data['updated_user_id'] = $auth->id;
+		$data['slug'] = $this->checkSlug($data['slug'], $data['title']);
 
         $page = $this->baseRepo->update($data, $id);
 
@@ -69,7 +71,6 @@ class PageService
 
     public function create(array $data, array $relationData, $auth)
     {
-
         $data['created_user_id'] = $data['updated_user_id'] = $auth->id;
 
         $page = $this->baseRepo->create($data);

@@ -9,10 +9,10 @@
 
                 @include(config('app.theme').'admin.previous-page')
 
-                <div class="form-group">
+                <div class="form-group {{ $errors->first('content') ? 'has-error' : '' }}">
                     {!! Form::label('content', u__('admin.content')) !!}
                     {{ Form::textarea('content', $postComment->content, ['class'=>'form-control', 'placeholder'=> u__('admin.content') ]) }}
-					{{ $errors->first('content') }}
+					<span class="help-block">{{ $errors->first('content') }}</span>
                 </div>
 
                 {{ Form::submit(u__('admin.save'), ['class' => 'btn btn-info']) }}
