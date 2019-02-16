@@ -61,9 +61,7 @@ class PostCommentController extends Controller
      */
     public function edit($id, PostCommentService $postCommentService)
     {
-        $postComment = $postCommentService->getById($id);
-
-        $this->isEmptyPage($postComment);
+        $postComment = $postCommentService->getByIdOrFail($id);
 
         return view(config('app.theme').'admin.post-comments.edit', [
             'postComment' => $postComment,

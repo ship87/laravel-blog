@@ -6,7 +6,6 @@ use App\Repositories\CategoryRepository;
 
 use App\Traits\AdminPageTrait;
 use App\Traits\CreateUpdateSlugTrait;
-use App\Traits\CreateUpdateTrait;
 
 class CategoryService
 {

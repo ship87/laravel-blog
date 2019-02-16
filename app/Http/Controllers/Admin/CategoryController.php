@@ -62,9 +62,7 @@ class CategoryController extends Controller
      */
     public function edit($id, CategoryService $categoryService)
     {
-        $category = $categoryService->getById($id);
-
-        $this->isEmptyPage($category);
+        $category = $categoryService->getByIdOrFail($id);
 
         return view(config('app.theme').'admin.categories.edit', [
             'category' => $category,

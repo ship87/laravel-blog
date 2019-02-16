@@ -60,9 +60,7 @@ class UserController extends Controller
      */
     public function edit($id, UserService $userService)
     {
-        $user = $userService->getById($id);
-
-        $this->isEmptyPage($user);
+        $user = $userService->getByIdOrFail($id);
 
         return view(config('app.theme').'admin.users.edit', [
             'user' => $user,

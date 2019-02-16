@@ -61,9 +61,7 @@ class PageCommentController extends Controller
      */
     public function edit($id, PageCommentService $pageCommentService)
     {
-        $pageComment = $pageCommentService->getById($id);
-
-        $this->isEmptyPage($pageComment);
+        $pageComment = $pageCommentService->getByIdOrFail($id);
 
         return view(config('app.theme').'admin.page-comments.edit', [
             'pageComment' => $pageComment,

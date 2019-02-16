@@ -12,6 +12,8 @@ interface RepositoryInterface
 
     public function getById($id);
 
+    public function getByIdOrFail($id);
+
     public function getByParam(array $where);
 
     public function getAll();

@@ -65,8 +65,6 @@ class PageController extends Controller
     {
         $page = $pageService->getByIdWithSeo($id);
 
-        $this->isEmptyPage($page);
-
         return view(config('app.theme').'admin.pages.edit', [
             'page' => $page,
             'parentPages' => $pageService->getAllTitleId(),

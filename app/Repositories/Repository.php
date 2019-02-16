@@ -15,10 +15,15 @@ abstract class Repository implements RepositoryInterface
         $this->model = $model;
     }
 
-	public function getById($id)
-	{
-		return $this->model->find($id);
-	}
+    public function getById($id)
+    {
+        return $this->model->find($id);
+    }
+
+    public function getByIdOrFail($id)
+    {
+        return $this->model->findOrFail($id);
+    }
 
     public function getByParam(array $where)
     {
@@ -61,8 +66,12 @@ abstract class Repository implements RepositoryInterface
         return $this;
     }
 
-    public function getPaginated($path, $count)
+    public function getPaginated($path, $with = false, $count)
     {
-        return $this->model->paginate($count)->setPath($path);
+        if ($with) {
+            return $this->model->with(['comments', 'metatags'])->paginate($count)->setPath($path);
+        } else {
+            return $this->model->paginate($count)->setPath($path);
+        }
     }
 }

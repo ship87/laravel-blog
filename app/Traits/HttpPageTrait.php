@@ -6,17 +6,8 @@ use Illuminate\Http\Request;
 
 trait HttpPageTrait
 {
-    private function isEmptyPage($page)
-    {
-        if (!$page) {
-            abort(404);
-        }
-    }
-
     private function isEmptyPaginated($pages, Request $request)
     {
-        $this->isEmptyPage($pages);
-
         $currentPage = $request->input('page');
 
         if (! empty($currentPage)) {

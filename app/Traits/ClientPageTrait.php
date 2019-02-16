@@ -18,7 +18,7 @@ trait ClientPageTrait
         $data = $this->getByParam($id);
 
         if (! $data) {
-            return false;
+            abort(404);
         }
 
         $data->seotitle = $this->metatagRepo->getByName($data->metatags, 'title');

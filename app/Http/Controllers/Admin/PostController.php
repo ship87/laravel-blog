@@ -68,8 +68,6 @@ class PostController extends Controller
     {
         $post = $postService->getByIdWithSeo($id);
 
-        $this->isEmptyPage($post);
-
         return view(config('app.theme').'admin.posts.edit', [
             'post' => $post,
             'tags' => $tagService->getAllNameId(),

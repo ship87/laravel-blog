@@ -60,9 +60,7 @@ class TagController extends Controller
      */
     public function edit($id, TagService $tagService)
     {
-        $tag = $tagService->getById($id);
-
-        $this->isEmptyPage($tag);
+        $tag = $tagService->getByIdOrFail($id);
 
         return view(config('app.theme').'admin.tags.edit', [
             'tag' => $tag,

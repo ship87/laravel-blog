@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\PageComment;
 
 use Illuminate\Http\Resources\Json\Resource;
 
-class PostComment extends Resource
+class PageCommentIdentifierResource extends Resource
 {
     /**
      * Transform the resource into an array.
@@ -14,6 +14,9 @@ class PostComment extends Resource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+		return [
+			'type'          => 'page-comments',
+			'id'            => (string)$this->id,
+		];
     }
 }
