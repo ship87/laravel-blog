@@ -49,14 +49,39 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        // Give detailed stacktrace error info if APP_DEBUG is true in the .env
-        if ($request->is('api/*')) {
-            // Return reasonable response if trying to, for instance, delete nonexistent resource id.
-            if ($exception instanceof ModelNotFoundException) {
-                return response()->json(['data' => 'Resource not found'], 404);
-            }
+        $response = $this->isJsonApiRequest($request, $exception);
+
+        if ($response) {
+            return $response;
         }
 
         return parent::render($request, $exception);
+    }
+
+    private function isJsonApiRequest(&$request, Exception $exception)
+    {
+
+        if ($request->is('api/v1/*')) {
+
+            $response = [
+                'errors' => 'Sorry, something went wrong.',
+            ];
+
+            if (config('app.debug')) {
+                $response['exception'] = get_class($exception);
+                $response['message'] = $exception->getMessage();
+                $response['trace'] = $exception->getTrace();
+            }
+
+            $status = 400;
+
+            if ($this->isHttpException($exception)) {
+                $status = $exception->getCode();
+            }
+
+            return response()->json($response, $status);
+        }
+
+        return false;
     }
 }

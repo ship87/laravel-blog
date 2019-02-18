@@ -16,8 +16,12 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::namespace('Api')->group(function () {
 
+/**
+ *  JSON:API v1.0
+ * 	url: /api/v1
+ */
+Route::namespace('Api')->prefix('v1')->middleware(['api', 'return-json'])->group(function () {
 
     Route::apiResource('categories', 'CategoryController');
     Route::apiResource('tags', 'TagController');
