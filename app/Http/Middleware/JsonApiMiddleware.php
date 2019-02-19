@@ -45,6 +45,7 @@ class JsonApiMiddleware
 		$response = $next($request);
 
 		// If the response is not strictly a JsonResponse, we make it
+
 		if (!$response instanceof JsonResponse) {
 			$response = $this->factory->json(
 				$response->content(),
@@ -59,7 +60,7 @@ class JsonApiMiddleware
 			$response->setContent(
 				json_encode(
 					json_decode($response->getContent(),true),JSON_PRETTY_PRINT
-					//|JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES
+					|JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES
 				)
 			);
 		}

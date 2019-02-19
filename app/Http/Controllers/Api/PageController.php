@@ -40,12 +40,15 @@ class PageController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id, PageService $pageService)
+    public function show($id, PageService $pageService, Request $request)
     {
-        $page = $pageService->getByIdOrFail($id);
+        $include = $pageService->includeData($request->input('include'));
+
+        $page = $pageService->getByParam(['id' => $id], $include['with'] ?? []);
+
         PageResource::withoutWrapping();
 
-        return new PageResource($page);
+        return new PageResource($page, $include['relatedResources'] ?? []);
     }
 
     /**

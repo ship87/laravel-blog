@@ -25,9 +25,13 @@ abstract class Repository implements RepositoryInterface
         return $this->model->findOrFail($id);
     }
 
-    public function getByParam(array $where)
+    public function getByParam(array $where, array $with = [])
     {
-        return $this->model->where($where)->first();
+		if (!empty($with)) {
+			return $this->model->with($with)->where($where)->first();
+		}
+
+		return $this->model->where($where)->first();
     }
 
     public function create(array $data)
@@ -69,9 +73,9 @@ abstract class Repository implements RepositoryInterface
     public function getPaginated($path, $with = false, $count)
     {
         if ($with) {
-            return $this->model->with(['comments', 'metatags'])->paginate($count)->setPath($path);
-        } else {
-            return $this->model->paginate($count)->setPath($path);
+            return $this->model->with($with)->paginate($count)->setPath($path);
         }
+
+		return $this->model->paginate($count)->setPath($path);
     }
 }

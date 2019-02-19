@@ -4,8 +4,12 @@ namespace App\Http\Resources\Page;
 
 use Illuminate\Http\Resources\Json\Resource;
 
+use App\Traits\RelateResourceTrait;
+
 class PageResource extends Resource
 {
+    use RelateResourceTrait;
+
     /**
      * Transform the resource into an array.
      *
@@ -14,7 +18,7 @@ class PageResource extends Resource
      */
     public function toArray($request)
     {
-        return [
+        $page = [
             'type' => 'pages',
             'id' => (string) $this->id,
             'attributes' => [
@@ -34,5 +38,7 @@ class PageResource extends Resource
                 'self' => route('pages.show', ['page' => $this->id]),
             ],
         ];
+
+        return $this->includedResource($this->include, $page);
     }
 }

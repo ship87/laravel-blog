@@ -13,7 +13,7 @@ class PageRepository extends Repository
         $this->model = $model;
     }
 
-    public function getByParam(array $where = [])
+    public function getByParamWithAll(array $where)
     {
         return $this->model->with(['comments', 'metatags', 'createdUser', 'updatedUser'])->where($where)->first();
     }

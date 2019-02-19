@@ -8,14 +8,14 @@ trait ClientPageTrait
 
     protected $metatagRepo;
 
-    public function getByParam($id)
+    public function getByParam(array $where, array $with = [])
     {
-        return $this->baseRepo->getByParam(['id' => $id]);
+        return $this->baseRepo->getByParam($where, $with);
     }
 
     public function getByIdWithSeo($id)
     {
-        $data = $this->getByParam($id);
+        $data = $this->getByParam(['id' => $id]);
 
         if (! $data) {
             abort(404);

@@ -8,6 +8,7 @@ use App\Repositories\MetatagRepository;
 use App\Traits\AdminPageTrait;
 use App\Traits\ClientPageTrait;
 use App\Traits\CreateUpdateSlugTrait;
+use App\Traits\IncludeRelateResourceTrait;
 
 class PageService
 {
@@ -16,6 +17,13 @@ class PageService
     use ClientPageTrait;
 
     use CreateUpdateSlugTrait;
+
+    use IncludeRelateResourceTrait;
+
+    protected $relatedResources = [
+        'comments' => '\\App\\Http\\Resources\\PageComment\\PageCommentResource',
+        'metatags' => '\\App\\Http\\Resources\\Metatag\\MetatagResource',
+    ];
 
     public function __construct(PageRepository $pageRepo, MetatagRepository $metatagRepo)
     {
@@ -56,7 +64,7 @@ class PageService
     public function update(array $data, array $relationData, $id, $auth)
     {
         $data['updated_user_id'] = $auth->id;
-		$data['slug'] = $this->checkSlug($data['slug'], $data['title']);
+        $data['slug'] = $this->checkSlug($data['slug'], $data['title']);
 
         $page = $this->baseRepo->update($data, $id);
 
@@ -92,4 +100,5 @@ class PageService
             'keywords' => $relationData['seokeywords'],
         ]);
     }
+
 }
