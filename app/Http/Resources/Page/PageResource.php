@@ -20,7 +20,7 @@ class PageResource extends Resource
     {
         $page = [
             'type' => 'pages',
-            'id' => (string) $this->id,
+            'id' => (int) $this->id,
             'attributes' => [
                 'title' => $this->title,
                 'slug' => $this->slug,
@@ -39,6 +39,10 @@ class PageResource extends Resource
             ],
         ];
 
-        return $this->includedResource($this->include, $page);
+        if (! empty($this->include) && is_array($this->include)) {
+            return $this->includedResource($this->include, $page);
+        }
+
+        return $page;
     }
 }

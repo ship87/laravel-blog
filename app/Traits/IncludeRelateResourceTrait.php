@@ -4,18 +4,26 @@ namespace App\Traits;
 
 trait IncludeRelateResourceTrait
 {
-    public function includeData($include)
+    public function includeRelatedResources($include)
     {
         if (empty($include)) {
             return false;
         }
 
         $include = explode(',', $include);
-        $relatedResources = array_keys($this->relatedResources);
+        $relatedResourcesPrepare = array_keys($this->relatedResources);
+
+        foreach ($relatedResourcesPrepare as $key => $value) {
+            $relatedResources[$value] = strtolower($value);
+        }
 
         foreach ($include as $relateResource) {
-            if (in_array($relateResource, $relatedResources)) {
-                $with[$relateResource] = $this->relatedResources[$relateResource];
+
+            $search = array_search($relateResource, $relatedResources);
+
+            if ($search) {
+
+                $with[$search] = $this->relatedResources[$search];
             }
         }
 

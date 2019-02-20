@@ -16,9 +16,18 @@ class PageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(PageService $pageService)
+    public function index(PageService $pageService, Request $request)
     {
-        $pages = $pageService->getPaginated('pages');
+        $orderBy = $pageService->sortData($request->input('sort'));
+
+
+        $where = $pageService->filterData($request->all());
+
+
+
+        $pages = $pageService->getPaginated('pages', false, $where, $orderBy);
+
+
 
         return new PagesResource($pages);
     }
@@ -42,9 +51,20 @@ class PageController extends Controller
      */
     public function show($id, PageService $pageService, Request $request)
     {
-        $include = $pageService->includeData($request->input('include'));
+        $id = (int) $id;
+        if ($id === 0) {
+            abort(400);
+        }
 
-        $page = $pageService->getByParam(['id' => $id], $include['with'] ?? []);
+        $include = $pageService->includeRelatedResources($request->input('include'));
+
+        $page = $pageService->getByParam([
+            'id' => $id,
+        ], ($include['with'] ?? []));
+
+        if (empty($page)) {
+            abort(404);
+        }
 
         PageResource::withoutWrapping();
 

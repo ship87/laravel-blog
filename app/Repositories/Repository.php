@@ -25,13 +25,21 @@ abstract class Repository implements RepositoryInterface
         return $this->model->findOrFail($id);
     }
 
-    public function getByParam(array $where, array $with = [])
+    public function getByParam(array $where, array $with = [], array $orderBy = [])
     {
-		if (!empty($with)) {
-			return $this->model->with($with)->where($where)->first();
-		}
+        $model = $this->model->where($where);
 
-		return $this->model->where($where)->first();
+        if (! empty($with)) {
+            $model = $model->with($with);
+        }
+
+        if (! empty($orderBy)) {
+            foreach ($orderBy as $column => $sort) {
+                $model = $model->orderBy($column, $sort);
+            }
+        }
+
+        return $model->first();
     }
 
     public function create(array $data)
@@ -70,12 +78,24 @@ abstract class Repository implements RepositoryInterface
         return $this;
     }
 
-    public function getPaginated($path, $with = false, $count)
+    public function getPaginated($path, $with = false, $count, array $where = [], array $orderBy = [])
     {
-        if ($with) {
-            return $this->model->with($with)->paginate($count)->setPath($path);
+        $model = $this->model;
+
+        if (! empty($with)) {
+            $model = $model->with($with);
         }
 
-		return $this->model->paginate($count)->setPath($path);
+        if (! empty($where)) {
+            $model = $model->where($where);
+        }
+
+        if (! empty($orderBy)) {
+            foreach ($orderBy as $column => $sort) {
+                $model = $model->orderBy($column, $sort);
+            }
+        }
+
+        return $model->paginate($count)->setPath($path);
     }
 }

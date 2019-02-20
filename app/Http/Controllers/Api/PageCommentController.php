@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
+use App\Services\PageCommentService;
+use App\Http\Resources\PageComment\PageCommentResource;
+use App\Http\Resources\PageComment\PageCommentsResource;
 
 class PageCommentController extends Controller
 {
@@ -13,11 +16,11 @@ class PageCommentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(MetatagService $metatagService)
+    public function index(PageCommentService $metatagService)
     {
         $metatags = $metatagService->getPaginated('metatags');
 
-        return new MetatagsResource($metatags);
+        return new PageCommentsResource($metatags);
     }
 
     /**

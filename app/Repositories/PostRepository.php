@@ -11,7 +11,7 @@ class PostRepository extends Repository
         $this->model = $model;
     }
 
-    public function getByParam(array $where = [])
+    public function getByParamAll(array $where = [])
     {
         return $this->model->with([
             'comments',

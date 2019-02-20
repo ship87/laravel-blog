@@ -40,12 +40,24 @@ class PostController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id, PostService $postService)
+    public function show($id, PostService $postService, Request $request)
     {
-        $post = $postService->getByIdOrFail($id);
+		$id = (int)$id;
+		if ($id==0) {
+			abort(400);
+		}
+
+		$include = $postService->includeRelatedResources($request->input('include'));
+
+        $post = $postService->getByParam(['id' => $id], $include['with'] ?? []);
+
+		if (empty($post)){
+			abort(404);
+		}
+
         PostResource::withoutWrapping();
 
-        return new PostResource($post);
+        return new PostResource($post, $include['relatedResources'] ?? []);
     }
 
     /**

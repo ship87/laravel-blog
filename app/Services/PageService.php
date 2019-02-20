@@ -9,6 +9,8 @@ use App\Traits\AdminPageTrait;
 use App\Traits\ClientPageTrait;
 use App\Traits\CreateUpdateSlugTrait;
 use App\Traits\IncludeRelateResourceTrait;
+use App\Traits\FilterDataTrait;
+use App\Traits\SortDataTrait;
 
 class PageService
 {
@@ -20,9 +22,25 @@ class PageService
 
     use IncludeRelateResourceTrait;
 
+    use FilterDataTrait;
+
+    use SortDataTrait;
+
     protected $relatedResources = [
         'comments' => '\\App\\Http\\Resources\\PageComment\\PageCommentResource',
         'metatags' => '\\App\\Http\\Resources\\Metatag\\MetatagResource',
+        'createdUser' => '\\App\\Http\\Resources\\User\\UserResource',
+        'updatedUser' => '\\App\\Http\\Resources\\User\\UserResource',
+    ];
+
+    protected $sortData = [
+        'created_at' => 'ASC',
+        'updated_at' => 'ASC',
+    ];
+
+    protected $whereData = [
+        'title',
+        'slug',
     ];
 
     public function __construct(PageRepository $pageRepo, MetatagRepository $metatagRepo)
@@ -100,5 +118,4 @@ class PageService
             'keywords' => $relationData['seokeywords'],
         ]);
     }
-
 }

@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
+use App\Services\TagService;
+use App\Http\Resources\Tag\TagResource;
+use App\Http\Resources\Tag\TagsResource;
 
 class TagController extends Controller
 {

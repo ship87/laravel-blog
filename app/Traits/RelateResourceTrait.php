@@ -2,11 +2,13 @@
 
 namespace App\Traits;
 
+use Illuminate\Support\Collection;
+
 trait RelateResourceTrait
 {
     protected $include = [];
 
-    public function __construct($resource, array $include = [])
+    public function __construct($resource, $include = false)
     {
         $this->resource = $resource;
 
@@ -15,17 +17,19 @@ trait RelateResourceTrait
         }
     }
 
-    protected function includedResource(array $include = [], $page)
+    protected function includedResource(array $include, $page)
     {
-        if (empty($this->include)) {
-            return $page;
-        }
-
         $included = false;
 
         foreach ($include as $relatedResource => $relatedResourceClass) {
 
-            $resource = $relatedResourceClass::collection($this->{$relatedResource});
+            $data = $this->{$relatedResource};
+
+            if ($data instanceof Collection) {
+                $resource = $relatedResourceClass::collection($data);
+            } else {
+                $resource = $relatedResourceClass::collection((new Collection())->push($data));
+            }
 
             if (! $included) {
                 $included = collect($resource);

@@ -9,15 +9,15 @@ class PageCommentResource extends Resource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return array
      */
     public function toArray($request)
     {
         return [
-            'type'          => 'page-comments',
-            'id'            => (string)$this->id,
-            'attributes'    => [
+            'type' => 'page-comments',
+            'id' => (string) $this->id,
+            'attributes' => [
                 'content' => $this->content,
                 'page_id' => $this->page_id,
                 'parent_id' => $this->parent_id,
@@ -27,7 +27,7 @@ class PageCommentResource extends Resource
                 'updated_at' => $this->updated_at,
                 'deleted_at' => $this->deleted_at,
             ],
-            'links'         => [
+            'links' => [
                 'self' => route('page-comments.show', ['page_comment' => $this->id]),
             ],
         ];

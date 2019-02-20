@@ -4,8 +4,12 @@ namespace App\Http\Resources\Post;
 
 use Illuminate\Http\Resources\Json\Resource;
 
+use App\Traits\RelateResourceTrait;
+
 class PostResource extends Resource
 {
+    use RelateResourceTrait;
+
     /**
      * Transform the resource into an array.
      *
@@ -14,7 +18,7 @@ class PostResource extends Resource
      */
     public function toArray($request)
     {
-        return [
+        $post = [
             'type' => 'posts',
             'id' => (string) $this->id,
             'attributes' => [
@@ -33,5 +37,11 @@ class PostResource extends Resource
                 'self' => route('posts.show', ['post' => $this->id]),
             ],
         ];
+
+        if (! empty($this->include) && is_array($this->include)) {
+            return $this->includedResource($this->include, $post);
+        }
+
+        return $post;
     }
 }

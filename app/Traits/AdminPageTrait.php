@@ -21,9 +21,9 @@ trait AdminPageTrait
         return $this->baseRepo->getAll();
     }
 
-    public function getPaginated($path, $with = false)
+    public function getPaginated($path, $with = false, array $where=[], array $orderBy=[])
     {
-        return $this->baseRepo->getPaginated($path, $with, config('app.admin_pagination'));
+        return $this->baseRepo->getPaginated($path, $with, config('app.admin_pagination'),$where, $orderBy);
     }
 
     public function destroy(int $id)

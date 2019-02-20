@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
+use App\Services\PostCommentService;
+use App\Http\Resources\PostComment\PostCommentResource;
+use App\Http\Resources\PostComment\PostCommentsResource;
 
 class PostCommentController extends Controller
 {

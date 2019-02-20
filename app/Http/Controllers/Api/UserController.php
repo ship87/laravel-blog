@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
+use App\Services\UserService;
+use App\Http\Resources\User\UserResource;
+use App\Http\Resources\User\UsersResource;
 
 class UserController extends Controller
 {
