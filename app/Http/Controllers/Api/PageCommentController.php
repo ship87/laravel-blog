@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
-
 use App\Http\Controllers\Controller;
 use App\Services\PageCommentService;
 use App\Http\Resources\PageComment\PageCommentResource;
 use App\Http\Resources\PageComment\PageCommentsResource;
+use App\Http\Requests\PageCommentRequest;
 
 class PageCommentController extends Controller
 {
@@ -29,9 +28,9 @@ class PageCommentController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PageCommentRequest $request, PageCommentService $pageCommentService)
     {
-        //
+        return $pageCommentService->create($request->get('attributes'));
     }
 
     /**
@@ -55,9 +54,11 @@ class PageCommentController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PageCommentRequest $request, $id, PageCommentService $pageCommentService)
     {
-        //
+        $attributes = $request->get('attributes');
+
+        return $pageCommentService->update($attributes, $id, $attributes['updated_user_id']);
     }
 
     /**
@@ -66,8 +67,8 @@ class PageCommentController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, PageCommentService $pageCommentService)
     {
-        //
+        return $pageCommentService->destroy($id);
     }
 }

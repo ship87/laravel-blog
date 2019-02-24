@@ -9,9 +9,7 @@ use App\Traits\CreateUpdateTrait;
 
 class UserService
 {
-    use AdminPageTrait;
-
-	use CreateUpdateTrait;
+    use AdminPageTrait,CreateUpdateTrait;
 
     public function __construct(UserRepository $userRepo)
     {

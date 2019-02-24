@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Services\PostService;
 use App\Http\Resources\Post\PostResource;
 use App\Http\Resources\Post\PostsResource;
+use App\Http\Requests\PostRequest;
 
 class PostController extends Controller
 {
@@ -29,9 +30,11 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PostRequest $request, PostService $postService)
     {
-        //
+        $attributes = $request->get('attributes');
+
+        return $postService->create($attributes, $request->get('relationships'), $attributes['created_user_id'], true);
     }
 
     /**
@@ -42,18 +45,18 @@ class PostController extends Controller
      */
     public function show($id, PostService $postService, Request $request)
     {
-		$id = (int)$id;
-		if ($id==0) {
-			abort(400);
-		}
+        $id = (int) $id;
+        if ($id == 0) {
+            abort(400);
+        }
 
-		$include = $postService->includeRelatedResources($request->input('include'));
+        $include = $postService->includeRelatedResources($request->input('include'));
 
         $post = $postService->getByParam(['id' => $id], $include['with'] ?? []);
 
-		if (empty($post)){
-			abort(404);
-		}
+        if (empty($post)) {
+            abort(404);
+        }
 
         PostResource::withoutWrapping();
 
@@ -67,9 +70,11 @@ class PostController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PostRequest $request, $id, PostService $postService)
     {
-        //
+        $attributes = $request->get('attributes');
+
+        return $postService->update($attributes, $request->get('relationships'), $id, $attributes['updated_user_id'], true);
     }
 
     /**
@@ -78,8 +83,8 @@ class PostController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, PostService $postService)
     {
-        //
+        return $postService->destroy($id);
     }
 }

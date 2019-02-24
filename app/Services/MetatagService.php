@@ -9,9 +9,7 @@ use App\Traits\CreateUpdateSlugTrait;
 
 class MetatagService
 {
-    use AdminPageTrait;
-
-    use CreateUpdateSlugTrait;
+    use AdminPageTrait, CreateUpdateSlugTrait;
 
     public function __construct(MetatagRepository $metatagRepo)
     {

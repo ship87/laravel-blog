@@ -18,15 +18,15 @@ class MetatagRepository extends Repository
 
     public function saveManyPost($postId, $metatags)
     {
-        $this->saveMany('post_id', $postId, $metatags);
+        $this->saveManyWithData('post_id', $postId, $metatags);
     }
 
     public function saveManyPage($pageId, $metatags)
     {
-        $this->saveMany('page_id', $pageId, $metatags);
+        $this->saveManyWithData('page_id', $pageId, $metatags);
     }
 
-    private function saveMany($type, $pageId, $metatags)
+    private function saveManyWithData($type, $pageId, $metatags)
     {
         foreach ($metatags as $key => $metatag) {
 

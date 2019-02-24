@@ -31,4 +31,16 @@ class RoleRequest extends FormRequest
             //
         ];
     }
+
+	/**
+	 * Get data to be validated from the request.
+	 *
+	 * @return array
+	 */
+	protected function validationData()
+	{
+		$this->filterPreviousPage();
+
+		return parent::validationData();
+	}
 }

@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Repositories\PageCommentRepository;
 use App\Repositories\PageRepository;
 use App\Repositories\MetatagRepository;
 
@@ -10,21 +11,15 @@ use App\Traits\ClientPageTrait;
 use App\Traits\CreateUpdateSlugTrait;
 use App\Traits\IncludeRelateResourceTrait;
 use App\Traits\FilterDataTrait;
+use App\Traits\MergeNewDataTrait;
 use App\Traits\SortDataTrait;
+use App\Traits\SyncRelationTrait;
 
 class PageService
 {
-    use AdminPageTrait;
+    use AdminPageTrait, ClientPageTrait, CreateUpdateSlugTrait, IncludeRelateResourceTrait, FilterDataTrait, SortDataTrait, SyncRelationTrait, MergeNewDataTrait;
 
-    use ClientPageTrait;
-
-    use CreateUpdateSlugTrait;
-
-    use IncludeRelateResourceTrait;
-
-    use FilterDataTrait;
-
-    use SortDataTrait;
+    protected $pageCommentRepo;
 
     protected $relatedResources = [
         'comments' => '\\App\\Http\\Resources\\PageComment\\PageCommentResource',
@@ -43,10 +38,14 @@ class PageService
         'slug',
     ];
 
-    public function __construct(PageRepository $pageRepo, MetatagRepository $metatagRepo)
-    {
+    public function __construct(
+        PageRepository $pageRepo,
+        MetatagRepository $metatagRepo,
+        PageCommentRepository $pageCommentRepo
+    ) {
         $this->baseRepo = $pageRepo;
         $this->metatagRepo = $metatagRepo;
+        $this->pageCommentRepo = $pageCommentRepo;
     }
 
     public function getBySlug($slug)
@@ -79,10 +78,11 @@ class PageService
         return $resultUrl.$lastSlug;
     }
 
-    public function update(array $data, array $relationData, $id, $auth)
+    public function update(array $data, array $relationData, $id, $authId, $syncRelations = false)
     {
-        $data['updated_user_id'] = $auth->id;
-        $data['slug'] = $this->checkSlug($data['slug'], $data['title']);
+
+        $data['updated_user_id'] = $authId;
+        $data['slug'] = $this->checkSlug($data['slug'], $data['title'], $id);
 
         $page = $this->baseRepo->update($data, $id);
 
@@ -90,14 +90,18 @@ class PageService
             return false;
         }
 
-        $this->saveRelationData($page, $relationData);
+        if ($syncRelations) {
+            $this->syncRelations($page, $relationData);
+        } else {
+            $this->saveRelationData($page, $relationData);
+        }
 
         return $page;
     }
 
-    public function create(array $data, array $relationData, $auth)
+    public function create(array $data, array $relationData, $authId, $syncRelations = false)
     {
-        $data['created_user_id'] = $data['updated_user_id'] = $auth->id;
+        $data['created_user_id'] = $data['updated_user_id'] = $authId;
 
         $page = $this->baseRepo->create($data);
 
@@ -105,7 +109,11 @@ class PageService
             return false;
         }
 
-        $this->saveRelationData($page, $relationData);
+        if ($syncRelations) {
+            $this->syncRelations($page, $relationData);
+        } else {
+            $this->saveRelationData($page, $relationData);
+        }
 
         return $page;
     }
@@ -117,5 +125,16 @@ class PageService
             'description' => $relationData['seodescription'],
             'keywords' => $relationData['seokeywords'],
         ]);
+    }
+
+    private function syncRelations($page, array $relationData)
+    {
+        if (! empty($relationData['metatags']['data'])) {
+            $this->syncRelation($this->metatagRepo, $relationData['metatags']['data'],'metatags','page_id', $page->id);
+        }
+
+        if (! empty($relationData['comments']['data'])) {
+            $this->syncRelation($this->pageCommentRepo, $relationData['comments']['data'],'page-comments','page_id', $page->id);
+        }
     }
 }

@@ -47,10 +47,10 @@ class PostCommentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(PostCommentRequest $request, PostCommentService $postCommentService, Authenticatable $auth)
-	{
-		$postCommentService->create($request->all(),$auth);
+    {
+        $postCommentService->create($request->all(), $auth->id);
 
-		return redirect()->route(config('app.theme').'admin.post-comments.index');
+        return redirect()->route(config('app.theme').'admin.post-comments.index');
     }
 
     /**
@@ -75,11 +75,15 @@ class PostCommentController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(PostCommentRequest $request, $id, PostCommentService $postCommentService, Authenticatable $auth)
-	{
-		$postCommentService->update($request->all(),$id,$auth);
+    public function update(
+        PostCommentRequest $request,
+        $id,
+        PostCommentService $postCommentService,
+        Authenticatable $auth
+    ) {
+        $postCommentService->update($request->all(), $id, $auth->id);
 
-		return redirect()->route(config('app.theme').'admin.post-comments.index');
+        return redirect()->route(config('app.theme').'admin.post-comments.index');
     }
 
     /**

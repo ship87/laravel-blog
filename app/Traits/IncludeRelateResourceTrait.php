@@ -11,11 +11,7 @@ trait IncludeRelateResourceTrait
         }
 
         $include = explode(',', $include);
-        $relatedResourcesPrepare = array_keys($this->relatedResources);
-
-        foreach ($relatedResourcesPrepare as $key => $value) {
-            $relatedResources[$value] = strtolower($value);
-        }
+        $relatedResources = array_keys($this->relatedResources);
 
         foreach ($include as $relateResource) {
 
@@ -23,7 +19,7 @@ trait IncludeRelateResourceTrait
 
             if ($search) {
 
-                $with[$search] = $this->relatedResources[$search];
+                $with[$relateResource] = $this->relatedResources[$relateResource];
             }
         }
 

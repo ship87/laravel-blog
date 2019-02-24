@@ -9,22 +9,20 @@ use App\Traits\CreateUpdateSlugTrait;
 
 class TagService
 {
-	use AdminPageTrait;
-
-	use CreateUpdateSlugTrait;
+    use AdminPageTrait, CreateUpdateSlugTrait;
 
     public function __construct(TagRepository $tagRepo)
     {
         $this->baseRepo = $tagRepo;
     }
 
-	public function getAllNameId()
-	{
-		return $this->baseRepo->getAllNameId();
-	}
+    public function getAllNameId()
+    {
+        return $this->baseRepo->getAllNameId();
+    }
 
-	public function getId($tags)
-	{
-		return $this->baseRepo->getId($tags);
-	}
+    public function getId($tags)
+    {
+        return $this->baseRepo->getId($tags);
+    }
 }

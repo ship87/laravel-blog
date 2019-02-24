@@ -5,10 +5,13 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 
 use App\Traits\PreviousPageTrait;
+use App\Traits\JsonApiTrait;
 
 class PostCommentRequest extends FormRequest
 {
     use PreviousPageTrait;
+
+	use JsonApiTrait;
 
     /**
      * Determine if the user is authorized to make this request.
@@ -32,4 +35,22 @@ class PostCommentRequest extends FormRequest
 			'post_id'=>'required',
         ];
     }
+
+	/**
+	 * Get data to be validated from the request.
+	 *
+	 * @return array
+	 */
+	protected function validationData()
+	{
+		$jsonApiRequest = $this->validationDataJsonApiRequest('post-comments');
+
+		if ($jsonApiRequest !== null) {
+			return $jsonApiRequest;
+		}
+
+		$this->filterPreviousPage();
+
+		return parent::validationData();
+	}
 }

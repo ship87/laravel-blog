@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
-
 use App\Http\Controllers\Controller;
 use App\Services\UserService;
 use App\Http\Resources\User\UserResource;
@@ -29,9 +27,9 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(UserRequest $request, UserService $userService)
+	{
+		return $userService->create($request->get('attributes'));
     }
 
     /**
@@ -55,9 +53,11 @@ class UserController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserRequest $request, $id, UserService $userService)
     {
-        //
+        $attributes = $request->get('attributes');
+
+        return $userService->update($attributes, $id, $attributes['updated_user_id']);
     }
 
     /**
@@ -66,8 +66,8 @@ class UserController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
-    }
+    public function destroy($id, UserService $userService)
+	{
+		return $userService->destroy($id);
+	}
 }

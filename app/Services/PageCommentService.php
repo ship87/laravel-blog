@@ -6,12 +6,11 @@ use App\Repositories\PageCommentRepository;
 
 use App\Traits\AdminPageTrait;
 use App\Traits\CreateUpdateUserTrait;
+use App\Traits\MergeNewDataTrait;
 
 class PageCommentService
 {
-	use AdminPageTrait;
-
-	use CreateUpdateUserTrait;
+    use AdminPageTrait, CreateUpdateUserTrait, MergeNewDataTrait;
 
     public function __construct(PageCommentRepository $pageCommentRepo)
     {

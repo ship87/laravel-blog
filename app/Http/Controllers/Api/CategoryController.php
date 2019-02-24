@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
-
 use App\Http\Controllers\Controller;
 use App\Services\CategoryService;
 use App\Http\Resources\Category\CategoryResource;
 use App\Http\Resources\Category\CategoriesResource;
+use App\Http\Requests\CategoryRequest;
 
 class CategoryController extends Controller
 {
@@ -29,9 +28,9 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request, CategoryService $categoryService)
     {
-        //
+		return $categoryService->create($request->get('attributes'));
     }
 
     /**
@@ -55,10 +54,13 @@ class CategoryController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CategoryRequest $request, $id, CategoryService $categoryService)
     {
-        //
+        $attributes = $request->get('attributes');
+
+        return $categoryService->update($attributes, $id, $attributes['updated_user_id']);
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -66,8 +68,8 @@ class CategoryController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, CategoryService $categoryService)
     {
-        //
+		return $categoryService->destroy($id);
     }
 }

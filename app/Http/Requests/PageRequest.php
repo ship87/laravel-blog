@@ -6,12 +6,15 @@ use Illuminate\Foundation\Http\FormRequest;
 
 use App\Traits\FilterRelationsTrait;
 use App\Traits\PreviousPageTrait;
+use App\Traits\JsonApiTrait;
 
 class PageRequest extends FormRequest
 {
     use PreviousPageTrait;
 
     use FilterRelationsTrait;
+
+    use JsonApiTrait;
 
     protected $filterRelations = [
         'seotitle',
@@ -36,16 +39,19 @@ class PageRequest extends FormRequest
      */
     public function rules()
     {
-		$rules = [
-			'title' => 'required|unique:pages',
-			'content'=>'required',
-		];
+        $rules = [
+            'title' => 'required',
+            'slug' => 'required|unique:posts'.($this->id ? ',slug,'.$this->id : ''),
+            'content' => 'required',
+        ];
 
-		if (config('app.comment_google_recaptcha')) {
-			$rules['g-recaptcha-response'] = 'required|recaptcha';
-		}
+        $isJsonApi = $this->isJsonApiRequest();
 
-		return $rules;
+        if (config('app.comment_google_recaptcha') && ! $isJsonApi) {
+            $rules['g-recaptcha-response'] = 'required|recaptcha';
+        }
+
+        return $rules;
     }
 
     /**
@@ -55,6 +61,12 @@ class PageRequest extends FormRequest
      */
     protected function validationData()
     {
+        $jsonApiRequest = $this->validationDataJsonApiRequest('pages');
+
+        if ($jsonApiRequest !== null) {
+            return $jsonApiRequest;
+        }
+
         $this->filterPreviousPage();
 
         $this->filterRelations();

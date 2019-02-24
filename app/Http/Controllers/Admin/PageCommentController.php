@@ -48,7 +48,7 @@ class PageCommentController extends Controller
      */
     public function store(PageCommentRequest $request, PageCommentService $pageCommentService, Authenticatable $auth)
     {
-        $pageCommentService->create($request->all(), $auth);
+        $pageCommentService->create($request->all(), $auth->id);
 
         return redirect()->route(config('app.theme').'admin.page-comments.index');
     }
@@ -75,14 +75,10 @@ class PageCommentController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(
-        PageCommentRequest $request,
-        $id,
-        PageCommentService $pageCommentService,
-        Authenticatable $auth
-    ) {
+    public function update(PageCommentRequest $request, $id, PageCommentService $pageCommentService, Authenticatable $auth)
+    {
 
-        $pageCommentService->update($request->all(), $id, $auth);
+        $pageCommentService->update($request->all(), $id, $auth->id);
 
         return redirect()->route(config('app.theme').'admin.page-comments.index');
     }

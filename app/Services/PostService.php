@@ -12,21 +12,12 @@ use App\Traits\ClientPageTrait;
 use App\Traits\CreateUpdateSlugTrait;
 use App\Traits\IncludeRelateResourceTrait;
 use App\Traits\FilterDataTrait;
+use App\Traits\MergeNewDataTrait;
 use App\Traits\SortDataTrait;
 
 class PostService
 {
-    use AdminPageTrait;
-
-    use ClientPageTrait;
-
-    use CreateUpdateSlugTrait;
-
-    use IncludeRelateResourceTrait;
-
-    use FilterDataTrait;
-
-    use SortDataTrait;
+    use AdminPageTrait, ClientPageTrait, CreateUpdateSlugTrait, IncludeRelateResourceTrait, FilterDataTrait, SortDataTrait, MergeNewDataTrait;
 
     protected $relatedResources = [
         'comments' => '\\App\\Http\\Resources\\PageComment\\PageCommentResource',
@@ -63,9 +54,9 @@ class PostService
         $this->postTagRepo = $postTagRepo;
     }
 
-    public function update(array $data, array $relationData, $id, $auth)
+    public function update(array $data, array $relationData, $id, $authId)
     {
-        $data['updated_user_id'] = $auth->id;
+        $data['updated_user_id'] = $authId;
         $data['slug'] = $this->checkSlug($data['slug'], $data['title']);
 
         $post = $this->baseRepo->update($data, $id);
@@ -79,9 +70,9 @@ class PostService
         return $post;
     }
 
-    public function create(array $data, array $relationData, $auth)
+    public function create(array $data, array $relationData, $authId)
     {
-        $data['created_user_id'] = $data['updated_user_id'] = $auth->id;
+        $data['created_user_id'] = $data['updated_user_id'] = $authId;
         $data['slug'] = $this->checkSlug($data['slug'], $data['title']);
 
         $post = $this->baseRepo->create($data);
@@ -107,7 +98,7 @@ class PostService
             $this->categoryPostRepo->saveMany($post, array_values($relationData['categories']));
         }
 
-        if (! empty($relationData['categories'])) {
+        if (! empty($relationData['tags'])) {
             $this->postTagRepo->saveMany($post, array_values($relationData['tags']));
         }
     }

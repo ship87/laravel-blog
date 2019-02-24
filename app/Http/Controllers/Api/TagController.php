@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
-
 use App\Http\Controllers\Controller;
 use App\Services\TagService;
 use App\Http\Resources\Tag\TagResource;
 use App\Http\Resources\Tag\TagsResource;
+use App\Http\Requests\TagRequest;
 
 class TagController extends Controller
 {
@@ -29,10 +28,10 @@ class TagController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
-    }
+    public function store(TagRequest $request, TagService $tagService)
+	{
+		return $tagService->create($request->get('attributes'));
+	}
 
     /**
      * Display the specified resource.
@@ -55,9 +54,11 @@ class TagController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(TagRequest $request, $id, TagService $tagService)
     {
-        //
+        $attributes = $request->get('attributes');
+
+        return $tagService->update($attributes, $id, $attributes['updated_user_id']);
     }
 
     /**
@@ -66,8 +67,8 @@ class TagController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
-    }
+    public function destroy($id, TagService $tagService)
+	{
+		return $tagService->destroy($id);
+	}
 }

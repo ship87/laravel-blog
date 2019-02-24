@@ -25,9 +25,13 @@ abstract class Repository implements RepositoryInterface
         return $this->model->findOrFail($id);
     }
 
-    public function getByParam(array $where, array $with = [], array $orderBy = [])
+    public function getByParam(array $where, array $with = [], array $orderBy = [], $notId = false)
     {
         $model = $this->model->where($where);
+
+        if (! empty($notId)) {
+            $model = $model->where('id', '<>', $notId);
+        }
 
         if (! empty($with)) {
             $model = $model->with($with);
@@ -51,9 +55,29 @@ abstract class Repository implements RepositoryInterface
     {
         $record = $this->model->find($id);
 
+        if (empty($record)){
+            return false;
+        }
+
         $record->update($data);
 
         return $record;
+    }
+
+    public function mergeNewData(array $newData, $id)
+    {
+
+        $record = $this->model->find($id);
+
+        if (empty($record)){
+            return false;
+        }
+
+        $data = $record->toArray();
+
+        unset($data['id']);
+
+        return array_merge($data, $newData);
     }
 
     public function destroy($id)

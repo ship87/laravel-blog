@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
-
 use App\Http\Controllers\Controller;
 use App\Services\MetatagService;
 use App\Http\Resources\Metatag\MetatagResource;
 use App\Http\Resources\Metatag\MetatagsResource;
+use App\Http\Requests\MetatagRequest;
 
 class MetatagController extends Controller
 {
@@ -29,10 +28,10 @@ class MetatagController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
-    }
+    public function store(MetatagRequest $request, MetatagService $metatagService)
+	{
+		return $metatagService->create($request->get('attributes'));
+	}
 
     /**
      * Display the specified resource.
@@ -56,9 +55,11 @@ class MetatagController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(MetatagRequest $request, $id, MetatagService $metatagService)
     {
-        //
+        $attributes = $request->get('attributes');
+
+        return $metatagService->update($attributes, $id, $attributes['updated_user_id']);
     }
 
     /**
@@ -67,8 +68,8 @@ class MetatagController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
-    }
+    public function destroy($id, MetatagService $metatagService)
+	{
+		return $metatagService->destroy($id);
+	}
 }

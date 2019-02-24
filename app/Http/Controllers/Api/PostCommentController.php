@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
-
 use App\Http\Controllers\Controller;
 use App\Services\PostCommentService;
 use App\Http\Resources\PostComment\PostCommentResource;
 use App\Http\Resources\PostComment\PostCommentsResource;
+use App\Http\Requests\PostCommentRequest;
 
 class PostCommentController extends Controller
 {
@@ -29,10 +28,10 @@ class PostCommentController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
-    }
+    public function store(PostCommentRequest $request, PostCommentService $postComment)
+	{
+		return $postComment->create($request->get('attributes'));
+	}
 
     /**
      * Display the specified resource.
@@ -55,9 +54,11 @@ class PostCommentController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PostCommentRequest $request, $id, PostCommentService $postCommentService)
     {
-        //
+        $attributes = $request->get('attributes');
+
+        return $postCommentService->update($attributes, $id, $attributes['updated_user_id']);
     }
 
     /**
@@ -66,8 +67,8 @@ class PostCommentController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
-    }
+    public function destroy($id, PostCommentService $postCommentService)
+	{
+		return $postCommentService->destroy($id);
+	}
 }

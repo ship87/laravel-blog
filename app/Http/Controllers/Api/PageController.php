@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Services\PageService;
 use App\Http\Resources\Page\PageResource;
 use App\Http\Resources\Page\PagesResource;
+use App\Http\Requests\PageRequest;
 
 class PageController extends Controller
 {
@@ -19,15 +20,8 @@ class PageController extends Controller
     public function index(PageService $pageService, Request $request)
     {
         $orderBy = $pageService->sortData($request->input('sort'));
-
-
         $where = $pageService->filterData($request->all());
-
-
-
         $pages = $pageService->getPaginated('pages', false, $where, $orderBy);
-
-
 
         return new PagesResource($pages);
     }
@@ -38,9 +32,11 @@ class PageController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PageRequest $request, PageService $pageService)
     {
-        //
+        $attributes = $request->get('attributes');
+
+        return $pageService->create($attributes, $request->get('relationships'), $attributes['created_user_id'], true);
     }
 
     /**
@@ -58,9 +54,7 @@ class PageController extends Controller
 
         $include = $pageService->includeRelatedResources($request->input('include'));
 
-        $page = $pageService->getByParam([
-            'id' => $id,
-        ], ($include['with'] ?? []));
+        $page = $pageService->getByParam(['id' => $id], ($include['with'] ?? []));
 
         if (empty($page)) {
             abort(404);
@@ -78,9 +72,13 @@ class PageController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PageRequest $request, $id, PageService $pageService)
     {
-        //
+        $attributes = $request->get('attributes');
+
+
+
+        return $pageService->update($attributes, $request->get('relationships'), $id, $attributes['updated_user_id'], true);
     }
 
     /**
@@ -89,8 +87,8 @@ class PageController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, PageService $pageService)
     {
-        //
+        return $pageService->destroy($id);
     }
 }
