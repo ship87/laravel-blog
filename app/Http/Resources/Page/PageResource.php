@@ -4,7 +4,7 @@ namespace App\Http\Resources\Page;
 
 use Illuminate\Http\Resources\Json\Resource;
 
-use App\Traits\RelateResourceTrait;
+use App\Traits\Resources\RelateResourceTrait;
 
 class PageResource extends Resource
 {

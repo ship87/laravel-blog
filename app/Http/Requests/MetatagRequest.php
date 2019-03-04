@@ -5,8 +5,8 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-use App\Traits\PreviousPageTrait;
-use App\Traits\JsonApiTrait;
+use App\Traits\Requests\PreviousPageTrait;
+use App\Traits\Requests\JsonApiTrait;
 
 class MetatagRequest extends FormRequest
 {

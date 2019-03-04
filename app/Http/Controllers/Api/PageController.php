@@ -76,8 +76,6 @@ class PageController extends Controller
     {
         $attributes = $request->get('attributes');
 
-
-
         return $pageService->update($attributes, $request->get('relationships'), $id, $attributes['updated_user_id'], true);
     }
 

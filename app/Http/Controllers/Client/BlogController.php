@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
 use App\Services\BlogService;
-use App\Traits\HttpPageTrait;
+use App\Traits\Controllers\HttpPageTrait;
 
 class BlogController extends Controller
 {

@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use DemeterChain\C;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
 use App\Services\CategoryService;
-use App\Traits\HttpPageTrait;
+use App\Traits\Controllers\HttpPageTrait;
 
 class CategoryController extends Controller
 {

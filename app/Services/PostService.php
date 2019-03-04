@@ -7,13 +7,13 @@ use App\Repositories\PostRepository;
 use App\Repositories\MetatagRepository;
 
 use App\Repositories\PostTagRepository;
-use App\Traits\AdminPageTrait;
-use App\Traits\ClientPageTrait;
-use App\Traits\CreateUpdateSlugTrait;
-use App\Traits\IncludeRelateResourceTrait;
-use App\Traits\FilterDataTrait;
-use App\Traits\MergeNewDataTrait;
-use App\Traits\SortDataTrait;
+use App\Traits\Services\AdminPageTrait;
+use App\Traits\Services\ClientPageTrait;
+use App\Traits\Services\CreateUpdateSlugTrait;
+use App\Traits\Services\IncludeRelateResourceTrait;
+use App\Traits\Services\FilterDataTrait;
+use App\Traits\Services\MergeNewDataTrait;
+use App\Traits\Services\SortDataTrait;
 
 class PostService
 {

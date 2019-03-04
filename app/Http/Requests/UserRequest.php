@@ -4,8 +4,8 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-use App\Traits\PreviousPageTrait;
-use App\Traits\JsonApiTrait;
+use App\Traits\Requests\PreviousPageTrait;
+use App\Traits\Requests\JsonApiTrait;
 
 class UserRequest extends FormRequest
 {

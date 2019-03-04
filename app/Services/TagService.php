@@ -4,8 +4,8 @@ namespace App\Services;
 
 use App\Repositories\TagRepository;
 
-use App\Traits\AdminPageTrait;
-use App\Traits\CreateUpdateSlugTrait;
+use App\Traits\Services\AdminPageTrait;
+use App\Traits\Services\CreateUpdateSlugTrait;
 
 class TagService
 {

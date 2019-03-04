@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TagRequest;
 use App\Services\TagService;
-use App\Traits\HttpPageTrait;
+use App\Traits\Controllers\HttpPageTrait;
 
 class TagController extends Controller
 {

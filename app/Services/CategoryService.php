@@ -4,9 +4,9 @@ namespace App\Services;
 
 use App\Repositories\CategoryRepository;
 
-use App\Traits\AdminPageTrait;
-use App\Traits\CreateUpdateSlugTrait;
-use App\Traits\MergeNewDataTrait;
+use App\Traits\Services\AdminPageTrait;
+use App\Traits\Services\CreateUpdateSlugTrait;
+use App\Traits\Services\MergeNewDataTrait;
 
 class CategoryService
 {

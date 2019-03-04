@@ -6,14 +6,14 @@ use App\Repositories\PageCommentRepository;
 use App\Repositories\PageRepository;
 use App\Repositories\MetatagRepository;
 
-use App\Traits\AdminPageTrait;
-use App\Traits\ClientPageTrait;
-use App\Traits\CreateUpdateSlugTrait;
-use App\Traits\IncludeRelateResourceTrait;
-use App\Traits\FilterDataTrait;
-use App\Traits\MergeNewDataTrait;
-use App\Traits\SortDataTrait;
-use App\Traits\SyncRelationTrait;
+use App\Traits\Services\AdminPageTrait;
+use App\Traits\Services\ClientPageTrait;
+use App\Traits\Services\CreateUpdateSlugTrait;
+use App\Traits\Services\IncludeRelateResourceTrait;
+use App\Traits\Services\FilterDataTrait;
+use App\Traits\Services\MergeNewDataTrait;
+use App\Traits\Services\SortDataTrait;
+use App\Traits\Services\SyncRelationTrait;
 
 class PageService
 {
@@ -29,8 +29,10 @@ class PageService
     ];
 
     protected $sortData = [
-        'created_at' => 'ASC',
-        'updated_at' => 'ASC',
+        'created_at_asc' => 'ASC',
+        'updated_at_desc' => 'DESC',
+        'updated_at_asc' => 'ASC',
+        'updated_at_desc' => 'DESC',
     ];
 
     protected $whereData = [

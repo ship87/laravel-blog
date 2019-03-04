@@ -8,7 +8,7 @@ use Illuminate\Contracts\Auth\Authenticatable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PageCommentRequest;
 use App\Services\PageCommentService;
-use App\Traits\HttpPageTrait;
+use App\Traits\Controllers\HttpPageTrait;
 
 class PageCommentController extends Controller
 {

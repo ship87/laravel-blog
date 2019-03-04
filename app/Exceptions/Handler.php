@@ -64,7 +64,7 @@ class Handler extends ExceptionHandler
         if ($request->is('api/v1/*')) {
 
             $response = [
-                'errors' => 'Sorry, something went wrong.',
+                'errors' => 'invalid input, object invalid',
             ];
 
             if (config('app.debug')) {

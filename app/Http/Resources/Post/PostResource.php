@@ -4,7 +4,7 @@ namespace App\Http\Resources\Post;
 
 use Illuminate\Http\Resources\Json\Resource;
 
-use App\Traits\RelateResourceTrait;
+use App\Traits\Resources\RelateResourceTrait;
 
 class PostResource extends Resource
 {

@@ -10,7 +10,7 @@ use App\Http\Requests\PostRequest;
 use App\Services\PostService;
 use App\Services\CategoryService;
 use App\Services\TagService;
-use App\Traits\HttpPageTrait;
+use App\Traits\Controllers\HttpPageTrait;
 
 class PostController extends Controller
 {
@@ -86,6 +86,20 @@ class PostController extends Controller
      */
     public function update(PostRequest $request, $id, PostService $postService, Authenticatable $auth)
     {
+		// get current logged in user
+		$user = Auth::user();
+
+		// load post
+		$post = Post::find(1);
+
+		if ($user->can('update', $post)) {
+			echo "Current logged in user is allowed to update the Post: {$post->id}";
+		} else {
+			echo 'Not Authorized.';
+		}
+
+		$this->authorize('view', $post);
+
         $postService->update($request->all(), $request->relationData, $id, $auth);
 
         return redirect()->route(config('app.theme').'admin.posts.index');

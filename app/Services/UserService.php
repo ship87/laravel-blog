@@ -4,8 +4,8 @@ namespace App\Services;
 
 use App\Repositories\UserRepository;
 
-use App\Traits\AdminPageTrait;
-use App\Traits\CreateUpdateTrait;
+use App\Traits\Services\AdminPageTrait;
+use App\Traits\Services\CreateUpdateTrait;
 
 class UserService
 {

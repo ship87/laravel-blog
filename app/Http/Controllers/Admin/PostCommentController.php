@@ -8,7 +8,7 @@ use Illuminate\Contracts\Auth\Authenticatable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PostCommentRequest;
 use App\Services\PostCommentService;
-use App\Traits\HttpPageTrait;
+use App\Traits\Controllers\HttpPageTrait;
 
 class PostCommentController extends Controller
 {

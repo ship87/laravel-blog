@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Traits;
+namespace App\Traits\Resources;
 
 use Illuminate\Support\Collection;
 

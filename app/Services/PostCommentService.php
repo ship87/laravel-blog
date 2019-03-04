@@ -4,9 +4,9 @@ namespace App\Services;
 
 use App\Repositories\PostCommentRepository;
 
-use App\Traits\AdminPageTrait;
-use App\Traits\CreateUpdateUserTrait;
-use App\Traits\MergeNewDataTrait;
+use App\Traits\Services\AdminPageTrait;
+use App\Traits\Services\CreateUpdateUserTrait;
+use App\Traits\Services\MergeNewDataTrait;
 
 class PostCommentService
 {

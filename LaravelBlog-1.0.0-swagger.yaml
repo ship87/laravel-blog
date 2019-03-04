@@ -1,0 +1,1250 @@
+openapi: 3.0.0
+# Added by API Auto Mocking Plugin
+servers:
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/ship87/LaravelBlog/1.0.0
+info:
+  description: This is a Laravel Blog API
+  version: "1.0.0"
+  title: LaravelBlog API
+  contact:
+    email: theship87@gmail.com
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: posts
+    description: Operations with blog pages
+paths:
+  /posts:
+    get:
+      tags:
+        - posts
+      summary: search posts
+      operationId: searchPosts
+      description: Searсh posts
+      parameters:
+        - in: query
+          name: search
+          description: Search text in posts
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: page
+          description: Number of posts for pagination
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+        - in: query
+          name: include
+          description: Add relationships
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: sort
+          description: Sort by column
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: filter[column]
+          description: Filter by column
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'search posts matching criteria'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: array
+                items:
+                    $ref: '#/components/schemas/Posts'
+        '400':
+          description: 'invalid input, object invalid'
+    post:
+      tags:
+        - posts
+      summary: add post
+      operationId: addPost
+      description: Adds an post to the blog
+      responses:
+        '201':
+          description: 'post created'
+        '400':
+          description: 'invalid input, object invalid'
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/Post'
+  '/posts/{id}':
+      patch:
+        tags:
+          - posts
+        summary: update post
+        operationId: updatePost
+        description: Update an post
+        parameters:
+        - name: id
+          in: path
+          description: ID of post that needs to be updated
+          required: true
+          schema:
+            type: integer
+            format: int32
+        responses:
+          '200':
+            description: 'post updated'
+          '400':
+            description: 'invalid input, object invalid'
+          '404':
+            description: 'post not found'
+        requestBody:
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Post'
+      delete:
+        tags:
+          - posts
+        summary: delete post
+        operationId: deletePost
+        description: Delete an post
+        parameters:
+        - name: id
+          in: path
+          description: ID of post that needs to be deleted
+          required: true
+          schema:
+            type: integer
+            format: int32
+        responses:
+         '200':
+          description: 'post deleted'
+         '400':
+           description: 'invalid input, object invalid'
+         '404':
+           description: 'post not found'
+  /pages:
+    get:
+      tags:
+        - pages
+      summary: search pages
+      operationId: searchPages
+      description: Search pages
+      parameters:
+        - in: query
+          name: search
+          description: Search text in pages
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: page
+          description: Number of pages for pagination
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+        - in: query
+          name: include
+          description: Add relationships
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: sort
+          description: Sort by column
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: filter[column]
+          description: Filter by column
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'search pages matching criteria'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: array
+                items:
+                    $ref: '#/components/schemas/Pages'
+        '400':
+          description: 'invalid input, object invalid'
+    post:
+      tags:
+        - pages
+      summary: add page
+      operationId: addPage
+      description: Adds an page to the blog
+      responses:
+        '201':
+          description: 'page created'
+        '400':
+          description: 'invalid input, object invalid'
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/Page'
+  '/pages/{id}':
+      patch:
+        tags:
+          - pages
+        summary: update page
+        operationId: updatePage
+        description: Update an page
+        parameters:
+        - name: id
+          in: path
+          description: ID of page that needs to be updated
+          required: true
+          schema:
+            type: integer
+            format: int32
+        responses:
+          '200':
+            description: 'page updated'
+          '400':
+            description: 'invalid input, object invalid'
+          '404':
+            description: 'page not found'
+        requestBody:
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Page'
+      delete:
+        tags:
+          - pages
+        summary: delete page
+        operationId: deletePage
+        description: Delete an page
+        parameters:
+        - name: id
+          in: path
+          description: ID of page that needs to be deleted
+          required: true
+          schema:
+            type: integer
+            format: int32
+        responses:
+         '200':
+          description: 'page deleted'
+         '400':
+           description: 'invalid input, object invalid'
+         '404':
+           description: 'page not found'
+  /post-comments:
+    get:
+      tags:
+        - post-comments
+      summary: search post comments
+      operationId: searchPostComments
+      description: Search post comments 
+      parameters:
+        - in: query
+          name: search
+          description: Search text in post comments
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: post
+          description: Number of posts for pagination
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+        - in: query
+          name: include
+          description: Add relationships
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'search post comments matching criteria'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: array
+                items:
+                    $ref: '#/components/schemas/PostComments'
+        '400':
+          description: 'invalid input, object invalid'
+    post:
+      tags:
+        - post-comments
+      summary: add post comment
+      operationId: addPostComment
+      description: Adds an post comment to the blog
+      responses:
+        '201':
+          description: 'post created'
+        '400':
+          description: 'invalid input, object invalid'
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/PostComment'
+  '/post-comments/{id}':
+      patch:
+        tags:
+          - post-comments
+        summary: update post comment
+        operationId: updatePostComment
+        description: Update an post comment
+        parameters:
+        - name: id
+          in: path
+          description: ID of post comment that needs to be updated
+          required: true
+          schema:
+            type: integer
+            format: int32
+        responses:
+          '200':
+            description: 'post comment updated'
+          '400':
+            description: 'invalid input, object invalid'
+          '404':
+            description: 'post comment not found'
+        requestBody:
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/PostComment'
+      delete:
+        tags:
+          - post-comments
+        summary: delete post comment
+        operationId: deletePostComment
+        description: Delete an post comment
+        parameters:
+        - name: id
+          in: path
+          description: ID of post comment that needs to be deleted
+          required: true
+          schema:
+            type: integer
+            format: int32
+        responses:
+         '200':
+          description: 'post comment deleted'
+         '400':
+           description: 'invalid input, object invalid'
+         '404':
+           description: 'post comment not found'
+  /page-comments:
+    get:
+      tags:
+        - page-comments
+      summary: search page comments
+      operationId: searchPageComments
+      description: Search page comments 
+      parameters:
+        - in: query
+          name: search
+          description: Search text in page comments
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: page
+          description: Number of pages for pagination
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+        - in: query
+          name: include
+          description: Add relationships
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'search page comments matching criteria'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: array
+                items:
+                    $ref: '#/components/schemas/PageComments'
+        '400':
+          description: 'invalid input, object invalid'
+    post:
+      tags:
+        - page-comments
+      summary: add page comment
+      operationId: addPageComment
+      description: Adds an page comment to the blog
+      responses:
+        '201':
+          description: 'page created'
+        '400':
+          description: 'invalid input, object invalid'
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/PageComment'
+  '/page-comments/{id}':
+      patch:
+        tags:
+          - page-comments
+        summary: update page comment
+        operationId: updatePageComment
+        description: Update an page comment
+        parameters:
+        - name: id
+          in: path
+          description: ID of page comment that needs to be updated
+          required: true
+          schema:
+            type: integer
+            format: int32
+        responses:
+          '200':
+            description: 'page comment updated'
+          '400':
+            description: 'invalid input, object invalid'
+          '404':
+            description: 'page comment not found'
+        requestBody:
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/PageComment'
+      delete:
+        tags:
+          - page-comments
+        summary: delete page comment
+        operationId: deletePageComment
+        description: Delete an page comment
+        parameters:
+        - name: id
+          in: path
+          description: ID of page comment that needs to be deleted
+          required: true
+          schema:
+            type: integer
+            format: int32
+        responses:
+         '200':
+          description: 'page comment deleted'
+         '400':
+           description: 'invalid input, object invalid'
+         '404':
+           description: 'page comment not found'
+  /tags:
+    get:
+      tags:
+        - tags
+      summary: search tags
+      operationId: searchTags
+      description: Search tags
+      parameters:
+        - in: query
+          name: search
+          description: Search text in tags
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: tag
+          description: Number of pages for pagination
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+      responses:
+        '200':
+          description: 'search tags matching criteria'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: array
+                items:
+                    $ref: '#/components/schemas/Tags'
+        '400':
+          description: 'invalid input, object invalid'
+    post:
+      tags:
+        - tags
+      summary: add tag
+      operationId: addTag
+      description: Adds an tag to the blog
+      responses:
+        '201':
+          description: 'tag created'
+        '400':
+          description: 'invalid input, object invalid'
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/Tag'
+  '/tags/{id}':
+      patch:
+        tags:
+          - tags
+        summary: update tag
+        operationId: updateTag
+        description: Update an tag
+        parameters:
+        - name: id
+          in: path
+          description: ID of tag that needs to be updated
+          required: true
+          schema:
+            type: integer
+            format: int32
+        responses:
+          '200':
+            description: 'tag updated'
+          '400':
+            description: 'invalid input, object invalid'
+          '404':
+            description: 'tag not found'
+        requestBody:
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+      delete:
+        tags:
+          - tags
+        summary: delete tag
+        operationId: deleteTag
+        description: Delete an tag
+        parameters:
+        - name: id
+          in: path
+          description: ID of tag that needs to be deleted
+          required: true
+          schema:
+            type: integer
+            format: int32
+        responses:
+         '200':
+          description: 'tag deleted'
+         '400':
+           description: 'invalid input, object invalid'
+         '404':
+           description: 'tag not found'
+  /metatags:
+    get:
+      tags:
+        - metatags
+      summary: search metatags
+      operationId: searchMetatags
+      description: Search metatags
+      parameters:
+        - in: query
+          name: search
+          description: Search text in metatags
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: metatag
+          description: Number of pages for pagination
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+        - in: query
+          name: include
+          description: Add relationships
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'search metatags matching criteria'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: array
+                items:
+                    $ref: '#/components/schemas/Metatags'
+        '400':
+          description: 'invalid input, object invalid'
+    post:
+      tags:
+        - metatags
+      summary: add metatag
+      operationId: addMetatag
+      description: Adds an metatag to the blog
+      responses:
+        '201':
+          description: 'metatag created'
+        '400':
+          description: 'invalid input, object invalid'
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/Metatag'
+  '/metatags/{id}':
+      patch:
+        tags:
+          - metatags
+        summary: update metatag
+        operationId: updateMetatag
+        description: Update an metatag
+        parameters:
+        - name: id
+          in: path
+          description: ID of metatag that needs to be updated
+          required: true
+          schema:
+            type: integer
+            format: int32
+        responses:
+          '200':
+            description: 'metatag updated'
+          '400':
+            description: 'invalid input, object invalid'
+          '404':
+            description: 'metatag not found'
+        requestBody:
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Metatag'
+      delete:
+        tags:
+          - metatags
+        summary: delete metatag
+        operationId: deleteMetatag
+        description: Delete an metatag
+        parameters:
+        - name: id
+          in: path
+          description: ID of metatag that needs to be deleted
+          required: true
+          schema:
+            type: integer
+            format: int32
+        responses:
+         '200':
+          description: 'metatag deleted'
+         '400':
+           description: 'invalid input, object invalid'
+         '404':
+           description: 'metatag not found'
+  /categories:
+    get:
+      tags:
+        - categories
+      summary: search categories
+      operationId: searchCategories
+      description: Search categories
+      parameters:
+        - in: query
+          name: search
+          description: Search text in categories
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: category
+          description: Number of pages for pagination
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+      responses:
+        '200':
+          description: 'search categories matching criteria'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: array
+                items:
+                    $ref: '#/components/schemas/Categories'
+        '400':
+          description: 'invalid input, object invalid'
+    post:
+      tags:
+        - categories
+      summary: add category
+      operationId: addCategory
+      description: Adds an category to the blog
+      responses:
+        '201':
+          description: 'category created'
+        '400':
+          description: 'invalid input, object invalid'
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/Category'
+  '/categories/{id}':
+      patch:
+        tags:
+          - categories
+        summary: update category
+        operationId: updateCategory
+        description: Update an category
+        parameters:
+        - name: id
+          in: path
+          description: ID of category that needs to be updated
+          required: true
+          schema:
+            type: integer
+            format: int32
+        responses:
+          '200':
+            description: 'category updated'
+          '400':
+            description: 'invalid input, object invalid'
+          '404':
+            description: 'category not found'
+        requestBody:
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Category'
+      delete:
+        tags:
+          - categories
+        summary: delete category
+        operationId: deleteCategory
+        description: Delete an category
+        parameters:
+        - name: id
+          in: path
+          description: ID of category that needs to be deleted
+          required: true
+          schema:
+            type: integer
+            format: int32
+        responses:
+         '200':
+          description: 'category deleted'
+         '400':
+           description: 'invalid input, object invalid'
+         '404':
+           description: 'category not found'
+  /users:
+    get:
+      tags:
+        - users
+      summary: search users
+      operationId: searchUsers
+      description: Search users
+      parameters:
+        - in: query
+          name: search
+          description: Search text in users
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: user
+          description: Number of pages for pagination
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+      responses:
+        '200':
+          description: 'search users matching criteria'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: array
+                items:
+                    $ref: '#/components/schemas/Users'
+        '400':
+          description: 'invalid input, object invalid'
+    post:
+      tags:
+        - users
+      summary: add user
+      operationId: addUser
+      description: Adds an user to the blog
+      responses:
+        '201':
+          description: 'user created'
+        '400':
+          description: 'invalid input, object invalid'
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/User'
+  '/users/{id}':
+      patch:
+        tags:
+          - users
+        summary: update user
+        operationId: updateUser
+        description: Update an user
+        parameters:
+        - name: id
+          in: path
+          description: ID of user that needs to be updated
+          required: true
+          schema:
+            type: integer
+            format: int32
+        responses:
+          '200':
+            description: 'user updated'
+          '400':
+            description: 'invalid input, object invalid'
+          '404':
+            description: 'user not found'
+        requestBody:
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/User'
+      delete:
+        tags:
+          - users
+        summary: delete user
+        operationId: deleteUser
+        description: Delete an user
+        parameters:
+        - name: id
+          in: path
+          description: ID of user that needs to be deleted
+          required: true
+          schema:
+            type: integer
+            format: int32
+        responses:
+         '200':
+          description: 'user deleted'
+         '400':
+           description: 'invalid input, object invalid'
+         '404':
+           description: 'user not found'
+components:
+  schemas:
+    Post:
+      type: object
+      required:
+        - id
+        - type
+        - attributes
+      properties:
+          id:
+            type: integer
+            format: int32
+            minimum: 1
+            example: 1
+          type:
+            type: string
+            example: pages
+          attributes:
+            type: object
+            properties:
+              title:
+                type: string
+                example: Post one
+              slug:
+                type: string
+                example: post-one
+              content:
+                type: string
+                example: Text of post one
+              no_comment:
+                type: string
+                example: N
+              created_user_id:
+                type: integer
+                format: int32
+                minimum: 1
+              updated_user_id:
+                type: integer
+                format: int32
+                minimum: 1
+              created_at:
+                type: string
+                format: date-time
+                example: '2019-01-12T09:12:33.001Z'
+              updated_at:
+                type: string
+                format: date-time
+                example: '2019-02-05T07:52:22.001Z'
+              deleted_at:
+                type: string
+                format: date-time
+                example: '2019-02-05T07:52:22.001Z'
+    Posts:
+      type: object
+      required:
+        - data
+        - id
+        - type
+        - attributes
+      properties:
+       data:
+        $ref: '#/components/schemas/Post'
+    Page:
+      type: object
+      required:
+        - id
+        - type
+        - attributes
+      properties:
+          id:
+            type: integer
+            format: int32
+            minimum: 1
+            example: 1
+          type:
+            type: string
+            example: pages
+          attributes:
+            type: object
+            properties:
+              title:
+                type: string
+                example: Post one
+              slug:
+                type: string
+                example: post-one
+              content:
+                type: string
+                example: Text of post one
+              parent_id:
+                type: integer
+                format: int32
+                minimum: 1
+                example: 2
+              no_comment:
+                type: string
+                example: N
+              created_user_id:
+                type: integer
+                format: int32
+                minimum: 1
+              updated_user_id:
+                type: integer
+                format: int32
+                minimum: 1
+              created_at:
+                type: string
+                format: date-time
+                example: '2019-01-12T09:12:33.001Z'
+              updated_at:
+                type: string
+                format: date-time
+                example: '2019-02-05T07:52:22.001Z'
+              deleted_at:
+                type: string
+                format: date-time
+                example: '2019-02-05T07:52:22.001Z'
+    Pages:
+      type: object
+      required:
+        - data
+        - id
+        - type
+        - attributes
+      properties:
+       data:
+        $ref: '#/components/schemas/Page'
+    PostComment:
+      type: object
+      required:
+        - id
+        - type
+        - attributes
+      properties:
+          id:
+            type: integer
+            format: int32
+            minimum: 1
+            example: 1
+          type:
+            type: string
+            example: pages
+          attributes:
+            type: object
+            properties:
+              content:
+               type: string
+               example: Text of comment one
+              post_id:
+                type: integer
+                format: int32
+                example: 1
+              parent_id:
+                type: integer
+                format: int32
+                example: 2
+              created_user_id:
+                type: integer
+                format: int32
+                minimum: 1
+              updated_user_id:
+                type: integer
+                format: int32
+                minimum: 1
+              created_at:
+                type: string
+                format: date-time
+                example: '2019-01-12T09:12:33.001Z'
+              updated_at:
+                type: string
+                format: date-time
+                example: '2019-02-05T07:52:22.001Z'
+              deleted_at:
+                type: string
+                format: date-time
+                example: '2019-02-05T07:52:22.001Z'
+    PostComments:
+      type: object
+      required:
+        - data
+        - id
+        - type
+        - attributes
+      properties:
+       data:
+        $ref: '#/components/schemas/PostComments'
+    PageComment:
+      type: object
+      required:
+        - id
+        - type
+        - attributes
+      properties:
+          id:
+            type: integer
+            format: int32
+            minimum: 1
+            example: 1
+          type:
+            type: string
+            example: pages
+          attributes:
+            type: object
+            properties:
+              content:
+               type: string
+               example: Text of comment one
+              page_id:
+                type: integer
+                format: int32
+                example: 1
+              parent_id:
+                type: integer
+                format: int32
+                example: 2
+              created_user_id:
+                type: integer
+                format: int32
+                minimum: 1
+              updated_user_id:
+                type: integer
+                format: int32
+                minimum: 1
+              created_at:
+                type: string
+                format: date-time
+                example: '2019-01-12T09:12:33.001Z'
+              updated_at:
+                type: string
+                format: date-time
+                example: '2019-02-05T07:52:22.001Z'
+              deleted_at:
+                type: string
+                format: date-time
+                example: '2019-02-05T07:52:22.001Z'
+    PageComments:
+      type: object
+      required:
+        - data
+        - id
+        - type
+        - attributes
+      properties:
+       data:
+        $ref: '#/components/schemas/PageComments'
+    Category:
+      type: object
+      required:
+        - id
+        - type
+        - attributes
+      properties:
+          id:
+            type: integer
+            format: int32
+            minimum: 1
+            example: 1
+          type:
+            type: string
+            example: pages
+          attributes:
+            type: object
+            properties:
+              title:
+                type: string
+                example: Category one
+              slug:
+                type: string
+                example: category-one
+              parent_id:
+                type: integer
+                format: int32
+                minimum: 1
+                example: 2
+    Categories:
+      type: object
+      required:
+        - data
+        - id
+        - type
+        - attributes
+      properties:
+       data:
+        $ref: '#/components/schemas/Category'
+    Tag:
+      type: object
+      required:
+        - id
+        - type
+        - attributes
+      properties:
+          id:
+            type: integer
+            format: int32
+            minimum: 1
+            example: 1
+          type:
+            type: string
+            example: pages
+          attributes:
+            type: object
+            properties:
+              title:
+                type: string
+                example: Tag one
+              slug:
+                type: string
+                example: tag-one
+    Tags:
+      type: object
+      required:
+        - data
+        - id
+        - type
+        - attributes
+      properties:
+       data:
+        $ref: '#/components/schemas/Tag'
+    Metatag:
+      type: object
+      required:
+        - id
+        - type
+        - attributes
+      properties:
+          id:
+            type: integer
+            format: int32
+            minimum: 1
+            example: 1
+          type:
+            type: string
+            example: pages
+          attributes:
+            type: object
+            properties:
+              type:
+                type: string
+                example: post
+              page_id:
+                type: integer
+                format: int32
+                example: 
+              post_id:
+                type: integer
+                format: int32
+                example: 1
+              name:
+                type: string
+                example: title
+              content:
+                type: string
+                example: The title of post one
+    Metatags:
+      type: object
+      required:
+        - data
+        - id
+        - type
+        - attributes
+      properties:
+       data:
+        $ref: '#/components/schemas/Metatag'
+    User:
+      type: object
+      required:
+        - id
+        - type
+        - attributes
+      properties:
+          id:
+            type: integer
+            format: int32
+            minimum: 1
+            example: 1
+          type:
+            type: string
+            example: users
+          attributes:
+            type: object
+            properties:
+              name:
+                type: string
+                example: user1
+              email:
+                type: string
+                example: user1@gmail.com
+              password:
+                type: string
+                example: password
+              remember_token:
+                type: string
+              created_at:
+                type: string
+                format: date-time
+                example: '2019-01-12T09:12:33.001Z'
+              updated_at:
+                type: string
+                format: date-time
+                example: '2019-02-05T07:52:22.001Z'
+    Users:
+      type: object
+      required:
+        - data
+        - id
+        - type
+        - attributes
+      properties:
+       data:
+        $ref: '#/components/schemas/User'
