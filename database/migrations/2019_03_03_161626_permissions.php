@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ActionRole extends Migration
+class Permissions extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class ActionRole extends Migration
      */
     public function up()
     {
-        Schema::create('action_role', function (Blueprint $table) {
-            $table->integer('role_id')->index();
-            $table->integer('action_id')->index();
-            $table->unique(['role_id', 'action_id']);
+        Schema::create('permissions', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('title', 255)->unique();
+            $table->string('slug', 255)->unique();
+            $table->enum('system', ['Y', 'N'])->default('N');
         });
     }
 
@@ -27,6 +28,6 @@ class ActionRole extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('action_role');
+        Schema::dropIfExists('permissions');
     }
 }

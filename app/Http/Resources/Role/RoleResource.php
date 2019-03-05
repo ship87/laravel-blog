@@ -23,7 +23,7 @@ class RoleResource extends Resource
                 'system' => $this->system,
             ],
             'links' => [
-                'self' => route('roles.show', ['action' => $this->id]),
+                'self' => route('roles.show', ['role' => $this->id]),
             ],
         ];
     }

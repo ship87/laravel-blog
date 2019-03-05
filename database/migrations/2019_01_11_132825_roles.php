@@ -17,7 +17,7 @@ class Roles extends Migration
             $table->increments('id');
             $table->string('title', 255)->unique();
             $table->string('slug', 255)->unique();
-            $table->enum('system', ['Y', 'N']);
+            $table->enum('system', ['Y', 'N'])->default('N');
         });
     }
 

@@ -4,7 +4,7 @@ namespace App\Http\Resources\Role;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class ActionsResource extends ResourceCollection
+class PermissionResource extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
@@ -15,7 +15,7 @@ class ActionsResource extends ResourceCollection
     public function toArray($request)
     {
         return [
-            'data' => ActionResource::collection($this->collection),
+            'data' => PermissionResource::collection($this->collection),
         ];
     }
 
@@ -23,7 +23,7 @@ class ActionsResource extends ResourceCollection
     {
         return [
             'links' => [
-                'self' => route('roles.index'),
+                'self' => route('permissions.index'),
             ],
         ];
     }

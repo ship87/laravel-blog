@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Services\PermissionService;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
@@ -34,9 +35,11 @@ class RoleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(PermissionService $permissionService)
     {
-        return view(config('app.theme').'admin.roles.create');
+        return view(config('app.theme').'admin.roles.create',[
+			'permissions' => $permissionService->getAllTitleId(),
+		]);
     }
 
     /**
@@ -47,7 +50,7 @@ class RoleController extends Controller
      */
     public function store(RoleRequest $request, RoleService $roleService)
     {
-        $roleService->create($request->all());
+        $roleService->create($request->all(), $request->relationData);
 
         return redirect()->route(config('app.theme').'admin.roles.index');
     }
@@ -58,12 +61,14 @@ class RoleController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id, RoleService $roleService)
+    public function edit($id, RoleService $roleService,PermissionService $permissionService)
     {
         $role = $roleService->getByIdOrFail($id);
 
         return view(config('app.theme').'admin.roles.edit', [
             'role' => $role,
+			'permissions' => $permissionService->getAllTitleId(),
+			'selectedPermissions' => $permissionService->getId($role->permissions),
         ]);
     }
 
@@ -76,7 +81,7 @@ class RoleController extends Controller
      */
     public function update(RoleRequest $request, $id, RoleService $roleService)
     {
-        $roleService->update($request->all(),$id);
+        $roleService->update($request->all(), $request->relationData, $id);
 
         return redirect()->route(config('app.theme').'admin.roles.index');
     }

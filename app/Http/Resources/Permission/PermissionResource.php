@@ -4,7 +4,7 @@ namespace App\Http\Resources\Role;
 
 use Illuminate\Http\Resources\Json\Resource;
 
-class ActionResource extends Resource
+class PermissionResource extends Resource
 {
     /**
      * Transform the resource into an array.
@@ -15,7 +15,7 @@ class ActionResource extends Resource
     public function toArray($request)
     {
         return [
-            'type' => 'actions',
+            'type' => 'permissions',
             'id' => (string) $this->id,
             'attributes' => [
                 'title' => $this->title,
@@ -23,7 +23,7 @@ class ActionResource extends Resource
                 'system' => $this->slug,
             ],
             'links' => [
-                'self' => route('actions.show', ['action' => $this->id]),
+                'self' => route('permissions.show', ['permission' => $this->id]),
             ],
         ];
     }

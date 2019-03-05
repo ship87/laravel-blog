@@ -25,6 +25,8 @@ Route::namespace('Admin')->name(config('app.theme').'admin.')->middleware(['auth
     Route::resource('users', 'UserController')->except('show');
     Route::resource('page-comments', 'PageCommentController')->except('show');
     Route::resource('post-comments', 'PostCommentController')->except('show');
+	Route::resource('roles', 'RoleController')->except('show');
+	Route::resource('permissions', 'PermissionController')->except('show');
 });
 
 Route::group(['namespace' => 'Client'], function () {

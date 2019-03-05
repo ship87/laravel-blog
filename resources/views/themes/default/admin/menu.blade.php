@@ -18,10 +18,19 @@
 <hr>
 <p><a href="{{ config('app.url_admin').'/page-comments' }}">{{ u__('admin.page comments') }}</a></p>
 <hr>
+
+<p><a href="{{ config('app.url_admin').'/images' }}">{{ u__('admin.images') }}</a></p>
+<hr>
 <p><a href="{{ config('app.url_admin').'/users' }}">{{ u__('admin.users') }}</a></p>
 
 <p><a href="{{ config('app.url_admin').'/users/create' }}">{{ u__('admin.create user') }}</a></p>
 <hr>
 
-<p><a href="{{ config('app.url_admin').'/images' }}">{{ u__('admin.images') }}</a></p>
+<p><a href="{{ config('app.url_admin').'/permissions' }}">{{ u__('admin.permissions') }}</a></p>
+
+<p><a href="{{ config('app.url_admin').'/permissions/create' }}">{{ u__('admin.create permission') }}</a></p>
+<hr>
+<p><a href="{{ config('app.url_admin').'/roles' }}">{{ u__('admin.roles') }}</a></p>
+
+<p><a href="{{ config('app.url_admin').'/roles/create' }}">{{ u__('admin.create role') }}</a></p>
 <hr>

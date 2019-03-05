@@ -5,10 +5,20 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 
 use App\Traits\Requests\PreviousPageTrait;
+use App\Traits\Requests\FilterRelationsTrait;
+use App\Traits\Requests\JsonApiTrait;
 
 class RoleRequest extends FormRequest
 {
     use PreviousPageTrait;
+
+	use FilterRelationsTrait;
+
+	use JsonApiTrait;
+
+	protected $filterRelations = [
+		'permissions',
+	];
 
     /**
      * Determine if the user is authorized to make this request.
@@ -39,7 +49,15 @@ class RoleRequest extends FormRequest
 	 */
 	protected function validationData()
 	{
+		$jsonApiRequest = $this->validationDataJsonApiRequest('posts');
+
+		if ($jsonApiRequest !== null) {
+			return $jsonApiRequest;
+		}
+
 		$this->filterPreviousPage();
+
+		$this->filterRelations();
 
 		return parent::validationData();
 	}

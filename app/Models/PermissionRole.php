@@ -4,7 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Action extends Model
+class PermissionRole extends Model
 {
-    protected $guarded = [];
+	protected $guarded = [];
+
 }

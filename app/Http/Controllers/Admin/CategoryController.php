@@ -25,7 +25,7 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(CategoryService $categoryService, Request $request,Authenticatable $auth)
+    public function index(CategoryService $categoryService, Request $request, Authenticatable $auth)
     {
     	$this->indexPolicy($auth);
 
