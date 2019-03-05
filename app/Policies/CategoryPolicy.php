@@ -3,12 +3,24 @@
 namespace App\Policies;
 
 use App\Models\User;
-use App\Models\Category;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class CategoryPolicy
 {
     use HandlesAuthorization;
+
+	/**
+	 * Determine whether the user can view the post.
+	 *
+	 * @param  \App\Models\User  $user
+	 * @param  \App\Models\Post  $post
+	 * @return mixed
+	 */
+	public function index(User $user)
+	{
+
+		return $user->id == 1;
+	}
 
     /**
      * Determine whether the user can view the category.
@@ -17,9 +29,9 @@ class CategoryPolicy
      * @param  \App\Models\Category  $category
      * @return mixed
      */
-    public function view(User $user, Category $category)
+    public function view(User $user)
     {
-        //
+		return $user->id == 1;
     }
 
     /**
@@ -30,8 +42,32 @@ class CategoryPolicy
      */
     public function create(User $user)
     {
-        //
+		return $user->id == 1;
     }
+
+	/**
+	 * Determine whether the user can update the category.
+	 *
+	 * @param  \App\Models\User  $user
+	 * @param  \App\Models\Category  $category
+	 * @return mixed
+	 */
+	public function store(User $user)
+	{
+		return $user->id == 1;
+	}
+
+	/**
+	 * Determine whether the user can update the category.
+	 *
+	 * @param  \App\Models\User  $user
+	 * @param  \App\Models\Category  $category
+	 * @return mixed
+	 */
+	public function edit(User $user)
+	{
+		return $user->id == 1;
+	}
 
     /**
      * Determine whether the user can update the category.
@@ -40,9 +76,9 @@ class CategoryPolicy
      * @param  \App\Models\Category  $category
      * @return mixed
      */
-    public function update(User $user, Category $category)
+    public function update(User $user)
     {
-        //
+		return $user->id == 1;
     }
 
     /**
@@ -52,8 +88,8 @@ class CategoryPolicy
      * @param  \App\Models\Category  $category
      * @return mixed
      */
-    public function delete(User $user, Category $category)
+    public function destroy(User $user)
     {
-        //
+		return $user->id == 1;
     }
 }

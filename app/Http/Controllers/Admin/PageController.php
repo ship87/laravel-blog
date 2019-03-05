@@ -10,7 +10,7 @@ use App\Http\Requests\PageRequest;
 use App\Services\PageService;
 use App\Traits\Controllers\HttpPageTrait;
 
-class PageController extends Controller
+class PageController extends PolicyController
 {
     use HttpPageTrait;
 

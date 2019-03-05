@@ -11,6 +11,18 @@ class PostPolicy
 {
     use HandlesAuthorization;
 
+	/**
+	 * Determine whether the user can view the post.
+	 *
+	 * @param  \App\Models\User  $user
+	 * @param  \App\Models\Post  $post
+	 * @return mixed
+	 */
+	public function index(User $user, Post $post)
+	{
+		return $user->id == 1;
+	}
+
     /**
      * Determine whether the user can view the post.
      *
@@ -20,7 +32,7 @@ class PostPolicy
      */
     public function view(User $user, Post $post)
     {
-		return TRUE;
+		return $user->id == 1;
     }
 
     /**
@@ -31,7 +43,7 @@ class PostPolicy
      */
     public function create(User $user)
     {
-
+		return $user->id == 1;
     }
 
     /**
@@ -43,7 +55,7 @@ class PostPolicy
      */
     public function update(User $user, Post $post)
     {
-
+		return $user->id == 1;
     }
 
     /**
@@ -55,6 +67,6 @@ class PostPolicy
      */
     public function delete(User $user, Post $post)
     {
-
+		return $user->id == 1;
     }
 }
