@@ -9,24 +9,34 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\PostCommentRequest;
 use App\Services\PostCommentService;
 use App\Traits\Controllers\HttpPageTrait;
+use App\Traits\Controllers\PolicyTrait;
+use App\Models\PostComment;
 
 class PostCommentController extends Controller
 {
     use HttpPageTrait;
+
+    use PolicyTrait;
+
+    protected $modelPolicy = PostComment::class;
 
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(PostCommentService $postCommentService, Request $request)
+    public function index(PostCommentService $postCommentService, Request $request, Authenticatable $auth)
     {
         $postComments = $postCommentService->getPaginated(config('app.url_admin').'/post-comments');
+        $canEdit = $auth->can('edit', $this->modelPolicy->find(1));
+        $canDelete = $auth->can('destroy', $this->modelPolicy->find(1));
 
         $this->isEmptyPaginated($postComments, $request);
 
         return view(config('app.theme').'admin.post-comments.index', [
             'postComments' => $postComments,
+            'canEdit' => $canEdit,
+            'canDelete' => $canDelete,
         ]);
     }
 
@@ -59,7 +69,7 @@ class PostCommentController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id, PostCommentService $postCommentService)
+    public function edit($id, PostCommentService $postCommentService, Authenticatable $auth)
     {
         $postComment = $postCommentService->getByIdOrFail($id);
 
@@ -92,7 +102,7 @@ class PostCommentController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id, PostCommentService $postCommentService)
+    public function destroy($id, PostCommentService $postCommentService, Authenticatable $auth)
     {
         $postCommentService->destroy($id);
 

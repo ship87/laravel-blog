@@ -7,15 +7,9 @@
             <div class="col-xs-1">
                 {{$postComment->id}}
             </div>
-            <div class="col-xs-1">
-                <a href="{{ route(config('app.theme').'admin.post-comments.edit', $postComment->id) }}">{{ Form::submit(u__('admin.edit'), ['class' => 'btn btn-info']) }}</a>
-            </div>
-            <div class="col-xs-1">
-				{{ Form::open(['method' => u__('admin.delete'),'route' => [config('app.theme').'admin.post-comments.destroy', $postComment->id],'style'=>'form-inline']) }}
-				{{ csrf_field() }}
-				{{ Form::submit(u__('admin.delete'), ['class' => 'btn btn-info','onclick'=>'confirmDelete()']) }}
-				{{ Form::close() }}
-            </div>
+
+            @include(config('app.theme').'admin.actions', ['dataName'=>'post-comments','data'=>$postComment,'canEdit'=>$canEdit,'canDelete'=>$canDelete])
+
             <div class="col-xs-5">
                 {{ $postComment->content }}
             </div>

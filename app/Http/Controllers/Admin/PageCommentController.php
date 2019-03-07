@@ -9,24 +9,36 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\PageCommentRequest;
 use App\Services\PageCommentService;
 use App\Traits\Controllers\HttpPageTrait;
+use App\Traits\Controllers\PolicyTrait;
+use App\Models\PageComment;
 
 class PageCommentController extends Controller
 {
     use HttpPageTrait;
+
+    use PolicyTrait;
+
+    protected $modelPolicy = PageComment::class;
 
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(PageCommentService $pageCommentService, Request $request)
+    public function index(PageCommentService $pageCommentService, Request $request, Authenticatable $auth)
     {
+        $this->indexPolicy($auth);
+        $canEdit = $auth->can('edit', $this->modelPolicy->find(1));
+        $canDelete = $auth->can('destroy', $this->modelPolicy->find(1));
+
         $pageComments = $pageCommentService->getPaginated(config('app.url_admin').'/page-comments');
 
         $this->isEmptyPaginated($pageComments, $request);
 
         return view(config('app.theme').'admin.page-comments.index', [
             'pageComments' => $pageComments,
+            'canEdit' => $canEdit,
+            'canDelete' => $canDelete,
         ]);
     }
 
@@ -59,7 +71,7 @@ class PageCommentController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id, PageCommentService $pageCommentService)
+    public function edit($id, PageCommentService $pageCommentService, Authenticatable $auth)
     {
         $pageComment = $pageCommentService->getByIdOrFail($id);
 
@@ -89,7 +101,7 @@ class PageCommentController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id, PageCommentService $pageCommentService)
+    public function destroy($id, PageCommentService $pageCommentService, Authenticatable $auth)
     {
         $pageCommentService->destroy($id);
 

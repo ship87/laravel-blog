@@ -9,24 +9,34 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\PageRequest;
 use App\Services\PageService;
 use App\Traits\Controllers\HttpPageTrait;
+use App\Traits\Controllers\PolicyTrait;
+use App\Models\Page;
 
-class PageController extends PolicyController
+class PageController extends Controller
 {
     use HttpPageTrait;
+
+    use PolicyTrait;
+
+    protected $modelPolicy = Page::class;
 
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(PageService $pageService, Request $request)
+    public function index(PageService $pageService, Request $request, Authenticatable $auth)
     {
         $pages = $pageService->getPaginated(config('app.url_admin').'/pages');
+        $canEdit = $auth->can('edit', $this->modelPolicy->find(1));
+        $canDelete = $auth->can('destroy', $this->modelPolicy->find(1));
 
         $this->isEmptyPaginated($pages, $request);
 
         return view(config('app.theme').'admin.pages.index', [
             'pages' => $pages,
+            'canEdit' => $canEdit,
+            'canDelete' => $canDelete,
         ]);
     }
 
@@ -35,7 +45,7 @@ class PageController extends PolicyController
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(PageService $pageService)
+    public function create(PageService $pageService, Authenticatable $auth)
     {
         return view(config('app.theme').'admin.pages.create', [
             'parentPages' => $pageService->getAllTitleId(),
@@ -61,7 +71,7 @@ class PageController extends PolicyController
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id, PageService $pageService)
+    public function edit($id, PageService $pageService, Authenticatable $auth)
     {
         $page = $pageService->getByIdWithSeo($id);
 
@@ -93,7 +103,7 @@ class PageController extends PolicyController
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id, PageService $pageService)
+    public function destroy($id, PageService $pageService, Authenticatable $auth)
     {
         $pageService->destroy($id);
 

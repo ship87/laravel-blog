@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use Illuminate\Contracts\Auth\Authenticatable;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Contracts\Auth\Authenticatable;
 use App\Http\Requests\CategoryRequest;
 use App\Services\CategoryService;
 use App\Traits\Controllers\HttpPageTrait;
@@ -18,7 +18,7 @@ class CategoryController extends Controller
 
     use PolicyTrait;
 
-	protected $modelPolicy = Category::class;
+    protected $modelPolicy = Category::class;
 
     /**
      * Display a listing of the resource.
@@ -27,7 +27,9 @@ class CategoryController extends Controller
      */
     public function index(CategoryService $categoryService, Request $request, Authenticatable $auth)
     {
-    	$this->indexPolicy($auth);
+        $this->indexPolicy($auth);
+        $canEdit = $auth->can('edit', $this->modelPolicy->find(1));
+        $canDelete = $auth->can('destroy', $this->modelPolicy->find(1));
 
         $categories = $categoryService->getPaginated(config('app.url_admin').'/categories');
 
@@ -35,6 +37,8 @@ class CategoryController extends Controller
 
         return view(config('app.theme').'admin.categories.index', [
             'categories' => $categories,
+            'canEdit' => $canEdit,
+            'canDelete' => $canDelete,
         ]);
     }
 
@@ -43,9 +47,9 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(CategoryService $categoryService)
+    public function create(CategoryService $categoryService, Authenticatable $auth)
     {
-		$this->createPolicy();
+        $this->createPolicy($auth);
 
         return view(config('app.theme').'admin.categories.create', [
             'categories' => $categoryService->getAllTitleId(),
@@ -58,9 +62,9 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CategoryRequest $request, CategoryService $categoryService)
+    public function store(CategoryRequest $request, CategoryService $categoryService, Authenticatable $auth)
     {
-    	$this->storePolicy();
+        $this->storePolicy($auth);
 
         $categoryService->create($request->all());
 
@@ -73,9 +77,9 @@ class CategoryController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id, CategoryService $categoryService)
+    public function edit($id, CategoryService $categoryService, Authenticatable $auth)
     {
-    	$this->editPolicy();
+        $this->editPolicy($auth);
 
         $category = $categoryService->getByIdOrFail($id);
 
@@ -93,9 +97,9 @@ class CategoryController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CategoryRequest $request, $id, CategoryService $categoryService)
+    public function update(CategoryRequest $request, $id, CategoryService $categoryService, Authenticatable $auth)
     {
-    	$this->updatePolicy();
+        $this->updatePolicy($auth);
 
         $categoryService->update($request->all(), $id);
 
@@ -108,9 +112,9 @@ class CategoryController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id, CategoryService $categoryService)
+    public function destroy($id, CategoryService $categoryService, Authenticatable $auth)
     {
-    	$this->destroyPolicy();
+        $this->destroyPolicy($auth);
 
         $categoryService->destroy($id);
 

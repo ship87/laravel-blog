@@ -11,24 +11,34 @@ use App\Services\PostService;
 use App\Services\CategoryService;
 use App\Services\TagService;
 use App\Traits\Controllers\HttpPageTrait;
+use App\Traits\Controllers\PolicyTrait;
+use App\Models\Post;
 
 class PostController extends Controller
 {
     use HttpPageTrait;
+
+    use PolicyTrait;
+
+    protected $modelPolicy = Post::class;
 
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(PostService $postService, Request $request)
+    public function index(PostService $postService, Request $request, Authenticatable $auth)
     {
         $posts = $postService->getPaginated(config('app.url_admin').'/posts');
+        $canEdit = $auth->can('edit', $this->modelPolicy->find(1));
+        $canDelete = $auth->can('destroy', $this->modelPolicy->find(1));
 
         $this->isEmptyPaginated($posts, $request);
 
         return view(config('app.theme').'admin.posts.index', [
             'posts' => $posts,
+            'canEdit' => $canEdit,
+            'canDelete' => $canDelete,
         ]);
     }
 
@@ -37,7 +47,7 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(CategoryService $categoryService, TagService $tagService)
+    public function create(CategoryService $categoryService, TagService $tagService, Authenticatable $auth)
     {
         return view(config('app.theme').'admin.posts.create', [
             'tags' => $tagService->getAllNameId(),
@@ -64,7 +74,7 @@ class PostController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id, PostService $postService, CategoryService $categoryService, TagService $tagService)
+    public function edit($id, PostService $postService, CategoryService $categoryService, TagService $tagService, Authenticatable $auth)
     {
         $post = $postService->getByIdWithSeo($id);
 
@@ -111,7 +121,7 @@ class PostController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id, PostService $postService)
+    public function destroy($id, PostService $postService, Authenticatable $auth)
     {
         $postService->destroy($id);
 

@@ -14,7 +14,7 @@
                 <title>{{ $metatag->content }}</title>
             @else
                 <meta name="{{ $metatag->name }}" content="{{ $metatag->content }}"/>
-        @endif
+            @endif
         @empty
         @endforelse
     @endisset

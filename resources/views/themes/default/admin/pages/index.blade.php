@@ -7,15 +7,9 @@
             <div class="col-xs-1">
                 {{$page->id}}
             </div>
-            <div class="col-xs-1">
-                <a href="{{ route(config('app.theme').'admin.pages.edit', $page->id) }}">{{ Form::submit(u__('admin.edit'), ['class' => 'btn btn-info']) }}</a>
-            </div>
-            <div class="col-xs-1">
-                {{ Form::open(['method' => u__('admin.delete'),'route' => [config('app.theme').'admin.pages.destroy', $page->id],'style'=>'form-inline']) }}
-                {{ csrf_field() }}
-                {{ Form::submit(u__('admin.delete'), ['class' => 'btn btn-info','onclick'=>'confirmDelete()']) }}
-                {{ Form::close() }}
-            </div>
+
+            @include(config('app.theme').'admin.actions', ['dataName'=>'pages','data'=>$page,'canEdit'=>$canEdit,'canDelete'=>$canDelete])
+
             <div class="col-xs-5">
                 {{ $page->title }}
             </div>

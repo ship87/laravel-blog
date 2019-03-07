@@ -3,29 +3,40 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use Illuminate\Contracts\Auth\Authenticatable;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use App\Services\UserService;
 use App\Traits\Controllers\HttpPageTrait;
+use App\Traits\Controllers\PolicyTrait;
+use App\Models\User;
 
 class UserController extends Controller
 {
     use HttpPageTrait;
+
+    use PolicyTrait;
+
+    protected $modelPolicy = User::class;
 
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(UserService $userService, Request $request)
+    public function index(UserService $userService, Request $request, Authenticatable $auth)
     {
         $users = $userService->getPaginated(config('app.url_admin').'/users');
+        $canEdit = $auth->can('edit', $this->modelPolicy->find(1));
+        $canDelete = $auth->can('destroy', $this->modelPolicy->find(1));
 
         $this->isEmptyPaginated($users, $request);
 
         return view(config('app.theme').'admin.users.index', [
             'users' => $users,
+            'canEdit' => $canEdit,
+            'canDelete' => $canDelete,
         ]);
     }
 
@@ -34,7 +45,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Authenticatable $auth)
     {
         return view(config('app.theme').'admin.users.create');
     }
@@ -45,7 +56,7 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UserRequest $request, UserService $userService)
+    public function store(UserRequest $request, UserService $userService, Authenticatable $auth)
 	{
 		$userService->create($request->all());
 
@@ -58,7 +69,7 @@ class UserController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id, UserService $userService)
+    public function edit($id, UserService $userService, Authenticatable $auth)
     {
         $user = $userService->getByIdOrFail($id);
 
@@ -74,7 +85,7 @@ class UserController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UserRequest $request, $id, UserService $userService)
+    public function update(UserRequest $request, $id, UserService $userService, Authenticatable $auth)
 	{
 		$userService->update($request->all(),$id);
 
@@ -87,7 +98,7 @@ class UserController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id, UserService $userService)
+    public function destroy($id, UserService $userService, Authenticatable $auth)
     {
         $userService->destroy($id);
 

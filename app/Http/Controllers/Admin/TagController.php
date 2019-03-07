@@ -3,29 +3,40 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use Illuminate\Contracts\Auth\Authenticatable;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TagRequest;
 use App\Services\TagService;
 use App\Traits\Controllers\HttpPageTrait;
+use App\Traits\Controllers\PolicyTrait;
+use App\Models\Tag;
 
 class TagController extends Controller
 {
     use HttpPageTrait;
+
+    use PolicyTrait;
+
+    protected $modelPolicy = Tag::class;
 
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(TagService $tagService, Request $request)
+    public function index(TagService $tagService, Request $request, Authenticatable $auth)
     {
         $tags = $tagService->getPaginated(config('app.url_admin').'/tags');
+        $canEdit = $auth->can('edit', $this->modelPolicy->find(1));
+        $canDelete = $auth->can('destroy', $this->modelPolicy->find(1));
 
         $this->isEmptyPaginated($tags, $request);
 
         return view(config('app.theme').'admin.tags.index', [
             'tags' => $tags,
+            'canEdit' => $canEdit,
+            'canDelete' => $canDelete,
         ]);
     }
 
@@ -34,7 +45,7 @@ class TagController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Authenticatable $auth)
     {
         return view(config('app.theme').'admin.tags.create');
     }
@@ -45,7 +56,7 @@ class TagController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(TagRequest $request, TagService $tagService)
+    public function store(TagRequest $request, TagService $tagService, Authenticatable $auth)
 	{
 		$tagService->create($request->all());
 
@@ -58,7 +69,7 @@ class TagController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id, TagService $tagService)
+    public function edit($id, TagService $tagService, Authenticatable $auth)
     {
         $tag = $tagService->getByIdOrFail($id);
 
@@ -74,7 +85,7 @@ class TagController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(TagRequest $request, $id, TagService $tagService)
+    public function update(TagRequest $request, $id, TagService $tagService, Authenticatable $auth)
 	{
 		$tagService->update($request->all(),$id);
 
@@ -87,7 +98,7 @@ class TagController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id, TagService $tagService)
+    public function destroy($id, TagService $tagService, Authenticatable $auth)
     {
         $tagService->destroy($id);
 

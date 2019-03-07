@@ -21,8 +21,8 @@
                 </div>
 
                 <div class="form-group">
-                    {{ Form::label('permission[]', u__('admin.permission')) }}
-                    {{ Form::select('permission[]', $permission, old('permission[]'), ['class'=>'form-control', 'multiple']) }}
+                    {{ Form::label('permissions[]', u__('admin.permissions')) }}
+                    {{ Form::select('permissions[]', $permissions, old('permissions[]'), ['class'=>'form-control', 'multiple']) }}
                 </div>
 
                 {{ Form::submit(u__('admin.save'), ['class' => 'btn btn-info']) }}
