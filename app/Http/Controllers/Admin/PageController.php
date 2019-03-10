@@ -27,9 +27,11 @@ class PageController extends Controller
      */
     public function index(PageService $pageService, Request $request, Authenticatable $auth)
     {
+		$this->indexPolicy($auth);
+		$canEdit = $auth->can('edit', $this->modelPolicy->find(1));
+		$canDelete = $auth->can('destroy', $this->modelPolicy->find(1));
+
         $pages = $pageService->getPaginated(config('app.url_admin').'/pages');
-        $canEdit = $auth->can('edit', $this->modelPolicy->find(1));
-        $canDelete = $auth->can('destroy', $this->modelPolicy->find(1));
 
         $this->isEmptyPaginated($pages, $request);
 
@@ -47,6 +49,8 @@ class PageController extends Controller
      */
     public function create(PageService $pageService, Authenticatable $auth)
     {
+		$this->createPolicy($auth);
+
         return view(config('app.theme').'admin.pages.create', [
             'parentPages' => $pageService->getAllTitleId(),
         ]);
@@ -60,7 +64,9 @@ class PageController extends Controller
      */
     public function store(PageRequest $request, PageService $pageService, Authenticatable $auth)
     {
-        $pageService->create($request->all(), $request->relationData, $auth);
+		$this->storePolicy($auth);
+
+        $pageService->create($request->all(), $request->relationData, $auth->id);
 
         return redirect($request->previousUrl);
     }
@@ -73,6 +79,8 @@ class PageController extends Controller
      */
     public function edit($id, PageService $pageService, Authenticatable $auth)
     {
+		$this->editPolicy($auth);
+
         $page = $pageService->getByIdWithSeo($id);
 
         return view(config('app.theme').'admin.pages.edit', [
@@ -92,7 +100,9 @@ class PageController extends Controller
      */
     public function update(PageRequest $request, $id, PageService $pageService, Authenticatable $auth)
     {
-        $pageService->update($request->all(), $request->relationData, $id, $auth);
+		$this->updatePolicy($auth);
+
+        $pageService->update($request->all(), $request->relationData, $id, $auth->id);
 
         return redirect($request->previousUrl);
     }
@@ -105,6 +115,8 @@ class PageController extends Controller
      */
     public function destroy($id, PageService $pageService, Authenticatable $auth)
     {
+		$this->destroyPolicy($auth);
+
         $pageService->destroy($id);
 
         return redirect()->route(config('app.theme').'admin.pages.index');

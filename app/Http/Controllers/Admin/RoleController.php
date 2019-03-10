@@ -28,9 +28,11 @@ class RoleController extends Controller
      */
     public function index(RoleService $roleService, Request $request, Authenticatable $auth)
     {
+		$this->indexPolicy($auth);
+		$canEdit = $auth->can('edit', $this->modelPolicy->find(1));
+		$canDelete = $auth->can('destroy', $this->modelPolicy->find(1));
+
         $roles = $roleService->getPaginated(config('app.url_admin').'/roles');
-        $canEdit = $auth->can('edit', $this->modelPolicy->find(1));
-        $canDelete = $auth->can('destroy', $this->modelPolicy->find(1));
 
         $this->isEmptyPaginated($roles, $request);
 
@@ -48,6 +50,8 @@ class RoleController extends Controller
      */
     public function create(PermissionService $permissionService, Authenticatable $auth)
     {
+		$this->createPolicy($auth);
+
         return view(config('app.theme').'admin.roles.create',[
 			'permissions' => $permissionService->getAllTitleId(),
 		]);
@@ -61,6 +65,8 @@ class RoleController extends Controller
      */
     public function store(RoleRequest $request, RoleService $roleService, Authenticatable $auth)
     {
+		$this->storePolicy($auth);
+
         $roleService->create($request->all(), $request->relationData);
 
         return redirect()->route(config('app.theme').'admin.roles.index');
@@ -74,6 +80,8 @@ class RoleController extends Controller
      */
     public function edit($id, RoleService $roleService,PermissionService $permissionService, Authenticatable $auth)
     {
+		$this->editPolicy($auth);
+
         $role = $roleService->getByIdOrFail($id);
 
         return view(config('app.theme').'admin.roles.edit', [
@@ -92,6 +100,10 @@ class RoleController extends Controller
      */
     public function update(RoleRequest $request, $id, RoleService $roleService, Authenticatable $auth)
     {
+		$this->updatePolicy($auth);
+
+		//dd($request->relationData);
+
         $roleService->update($request->all(), $request->relationData, $id);
 
         return redirect()->route(config('app.theme').'admin.roles.index');
@@ -105,6 +117,8 @@ class RoleController extends Controller
      */
     public function destroy($id, RoleService $roleService, Authenticatable $auth)
     {
+		$this->destroyPolicy($auth);
+
         $roleService->destroy($id);
 
         return redirect()->route(config('app.theme').'admin.roles.index');

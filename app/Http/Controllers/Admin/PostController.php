@@ -29,9 +29,11 @@ class PostController extends Controller
      */
     public function index(PostService $postService, Request $request, Authenticatable $auth)
     {
+		$this->indexPolicy($auth);
+		$canEdit = $auth->can('edit', $this->modelPolicy->find(1));
+		$canDelete = $auth->can('destroy', $this->modelPolicy->find(1));
+
         $posts = $postService->getPaginated(config('app.url_admin').'/posts');
-        $canEdit = $auth->can('edit', $this->modelPolicy->find(1));
-        $canDelete = $auth->can('destroy', $this->modelPolicy->find(1));
 
         $this->isEmptyPaginated($posts, $request);
 
@@ -49,6 +51,8 @@ class PostController extends Controller
      */
     public function create(CategoryService $categoryService, TagService $tagService, Authenticatable $auth)
     {
+		$this->createPolicy($auth);
+
         return view(config('app.theme').'admin.posts.create', [
             'tags' => $tagService->getAllNameId(),
             'categories' => $categoryService->getAllTitleId(),
@@ -63,7 +67,9 @@ class PostController extends Controller
      */
     public function store(PostRequest $request, PostService $postService, Authenticatable $auth)
     {
-        $postService->create($request->all(), $request->relationData, $auth);
+		$this->storePolicy($auth);
+
+        $postService->create($request->all(), $request->relationData, $auth->id);
 
         return redirect()->route(config('app.theme').'admin.posts.index');
     }
@@ -76,6 +82,8 @@ class PostController extends Controller
      */
     public function edit($id, PostService $postService, CategoryService $categoryService, TagService $tagService, Authenticatable $auth)
     {
+		$this->editPolicy($auth);
+
         $post = $postService->getByIdWithSeo($id);
 
         return view(config('app.theme').'admin.posts.edit', [
@@ -96,21 +104,9 @@ class PostController extends Controller
      */
     public function update(PostRequest $request, $id, PostService $postService, Authenticatable $auth)
     {
-		// get current logged in user
-		$user = Auth::user();
+		$this->updatePolicy($auth);
 
-		// load post
-		$post = Post::find(1);
-
-		if ($user->can('update', $post)) {
-			echo "Current logged in user is allowed to update the Post: {$post->id}";
-		} else {
-			echo 'Not Authorized.';
-		}
-
-		$this->authorize('view', $post);
-
-        $postService->update($request->all(), $request->relationData, $id, $auth);
+        $postService->update($request->all(), $request->relationData, $id, $auth->id);
 
         return redirect()->route(config('app.theme').'admin.posts.index');
     }
@@ -123,6 +119,8 @@ class PostController extends Controller
      */
     public function destroy($id, PostService $postService, Authenticatable $auth)
     {
+		$this->destroyPolicy($auth);
+
         $postService->destroy($id);
 
         return redirect()->route(config('app.theme').'admin.posts.index');

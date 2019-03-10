@@ -12,13 +12,13 @@ class RoleRequest extends FormRequest
 {
     use PreviousPageTrait;
 
-	use FilterRelationsTrait;
+    use FilterRelationsTrait;
 
-	use JsonApiTrait;
+    use JsonApiTrait;
 
-	protected $filterRelations = [
-		'permissions',
-	];
+    protected $filterRelations = [
+        'permissions',
+    ];
 
     /**
      * Determine if the user is authorized to make this request.
@@ -37,28 +37,33 @@ class RoleRequest extends FormRequest
      */
     public function rules()
     {
+        $id = $this->id;
+        if (empty($id)) {
+            $id = $this->route('role');
+        }
+
         return [
-            //
+            'title' => 'required|unique:roles'.($id ? ',title,'.$id : ''),
         ];
     }
 
-	/**
-	 * Get data to be validated from the request.
-	 *
-	 * @return array
-	 */
-	protected function validationData()
-	{
-		$jsonApiRequest = $this->validationDataJsonApiRequest('posts');
+    /**
+     * Get data to be validated from the request.
+     *
+     * @return array
+     */
+    protected function validationData()
+    {
+        $jsonApiRequest = $this->validationDataJsonApiRequest('posts');
 
-		if ($jsonApiRequest !== null) {
-			return $jsonApiRequest;
-		}
+        if ($jsonApiRequest !== null) {
+            return $jsonApiRequest;
+        }
 
-		$this->filterPreviousPage();
+        $this->filterPreviousPage();
 
-		$this->filterRelations();
+        $this->filterRelations();
 
-		return parent::validationData();
-	}
+        return parent::validationData();
+    }
 }

@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers\Client;
 
-use Illuminate\Http\Request;
 use Illuminate\Contracts\Mail\Mailer;
 
 use App\Http\Controllers\Controller;
-use App\Mail\ContactEmail;
 use App\Http\Requests\ContactFormRequest;
-
-use App\Models\Metatag;
+use App\Jobs\SendContactEmail;
 
 class ContactController extends Controller
 {
@@ -24,7 +21,7 @@ class ContactController extends Controller
         $contact['email'] = $request->get('email');
         $contact['msg'] = $request->get('msg');
 
-        $mail->to(config('mail.noreply_address'))->send(new ContactEmail($contact));
+        SendContactEmail::dispatch($contact)->onQueue('emails')->delay(now()->addMinutes(2));
 
         $sendMessage = u__('client.thank you for your email');
 

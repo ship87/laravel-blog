@@ -82,7 +82,6 @@ class PageService
 
     public function update(array $data, array $relationData, $id, $authId, $syncRelations = false)
     {
-
         $data['updated_user_id'] = $authId;
         $data['slug'] = $this->checkSlug($data['slug'], $data['title'], $id);
 

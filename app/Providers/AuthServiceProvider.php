@@ -13,6 +13,7 @@ use App\Models\Tag;
 use App\Models\Metatag;
 use App\Models\User;
 use App\Models\Role;
+use App\Models\Permission;
 use App\Policies\PostPolicy;
 use App\Policies\PagePolicy;
 use App\Policies\PageCommentPolicy;
@@ -22,6 +23,7 @@ use App\Policies\MetatagPolicy;
 use App\Policies\CategoryPolicy;
 use App\Policies\UserPolicy;
 use App\Policies\RolePolicy;
+use App\Policies\PermissionPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -41,6 +43,7 @@ class AuthServiceProvider extends ServiceProvider
 		Metatag::class => MetatagPolicy::class,
 		User::class => UserPolicy::class,
 		Role::class => RolePolicy::class,
+		Permission::class => PermissionPolicy::class,
     ];
 
     /**

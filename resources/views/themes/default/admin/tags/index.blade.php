@@ -11,7 +11,7 @@
             @include(config('app.theme').'admin.actions', ['dataName'=>'tags','data'=>$tag,'canEdit'=>$canEdit,'canDelete'=>$canDelete])
 
             <div class="col-xs-5">
-                {{ $tag->name }}
+                {{ $tag->title }}
             </div>
         </div>
     @endforeach

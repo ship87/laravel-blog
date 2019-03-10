@@ -101,8 +101,6 @@ class Policy
 
         $check = true;
 
-        dd($user);
-
         if ($user->role_id != 1) {
             $check = $this->permissionService->getPermissionBySlugRoleId([
                 $this->modelPermission.'-'.$permission,

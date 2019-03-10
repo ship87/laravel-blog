@@ -4,15 +4,15 @@ namespace App\Services;
 
 use App\Repositories\RoleRepository;
 use App\Repositories\PermissionRoleRepository;
-
 use App\Traits\Services\AdminPageTrait;
 use App\Traits\Services\CreateUpdateSlugTrait;
+use App\Traits\Services\MergeNewDataTrait;
 
 class RoleService
 {
-    use AdminPageTrait, CreateUpdateSlugTrait;
+    use AdminPageTrait, CreateUpdateSlugTrait, MergeNewDataTrait;
 
-    protected  $permissionRoleRepo;
+    protected $permissionRoleRepo;
 
     public function __construct(RoleRepository $roleRepo, PermissionRoleRepository $permissionRoleRepo)
     {
@@ -20,40 +20,56 @@ class RoleService
         $this->permissionRoleRepo = $permissionRoleRepo;
     }
 
-	public function update(array $data, array $relationData, $id)
-	{
-		$role = $this->baseRepo->update($data, $id);
+    public function update(array $data, array $relationData, $id)
+    {
+        if (! empty($data['title'])) {
+            $data['slug'] = $this->checkSlug(empty($data['slug']) ? false : $data['slug'], $data['title'], $id);
+        }
 
-		if (! $role) {
-			return false;
-		}
+        $role = $this->baseRepo->update($data, $id);
 
-		$this->saveRelationData($role, $relationData);
+        if (! $role) {
+            return false;
+        }
 
-		return $role;
-	}
+        $this->saveRelationData($role, $relationData);
 
-	public function create(array $data, array $relationData)
-	{
+        return $role;
+    }
 
-		$role = $this->baseRepo->create($data);
+    public function create(array $data, array $relationData)
+    {
+        $data['slug'] = $this->checkSlug($data['slug'], $data['title']);
 
-		if (! $role) {
-			return false;
-		}
+        $role = $this->baseRepo->create($data);
 
-		$this->saveRelationData($role, $relationData);
+        if (! $role) {
+            return false;
+        }
 
-		return $role;
-	}
+        $this->saveRelationData($role, $relationData);
 
-	private function saveRelationData($role, array $relationData)
-	{
+        return $role;
+    }
 
-		if (! empty($relationData['permissions'])) {
-			$this->permissionRoleRepo->saveMany($role, array_values($relationData['permissions']));
-		}
+    private function saveRelationData($role, array $relationData)
+    {
 
-	}
+        $permissions = [];
+        if (! empty($relationData['permissions']) && is_array($relationData['permissions'])) {
+            $permissions = array_values($relationData['permissions']);
+        }
 
+        $this->permissionRoleRepo->saveMany($role, $permissions);
+    }
+
+    public function getAllTitleId($excludeRole = false)
+    {
+        return $this->baseRepo->getAllTitleId($excludeRole);
+    }
+
+    public function getId($roles)
+    {
+        return $this->baseRepo->getId($roles);
+    }
 }

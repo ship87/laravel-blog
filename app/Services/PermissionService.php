@@ -3,14 +3,14 @@
 namespace App\Services;
 
 use App\Repositories\PermissionRepository;
-
 use App\Repositories\PermissionRoleRepository;
 use App\Traits\Services\AdminPageTrait;
 use App\Traits\Services\CreateUpdateSlugTrait;
+use App\Traits\Services\MergeNewDataTrait;
 
 class PermissionService
 {
-    use AdminPageTrait, CreateUpdateSlugTrait;
+    use AdminPageTrait, CreateUpdateSlugTrait, MergeNewDataTrait;
 
     protected $permissionRoleRepository;
 

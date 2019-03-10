@@ -27,9 +27,11 @@ class TagController extends Controller
      */
     public function index(TagService $tagService, Request $request, Authenticatable $auth)
     {
-        $tags = $tagService->getPaginated(config('app.url_admin').'/tags');
+        $this->indexPolicy($auth);
         $canEdit = $auth->can('edit', $this->modelPolicy->find(1));
         $canDelete = $auth->can('destroy', $this->modelPolicy->find(1));
+
+        $tags = $tagService->getPaginated(config('app.url_admin').'/tags');
 
         $this->isEmptyPaginated($tags, $request);
 
@@ -47,6 +49,8 @@ class TagController extends Controller
      */
     public function create(Authenticatable $auth)
     {
+        $this->createPolicy($auth);
+
         return view(config('app.theme').'admin.tags.create');
     }
 
@@ -57,11 +61,13 @@ class TagController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(TagRequest $request, TagService $tagService, Authenticatable $auth)
-	{
-		$tagService->create($request->all());
+    {
+        $this->storePolicy($auth);
 
-		return redirect()->route(config('app.theme').'admin.tags.index');
-	}
+        $tagService->create($request->all());
+
+        return redirect()->route(config('app.theme').'admin.tags.index');
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -71,6 +77,8 @@ class TagController extends Controller
      */
     public function edit($id, TagService $tagService, Authenticatable $auth)
     {
+        $this->editPolicy($auth);
+
         $tag = $tagService->getByIdOrFail($id);
 
         return view(config('app.theme').'admin.tags.edit', [
@@ -86,10 +94,12 @@ class TagController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(TagRequest $request, $id, TagService $tagService, Authenticatable $auth)
-	{
-		$tagService->update($request->all(),$id);
+    {
+        $this->updatePolicy($auth);
 
-		return redirect()->route(config('app.theme').'admin.tags.index');
+        $tagService->update($request->all(), $id);
+
+        return redirect()->route(config('app.theme').'admin.tags.index');
     }
 
     /**
@@ -100,6 +110,8 @@ class TagController extends Controller
      */
     public function destroy($id, TagService $tagService, Authenticatable $auth)
     {
+        $this->destroyPolicy($auth);
+
         $tagService->destroy($id);
 
         return redirect()->route(config('app.theme').'admin.tags.index');

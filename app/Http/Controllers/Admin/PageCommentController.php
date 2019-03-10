@@ -73,6 +73,8 @@ class PageCommentController extends Controller
      */
     public function edit($id, PageCommentService $pageCommentService, Authenticatable $auth)
     {
+		$this->editPolicy($auth);
+
         $pageComment = $pageCommentService->getByIdOrFail($id);
 
         return view(config('app.theme').'admin.page-comments.edit', [
@@ -89,6 +91,7 @@ class PageCommentController extends Controller
      */
     public function update(PageCommentRequest $request, $id, PageCommentService $pageCommentService, Authenticatable $auth)
     {
+		$this->updatePolicy($auth);
 
         $pageCommentService->update($request->all(), $id, $auth->id);
 
@@ -103,6 +106,8 @@ class PageCommentController extends Controller
      */
     public function destroy($id, PageCommentService $pageCommentService, Authenticatable $auth)
     {
+		$this->destroyPolicy($auth);
+
         $pageCommentService->destroy($id);
 
         return redirect()->route(config('app.theme').'admin.page-comments.index');

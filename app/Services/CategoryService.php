@@ -10,7 +10,7 @@ use App\Traits\Services\MergeNewDataTrait;
 
 class CategoryService
 {
-    use AdminPageTrait,CreateUpdateSlugTrait,MergeNewDataTrait;
+    use AdminPageTrait, CreateUpdateSlugTrait, MergeNewDataTrait;
 
     public function __construct(CategoryRepository $categoryRepo)
     {

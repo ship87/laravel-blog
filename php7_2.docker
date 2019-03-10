@@ -3,13 +3,16 @@ WORKDIR /var/www
 ADD . /var/www
 
 # Install dependencies
-RUN apt-get update && apt-get install -y mysql-client libjpeg62-turbo-dev libpng-dev libfreetype6-dev
+RUN apt-get update && apt-get install -y mysql-client libjpeg62-turbo-dev libpng-dev libfreetype6-dev zlib1g-dev wget
 
 # PHP
-RUN docker-php-ext-install mysqli pdo pdo_mysql calendar \
+RUN docker-php-ext-install mysqli pdo pdo_mysql calendar zip \
 && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
 && docker-php-ext-install -j$(nproc) gd \
 && chown -R www-data:www-data /var/www
+
+# Composer
+RUN wget https://getcomposer.org/installer -O - -q | php -- --install-dir=/bin --filename=composer --quiet
 
 # Xdebug
 RUN pecl install xdebug \

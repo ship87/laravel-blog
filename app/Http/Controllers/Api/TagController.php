@@ -58,7 +58,7 @@ class TagController extends Controller
     {
         $attributes = $request->get('attributes');
 
-        return $tagService->update($attributes, $id, $attributes['updated_user_id']);
+        return $tagService->update($attributes, $id);
     }
 
     /**

@@ -27,9 +27,11 @@ class PostCommentController extends Controller
      */
     public function index(PostCommentService $postCommentService, Request $request, Authenticatable $auth)
     {
+		$this->indexPolicy($auth);
+		$canEdit = $auth->can('edit', $this->modelPolicy->find(1));
+		$canDelete = $auth->can('destroy', $this->modelPolicy->find(1));
+
         $postComments = $postCommentService->getPaginated(config('app.url_admin').'/post-comments');
-        $canEdit = $auth->can('edit', $this->modelPolicy->find(1));
-        $canDelete = $auth->can('destroy', $this->modelPolicy->find(1));
 
         $this->isEmptyPaginated($postComments, $request);
 
@@ -71,6 +73,8 @@ class PostCommentController extends Controller
      */
     public function edit($id, PostCommentService $postCommentService, Authenticatable $auth)
     {
+		$this->editPolicy($auth);
+
         $postComment = $postCommentService->getByIdOrFail($id);
 
         return view(config('app.theme').'admin.post-comments.edit', [
@@ -91,6 +95,8 @@ class PostCommentController extends Controller
         PostCommentService $postCommentService,
         Authenticatable $auth
     ) {
+		$this->updatePolicy($auth);
+
         $postCommentService->update($request->all(), $id, $auth->id);
 
         return redirect()->route(config('app.theme').'admin.post-comments.index');
@@ -104,6 +110,8 @@ class PostCommentController extends Controller
      */
     public function destroy($id, PostCommentService $postCommentService, Authenticatable $auth)
     {
+		$this->destroyPolicy($auth);
+
         $postCommentService->destroy($id);
 
         return redirect()->route(config('app.theme').'admin.post-comments.index');

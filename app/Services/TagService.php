@@ -6,10 +6,11 @@ use App\Repositories\TagRepository;
 
 use App\Traits\Services\AdminPageTrait;
 use App\Traits\Services\CreateUpdateSlugTrait;
+use App\Traits\Services\MergeNewDataTrait;
 
 class TagService
 {
-    use AdminPageTrait, CreateUpdateSlugTrait;
+    use AdminPageTrait, CreateUpdateSlugTrait, MergeNewDataTrait;
 
     public function __construct(TagRepository $tagRepo)
     {

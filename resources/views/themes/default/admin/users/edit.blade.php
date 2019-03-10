@@ -21,6 +21,11 @@
 					<span class="help-block">{{ $errors->first('email') }}</span>
                 </div>
 
+                <div class="form-group">
+                    {!! Form::label('role', u__('admin.role')) !!}
+                    {{ Form::select('role_id', $roles, $user->role_id) }}
+                </div>
+
                 {{ Form::submit(u__('admin.save'), ['class' => 'btn btn-info']) }}
                 {{ Form::close() }}
 

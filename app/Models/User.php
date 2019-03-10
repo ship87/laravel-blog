@@ -36,4 +36,9 @@ class User extends Authenticatable
 	{
 		return $this->belongsTo('App\Models\Page');
 	}
+
+	public function role()
+	{
+		return $this->belongsTo('App\Models\Role');
+	}
 }

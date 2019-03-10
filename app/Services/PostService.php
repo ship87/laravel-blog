@@ -5,7 +5,6 @@ namespace App\Services;
 use App\Repositories\CategoryPostRepository;
 use App\Repositories\PostRepository;
 use App\Repositories\MetatagRepository;
-
 use App\Repositories\PostTagRepository;
 use App\Traits\Services\AdminPageTrait;
 use App\Traits\Services\ClientPageTrait;
@@ -57,7 +56,7 @@ class PostService
     public function update(array $data, array $relationData, $id, $authId)
     {
         $data['updated_user_id'] = $authId;
-        $data['slug'] = $this->checkSlug($data['slug'], $data['title']);
+        $data['slug'] = $this->checkSlug($data['slug'], $data['title'], $id);
 
         $post = $this->baseRepo->update($data, $id);
 
@@ -94,12 +93,18 @@ class PostService
             'keywords' => $relationData['seokeywords'],
         ]);
 
-        if (! empty($relationData['categories'])) {
-            $this->categoryPostRepo->saveMany($post, array_values($relationData['categories']));
+        $categories = [];
+        if (! empty($relationData['categories']) && is_array($relationData['categories'])) {
+            $categories = array_values($relationData['categories']);
         }
 
-        if (! empty($relationData['tags'])) {
-            $this->postTagRepo->saveMany($post, array_values($relationData['tags']));
+        $this->categoryPostRepo->saveMany($post, $categories);
+
+        $tags = [];
+        if (! empty($relationData['tags']) && is_array($relationData['tags'])) {
+            $tags = array_values($relationData['tags']);
         }
+
+        $this->postTagRepo->saveMany($post, $tags);
     }
 }

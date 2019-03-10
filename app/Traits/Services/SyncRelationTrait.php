@@ -6,7 +6,6 @@ trait SyncRelationTrait
 {
     protected function syncRelation($repo, array $relations, $type, $columnRelation, $newId)
     {
-
         if (! $relations[1]) {
             $relations = [$relations];
         }

@@ -30,9 +30,14 @@ class PermissionRequest extends FormRequest
      */
     public function rules()
     {
+        $id = $this->id;
+        if (empty($id)) {
+            $id = $this->route('permission');
+        }
+
         return [
-            'title' => 'required|unique:permissions'.($this->id ? ',title,'.$this->id : ''),
-            'slug' => 'required|unique:permissions'.($this->id ? ',slug,'.$this->id : ''),
+            'title' => 'required|unique:permissions'.($id ? ',title,'.$id : ''),
+            'slug' => 'required|unique:permissions'.($id ? ',slug,'.$id : ''),
         ];
     }
 

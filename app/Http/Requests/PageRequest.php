@@ -41,7 +41,6 @@ class PageRequest extends FormRequest
     {
         $rules = [
             'title' => 'required',
-            'slug' => 'required|unique:posts'.($this->id ? ',slug,'.$this->id : ''),
             'content' => 'required',
         ];
 

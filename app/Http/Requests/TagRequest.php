@@ -11,7 +11,7 @@ class TagRequest extends FormRequest
 {
     use PreviousPageTrait;
 
-	use JsonApiTrait;
+    use JsonApiTrait;
 
     /**
      * Determine if the user is authorized to make this request.
@@ -30,26 +30,31 @@ class TagRequest extends FormRequest
      */
     public function rules()
     {
+        $id = $this->id;
+        if (empty($id)) {
+            $id = $this->route('tag');
+        }
+
         return [
-            'title' => 'required|unique:tags'.($this->id ? ',title,'.$this->id : ''),
+            'title' => 'required|unique:tags'.($id ? ',title,'.$id : ''),
         ];
     }
 
-	/**
-	 * Get data to be validated from the request.
-	 *
-	 * @return array
-	 */
-	protected function validationData()
-	{
-		$jsonApiRequest = $this->validationDataJsonApiRequest('tags');
+    /**
+     * Get data to be validated from the request.
+     *
+     * @return array
+     */
+    protected function validationData()
+    {
+        $jsonApiRequest = $this->validationDataJsonApiRequest('tags');
 
-		if ($jsonApiRequest !== null) {
-			return $jsonApiRequest;
-		}
+        if ($jsonApiRequest !== null) {
+            return $jsonApiRequest;
+        }
 
-		$this->filterPreviousPage();
+        $this->filterPreviousPage();
 
-		return parent::validationData();
-	}
+        return parent::validationData();
+    }
 }

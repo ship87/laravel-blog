@@ -30,8 +30,7 @@ trait PolicyTrait
     public function indexPolicy(Authenticatable $auth)
     {
         $check = $auth->can('index', $this->modelPolicy->find(1));
-
-        return $this->checkAuthorize($check);
+        $this->checkAuthorize($check);
     }
 
     /**

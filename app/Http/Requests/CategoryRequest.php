@@ -30,9 +30,14 @@ class CategoryRequest extends FormRequest
      */
     public function rules()
     {
+        $id = $this->id;
+        if (empty($id)) {
+            $id = $this->route('category');
+        }
+
         return [
-            'title' => 'required|unique:categories'.($this->id ? ',title,'.$this->id : ''),
-            'slug' => 'required|unique:categories'.($this->id ? ',slug,'.$this->id : ''),
+            'title' => 'required|unique:categories'.($id ? ',title,'.$id : ''),
+            'slug' => 'required|unique:categories'.($id ? ',slug,'.$id : ''),
         ];
     }
 

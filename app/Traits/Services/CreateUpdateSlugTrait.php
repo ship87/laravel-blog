@@ -15,13 +15,9 @@ trait CreateUpdateSlugTrait
 
     public function update(array $data, $id)
     {
-
-
-        if (!empty($data['title'])) {
+        if (! empty($data['title'])) {
             $data['slug'] = $this->checkSlug(empty($data['slug']) ? false : $data['slug'], $data['title'], $id);
         }
-
-
 
         return $this->baseRepo->update($data, $id);
     }

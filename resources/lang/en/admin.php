@@ -43,6 +43,7 @@ return [
     'create user' => 'create user',
 	'permissions' => 'permissions',
 	'create permission' => 'create permission',
+	'role' => 'role',
 	'roles' => 'roles',
 	'create role' => 'create role',
     'seo' => 'seo',
