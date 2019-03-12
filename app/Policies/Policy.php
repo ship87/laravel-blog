@@ -98,7 +98,6 @@ class Policy
      */
     public function crudCheck(User $user, $permission)
     {
-
         $check = true;
 
         if ($user->role_id != 1) {

@@ -25,7 +25,7 @@ class BlogService
 
     public function getPaginated()
     {
-        $posts = $this->postRepo->getPaginated(config('app.url_blog'), config('app.blog_pagination'));
+        $posts = $this->postRepo->getPaginated(config('app.url_blog'), false, config('app.blog_pagination'));
 
         return $this->addUrl($posts);
     }
@@ -52,6 +52,15 @@ class BlogService
         $posts = $this->postRepo->getArchivePostsPaginated(config('app.url_blog').'/archive/'.$way, config('app.blog_pagination'), $year, $month, $day);
 
         return $this->addUrl($posts);
+    }
+
+    public function search($search)
+    {
+        if (env('SEARCH_ENABLED')) {
+            return $this->postRepo->searchWithElasticsearch($search);
+        }
+
+        return $this->postRepo->search($search);
     }
 
     private function addUrl($posts)

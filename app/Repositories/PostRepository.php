@@ -2,13 +2,19 @@
 
 namespace App\Repositories;
 
+use Illuminate\Support\Collection;
+
+use Elasticsearch\Client;
 use App\Models\Post;
 
 class PostRepository extends Repository
 {
-    public function __construct(Post $model)
+    protected $search;
+
+    public function __construct(Post $model, Client $client)
     {
         $this->model = $model;
+        $this->search = $client;
     }
 
     public function getByParamAll(array $where = [])
@@ -50,6 +56,49 @@ class PostRepository extends Repository
         }
 
         return $this->model->whereBetween('created_at', [$startDate, $endDate])->paginate($count)->setPath($path);
+    }
+
+    public function search(string $query = ""): Collection
+    {
+        return $this->model->where('content', 'like', "%{$query}%")->orWhere('title', 'like', "%{$query}%")->get();
+    }
+
+    public function searchWithElasticsearch(string $query = ""): Collection
+    {
+        $items = $this->searchOnElasticsearch($query);
+
+        return $this->buildCollectionElasticsearch($items);
+    }
+
+    private function searchOnElasticsearch(string $query): array
+    {
+        $items = $this->search->search([
+            'index' => $this->model->getSearchIndex(),
+            'type' => $this->model->getSearchType(),
+            'body' => [
+                'query' => [
+                    'multi_match' => [
+                        'fields' => ['title', 'content'],
+                        'query' => $query,
+                    ],
+                ],
+            ],
+        ]);
+
+        return $items;
+    }
+
+    private function buildCollectionElasticsearch(array $items): Collection
+    {
+        $hits = array_pluck($items['hits']['hits'], '_source') ?: [];
+
+        $sources = array_map(function ($source) {
+            $source['title'] = json_encode($source['title']);
+            $source['content'] = json_encode($source['content']);
+            return $source;
+        }, $hits);
+
+        return $this->model->hydrate($sources);
     }
 
 }

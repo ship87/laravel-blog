@@ -3,18 +3,22 @@
 @section('content')
 <div class="container">
 	<div class="col-xs-12">
-		@foreach ($posts as $post)
+		@isset($posts)
+			@foreach ($posts as $post)
 
-		{{ $post->created_user_id }}
-		{{ $post->created_at }}
+			{{ $post->created_user_id }}
+			{{ $post->created_at }}
 
-		<a href="{{ $post->url }}">{{ $post->title }}</a>
+			<a href="{{ $post->url }}">{{ $post->title }}</a>
 
-		{{ $post->content }}
-		@endforeach
+			{{ $post->content }}
+			@endforeach
+		@endisset
 	</div>
 	<div class="col-xs-12">
-		{{ $posts->links() }}
+		@isset($posts->links)
+			{{ $posts->links() }}
+		@endisset
 	</div>
 </div>
 @endsection

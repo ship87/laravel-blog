@@ -87,4 +87,14 @@ trait PolicyTrait
             abort('403', 'Unauthorized action.');
         }
     }
+
+	/**
+	 * @param $check
+	 */
+	protected function checkSystemAttribute($check)
+	{
+		if ($check->system || $check->system == 'Y') {
+			$this->checkAuthorize(false);
+		}
+	}
 }

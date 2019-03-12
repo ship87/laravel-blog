@@ -27,4 +27,11 @@ class PageRepository extends Repository
     {
         return $this->model->pluck('title','id')->all();
     }
+
+	public function search(string $query = "")
+	{
+		return $this->model->where('content', 'like', "%{$query}%")
+			->orWhere('title', 'like', "%{$query}%")
+			->get();
+	}
 }

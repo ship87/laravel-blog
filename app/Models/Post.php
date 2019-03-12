@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\Models\ElasticsearchTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
+    use ElasticsearchTrait;
+
 	public $seotitle;
 
 	public $seodescription;

@@ -84,6 +84,8 @@ class RoleController extends Controller
 
         $role = $roleService->getByIdOrFail($id);
 
+        $this->checkSystemAttribute($role);
+
         return view(config('app.theme').'admin.roles.edit', [
             'role' => $role,
 			'permissions' => $permissionService->getAllTitleId(),
@@ -101,8 +103,6 @@ class RoleController extends Controller
     public function update(RoleRequest $request, $id, RoleService $roleService, Authenticatable $auth)
     {
 		$this->updatePolicy($auth);
-
-		//dd($request->relationData);
 
         $roleService->update($request->all(), $request->relationData, $id);
 

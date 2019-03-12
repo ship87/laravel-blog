@@ -81,6 +81,8 @@ class PermissionController extends Controller
 
         $permission = $permissionService->getByIdOrFail($id);
 
+		$this->checkSystemAttribute($permission);
+
         return view(config('app.theme').'admin.permissions.edit', [
             'permission' => $permission,
         ]);

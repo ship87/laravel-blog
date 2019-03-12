@@ -6,6 +6,9 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Carbon;
 
+use Elasticsearch\Client;
+use Elasticsearch\ClientBuilder;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -30,6 +33,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(Client::class, function () {
+            return ClientBuilder::create()
+                ->setHosts(config('services.search.hosts'))
+                ->build();
+        });
     }
 }
