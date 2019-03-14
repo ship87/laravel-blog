@@ -3,14 +3,18 @@
 namespace App\Services;
 
 use App\Repositories\PostRepository;
+use App\Repositories\ElasticsearchPostRepository;
 
 class BlogService
 {
     protected $postRepo;
 
-    public function __construct(PostRepository $postRepo)
+    protected $elasticsearchPostRepo;
+
+    public function __construct(PostRepository $postRepo, ElasticsearchPostRepository $elasticsearchPostRepo)
     {
         $this->postRepo = $postRepo;
+        $this->elasticsearchPostRepo = $elasticsearchPostRepo;
     }
 
     public function getByIdSlug($id, $slug)
@@ -56,11 +60,16 @@ class BlogService
 
     public function search($search)
     {
-        if (env('SEARCH_ENABLED')) {
-            return $this->postRepo->searchWithElasticsearch($search);
+        if (config('services.search.enabled')) {
+
+            $posts = $this->elasticsearchPostRepo->searchWithElasticsearch($search);
+
+            $posts = $this->postRepo->paginate($posts, config('app.blog_pagination'), null, ['path' => config('app.url_blog').'?search='.$search]);
+        } else {
+            $posts = $this->postRepo->search($search);
         }
 
-        return $this->postRepo->search($search);
+        return $posts;
     }
 
     private function addUrl($posts)

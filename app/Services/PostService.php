@@ -6,6 +6,7 @@ use App\Repositories\CategoryPostRepository;
 use App\Repositories\PostRepository;
 use App\Repositories\MetatagRepository;
 use App\Repositories\PostTagRepository;
+use App\Repositories\ElasticsearchPostRepository;
 use App\Traits\Services\AdminPageTrait;
 use App\Traits\Services\ClientPageTrait;
 use App\Traits\Services\CreateUpdateSlugTrait;
@@ -41,16 +42,20 @@ class PostService
 
     protected $postTagRepo;
 
+	protected $elasticsearchPostRepo;
+
     public function __construct(
         PostRepository $postRepo,
         MetatagRepository $metatagRepo,
         CategoryPostRepository $categoryPostRepo,
-        PostTagRepository $postTagRepo
+        PostTagRepository $postTagRepo,
+		ElasticsearchPostRepository $elasticsearchPostRepo
     ) {
         $this->baseRepo = $postRepo;
         $this->metatagRepo = $metatagRepo;
         $this->categoryPostRepo = $categoryPostRepo;
         $this->postTagRepo = $postTagRepo;
+		$this->elasticsearchPostRepo = $elasticsearchPostRepo;
     }
 
     public function update(array $data, array $relationData, $id, $authId)
@@ -107,4 +112,13 @@ class PostService
 
         $this->postTagRepo->saveMany($post, $tags);
     }
+
+	public function search($search)
+	{
+		if (config('services.search.enabled')) {
+			return $this->elasticsearchPostRepo->searchWithElasticsearch($search);
+		}
+
+		return $this->baseRepo->search($search);
+	}
 }

@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use Illuminate\Support\Facades\DB;
+//use Illuminate\Support\Facades\DB;
 
 use App\Models\Page;
 
@@ -20,7 +20,8 @@ class PageRepository extends Repository
 
     public function getUrl($slug)
     {
-        return DB::table($this->model->getTable())->where('slug', '=', $slug)->first();
+        //return DB::table($this->model->getTable())->where('slug', '=', $slug)->first();
+        return $this->model->where('slug', '=', $slug)->first();
     }
 
     public function getAllTitleId()

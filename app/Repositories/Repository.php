@@ -3,6 +3,9 @@
 namespace App\Repositories;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
 
 use App\Interfaces\RepositoryInterface;
 
@@ -55,7 +58,7 @@ abstract class Repository implements RepositoryInterface
     {
         $record = $this->model->find($id);
 
-        if (empty($record)){
+        if (empty($record)) {
             return false;
         }
 
@@ -69,7 +72,7 @@ abstract class Repository implements RepositoryInterface
 
         $record = $this->model->find($id);
 
-        if (empty($record)){
+        if (empty($record)) {
             return false;
         }
 
@@ -121,5 +124,13 @@ abstract class Repository implements RepositoryInterface
         }
 
         return $model->paginate($count)->setPath($path);
+    }
+
+    public function paginate($items, $perPage = 15, $page = null, $options = [])
+    {
+        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
+        $items = $items instanceof Collection ? $items : Collection::make($items);
+
+        return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
     }
 }

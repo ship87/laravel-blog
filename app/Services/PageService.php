@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Repositories\PageCommentRepository;
 use App\Repositories\PageRepository;
 use App\Repositories\MetatagRepository;
+use App\Repositories\ElasticsearchPageRepository;
 
 use App\Traits\Services\AdminPageTrait;
 use App\Traits\Services\ClientPageTrait;
@@ -40,14 +41,18 @@ class PageService
         'slug',
     ];
 
+	protected $elasticsearchPageRepo;
+
     public function __construct(
         PageRepository $pageRepo,
         MetatagRepository $metatagRepo,
-        PageCommentRepository $pageCommentRepo
+        PageCommentRepository $pageCommentRepo,
+		ElasticsearchPageRepository $elasticsearchPageRepo
     ) {
         $this->baseRepo = $pageRepo;
         $this->metatagRepo = $metatagRepo;
         $this->pageCommentRepo = $pageCommentRepo;
+		$this->elasticsearchPageRepo = $elasticsearchPageRepo;
     }
 
     public function getBySlug($slug)
@@ -138,4 +143,13 @@ class PageService
             $this->syncRelation($this->pageCommentRepo, $relationData['comments']['data'],'page-comments','page_id', $page->id);
         }
     }
+
+	public function search($search)
+	{
+		if (config('services.search.enabled')) {
+			return $this->elasticsearchPageRepo->searchWithElasticsearch($search);
+		}
+
+		return $this->baseRepo->search($search);
+	}
 }

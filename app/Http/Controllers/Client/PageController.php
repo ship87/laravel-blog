@@ -12,7 +12,6 @@ class PageController extends Controller
 {
     public function page(Request $request, PageService $pageService, $any = false)
     {
-
         $urlArr = $request->segments();
 
         $staticPage = $this->staticPage($urlArr);
@@ -38,7 +37,6 @@ class PageController extends Controller
 
     private function staticPage($urlArr)
     {
-
         $url = config('app.theme').'client/pages/'.implode('/', $urlArr);
 
         if (View::exists($url)) {

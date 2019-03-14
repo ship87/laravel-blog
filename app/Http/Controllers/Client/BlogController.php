@@ -14,7 +14,7 @@ class BlogController extends Controller
 
     public function index(BlogService $blogService, Request $request)
     {
-        $search=$request->input('search');
+		$search = $request->input('search');
 
         if (!empty( $search)){
             $posts = $blogService->search($search);

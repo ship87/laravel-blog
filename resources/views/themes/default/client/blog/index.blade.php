@@ -16,9 +16,7 @@
 		@endisset
 	</div>
 	<div class="col-xs-12">
-		@isset($posts->links)
 			{{ $posts->links() }}
-		@endisset
 	</div>
 </div>
 @endsection
