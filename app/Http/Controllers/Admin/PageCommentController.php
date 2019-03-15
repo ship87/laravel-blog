@@ -31,7 +31,7 @@ class PageCommentController extends Controller
         $canEdit = $auth->can('edit', $this->modelPolicy->find(1));
         $canDelete = $auth->can('destroy', $this->modelPolicy->find(1));
 
-        $pageComments = $pageCommentService->getPaginated(config('app.url_admin').'/page-comments');
+        $pageComments = $pageCommentService->getPaginated(config('app.url_admin').'/page-comments', ['createdUser','updatedUser']);
 
         $this->isEmptyPaginated($pageComments, $request);
 

@@ -31,7 +31,7 @@ class PostCommentController extends Controller
 		$canEdit = $auth->can('edit', $this->modelPolicy->find(1));
 		$canDelete = $auth->can('destroy', $this->modelPolicy->find(1));
 
-        $postComments = $postCommentService->getPaginated(config('app.url_admin').'/post-comments');
+        $postComments = $postCommentService->getPaginated(config('app.url_admin').'/post-comments', ['createdUser','updatedUser']);
 
         $this->isEmptyPaginated($postComments, $request);
 

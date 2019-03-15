@@ -35,7 +35,6 @@ trait ElasticsearchTrait
 
     private function buildCollectionElasticsearch(array $items)
     {
-
         $hits = array_pluck($items['hits']['hits'], '_source') ?: [];
 
         $collection = $this->model->hydrate($hits);

@@ -31,7 +31,7 @@ class PageController extends Controller
 		$canEdit = $auth->can('edit', $this->modelPolicy->find(1));
 		$canDelete = $auth->can('destroy', $this->modelPolicy->find(1));
 
-        $pages = $pageService->getPaginated(config('app.url_admin').'/pages');
+        $pages = $pageService->getPaginated(config('app.url_admin').'/pages', ['createdUser','updatedUser']);
 
         $this->isEmptyPaginated($pages, $request);
 

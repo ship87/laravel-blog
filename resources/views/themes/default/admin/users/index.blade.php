@@ -2,6 +2,8 @@
 
 @section('admin-content')
 
+    @include(config('app.theme').'admin.header', ['dataHeader'=>['id'=>1,'actions'=>2,'name'=>3,'email'=>3]])
+
     @foreach ($users as $user)
         <div class="row">
             <div class="col-xs-1">

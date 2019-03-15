@@ -6,6 +6,7 @@ use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 use App\Console\Commands\ReindexPosts;
+use App\Console\Commands\GenerateSitemap;
 
 class Kernel extends ConsoleKernel
 {
@@ -16,6 +17,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         ReindexPosts::class,
+        GenerateSitemap::class,
     ];
 
     /**
@@ -26,8 +28,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+         $schedule->command('search:posts:rebuild')->daily()->between('0:00', '7:00');
+         $schedule->command('generate:sitemap')->daily()->between('0:00', '7:00');
     }
 
     /**

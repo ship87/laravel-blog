@@ -33,7 +33,7 @@ class PostController extends Controller
 		$canEdit = $auth->can('edit', $this->modelPolicy->find(1));
 		$canDelete = $auth->can('destroy', $this->modelPolicy->find(1));
 
-        $posts = $postService->getPaginated(config('app.url_admin').'/posts');
+        $posts = $postService->getPaginated(config('app.url_admin').'/posts', ['createdUser','updatedUser']);
 
         $this->isEmptyPaginated($posts, $request);
 

@@ -1,6 +1,9 @@
 @extends(config('app.theme').'admin.index')
 
 @section('admin-content')
+
+    @include(config('app.theme').'admin.header', ['dataHeader'=>['id'=>1,'actions'=>2,'title'=>5]])
+
     @foreach ($categories as $category)
         <div class="row">
             <div class="col-xs-1">

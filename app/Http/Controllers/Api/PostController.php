@@ -17,9 +17,15 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(PostService $postService)
+    public function index(PostService $postService, Request $request)
     {
-        $posts = $postService->getPaginated('posts');
+		$search = $request->input('search');
+
+		if (!empty( $search)){
+			$posts = $postService->search($search);
+		} else {
+			$posts = $postService->getPaginated('posts');
+		}
 
         return new PostsResource($posts);
     }
