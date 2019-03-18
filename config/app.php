@@ -64,9 +64,17 @@ return [
 
     'theme' => 'themes/'.env('APP_THEME', 'default').'/',
 
-    'contact_google_recaptcha' => env('APP_CONTACT_GOOGLE_RECAPTCHA', false),
+    'posts_google_recaptcha' => env('APP_CONTACT_GOOGLE_RECAPTCHA', false),
 
     'comment_google_recaptcha' => env('APP_COMMENT_GOOGLE_RECAPTCHA', false),
+
+    'sitemap_posts_changefrequency' => env('APP_SITEMAP_POSTS_CHANGEFREQUENCY', 'weekly'),
+
+    'sitemap_pages_changefrequency' => env('APP_SITEMAP_PAGES_CHANGEFREQUENCY', 'monthly'),
+
+    'sitemap_posts_priority' => env('APP_SITEMAP_POSTS_PRIORITY', 1),
+
+    'sitemap_pages_priority' => env('APP_SITEMAP_PAGES_PRIORITY', 0.8),
 
     /*
     |--------------------------------------------------------------------------

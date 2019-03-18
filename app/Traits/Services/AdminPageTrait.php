@@ -30,4 +30,9 @@ trait AdminPageTrait
     {
         return $this->baseRepo->destroy($id);
     }
+
+	public function getCount(array $where=[]) {
+
+    	return $this->baseRepo->getCount($where);
+	}
 }

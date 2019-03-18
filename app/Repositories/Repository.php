@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\DB;
 
 use App\Interfaces\RepositoryInterface;
 
@@ -133,4 +134,13 @@ abstract class Repository implements RepositoryInterface
 
         return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
     }
+
+	public function getCount(array $where=[])
+	{
+		if (!empty($where)) {
+			return DB::table($this->model->getTable())->where($where)->count();
+		}
+
+		return DB::table($this->model->getTable())->count();
+	}
 }
