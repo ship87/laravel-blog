@@ -14,9 +14,9 @@ class BlogController extends Controller
 
     public function index(BlogService $blogService, Request $request)
     {
-		$search = $request->input('search');
+        $search = $request->input('search');
 
-        if (!empty( $search)){
+        if (! empty($search)) {
             $posts = $blogService->search($search);
         } else {
             $posts = $blogService->getPaginated();
@@ -55,7 +55,9 @@ class BlogController extends Controller
     {
         $pageData = $blogService->getByIdSlug($id, $slug);
 
-        $this->isEmptyPage($pageData);
+        if (empty($pageData)) {
+            abort(404);
+        }
 
         return view(config('app.theme').'client/blog/post', [
             'pageData' => $pageData,

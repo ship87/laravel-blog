@@ -32,4 +32,18 @@ class PageRepository extends Repository
 			->orWhere('title', 'like', "%{$query}%")
 			->get();
 	}
+
+	public function getUrlByPage($page)
+	{
+		$url = '/' . $page->slug;
+		$parentId = (int)$page->parent_id;
+
+		while ($parentId > 0) {
+			$parent = $this->getById($parentId);
+			$url = '/' . $parent->slug . $url;
+			$parentId = (int)$parent->parent_id;
+		}
+
+		return $url;
+	}
 }

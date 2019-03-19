@@ -3,11 +3,11 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Carbon;
 use Illuminate\Contracts\Filesystem\Filesystem;
 
 use App\Services\PageService;
 use App\Services\PostService;
-use Illuminate\Support\Carbon;
 
 class GenerateSitemap extends Command
 {
@@ -42,7 +42,7 @@ class GenerateSitemap extends Command
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
  
-http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">\r\n';
+http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">';
 
     private $secondaryPageBody = '
 <url>
@@ -50,7 +50,7 @@ http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">\r\n';
     <lastmod>%s</lastmod>
     <changefreq>%s</changefreq>
     <priority>%s</priority>
-</url>\r\n';
+</url>';
 
     private $secondaryPageFooter = '</urlset>';
 
@@ -60,11 +60,11 @@ http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">\r\n';
 
     private $filesystem;
 
-    private $countPage = 1;
-
     private $currentSecondaryPage = 1;
 
-    private $leftOutLimitPage = 0;
+    private $countPageOnCurrent = 1;
+
+    private $filePageSitemap = 'sitemap%s.xml';
 
     /**
      * Create a new command instance.
@@ -89,9 +89,7 @@ http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">\r\n';
     {
         $this->info('Generate sitemap for all pages. Might take a while...');
 
-        //echo memory_get_usage(true)/pow(1024, 1).'<br>';
-
-        $posts = $this->postService->getAll();
+        $posts = $this->postService->addUrl($this->postService->getAll());
         $pages = $this->pageService->getAll();
 
         $totalCountPages = (int) $pages->count() + (int) $posts->count();
@@ -102,17 +100,15 @@ http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">\r\n';
 
         $this->generateMainPage($countSecondaryPages);
 
-        $this->generateSecondaryPages($posts, 'posts');
+        $this->generateSecondaryPageHeaderBody($posts, 'posts');
 
-        $res = $this->generateSecondaryPages($pages, 'pages');
+        $this->generateSecondaryPageHeaderBody($pages, 'pages');
 
-        echo $res;
-        //dd($totalCountPages);
+        $this->generateSecondaryPageFooter($countSecondaryPages);
     }
 
     private function generateMainPage($countSecondaryPages)
     {
-
         $data = $this->mainPageHeader;
 
         for ($page = 1; $page <= $countSecondaryPages; $page++) {
@@ -126,30 +122,51 @@ http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">\r\n';
         return $data;
     }
 
-    private function generateSecondaryPages($pages, $type)
+    private function generateSecondaryPageHeaderBody($pages, $type)
     {
-
-        $filePageSitemap = 'sitemap'.$this->currentSecondaryPage.'.xml';
-        $this->filesystem->append($filePageSitemap, $this->secondaryPageHeader);
-
         foreach ($pages as $page) {
 
-            $pageData = sprintf($this->secondaryPageBody, config('app.url'), $page->updated_at->toRfc3339String(), config('app.sitemap_'.$type.'_changefrequency'), config('app.sitemap_'.$type.'_priority'));
+            $filename = sprintf($this->filePageSitemap, $this->currentSecondaryPage);
 
-            $this->filesystem->append($filePageSitemap, $pageData);
+            switch ($type) {
+                case 'pages':
+                    $url = config('app.url').$this->pageService->getUrlByPage($page);
+                    break;
+                case 'posts':
+                    $url = config('app.url').$page->url;
+                    break;
+            }
 
+            $pageData = sprintf($this->secondaryPageBody, $url, $page->updated_at->toRfc3339String(), config('app.sitemap_'.$type.'_changefrequency'), config('app.sitemap_'.$type.'_priority'));
+
+            switch ($this->countPageOnCurrent) {
+                case 1:
+                    $this->filesystem->append($filename, $this->secondaryPageHeader);
+                    break;
+                case config('app.sitemap_count_pages'):
+                    $this->countPageOnCurrent = 0;
+                    $this->currentSecondaryPage++;
+                    break;
+            }
+
+            $this->filesystem->append($filename, $pageData);
+
+            $this->countPageOnCurrent++;
         }
+    }
 
-        $this->filesystem->append($filePageSitemap, $this->secondaryPageFooter);
-
+    private function generateSecondaryPageFooter($countSecondaryPages)
+    {
+        for ($page = 1; $page <= $countSecondaryPages; $page++) {
+            $this->filesystem->append(sprintf($this->filePageSitemap, $page), $this->secondaryPageFooter);
+        }
     }
 
     private function getCountSecondaryPages($totalCountPages)
     {
+        $countSecondaryPages = floor($totalCountPages / config('app.sitemap_count_pages'));
 
-        $countSecondaryPages = floor($totalCountPages / $this->countPage);
-
-        $extraPage = $totalCountPages % $this->countPage;
+        $extraPage = $totalCountPages % config('app.sitemap_count_pages');
 
         if ($extraPage > 0) {
             $countSecondaryPages++;

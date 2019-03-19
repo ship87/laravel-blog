@@ -68,6 +68,8 @@ return [
 
     'comment_google_recaptcha' => env('APP_COMMENT_GOOGLE_RECAPTCHA', false),
 
+    'sitemap_count_pages' => env('APP_SITEMAP_COUNT_PAGES', 10000),
+
     'sitemap_posts_changefrequency' => env('APP_SITEMAP_POSTS_CHANGEFREQUENCY', 'weekly'),
 
     'sitemap_pages_changefrequency' => env('APP_SITEMAP_PAGES_CHANGEFREQUENCY', 'monthly'),

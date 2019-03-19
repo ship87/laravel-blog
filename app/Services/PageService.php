@@ -152,4 +152,9 @@ class PageService
 
 		return $this->baseRepo->search($search);
 	}
+
+	public function getUrlByPage($page)
+	{
+		return $this->baseRepo->getUrlByPage($page);
+	}
 }

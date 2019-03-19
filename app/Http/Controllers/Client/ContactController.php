@@ -21,7 +21,7 @@ class ContactController extends Controller
         $contact['email'] = $request->get('email');
         $contact['msg'] = $request->get('msg');
 
-        SendContactEmail::dispatch($contact)->onQueue('emails')->delay(now()->addMinutes(2));
+        SendContactEmail::dispatch($contact)->onQueue('emails')->delay(now());
 
         $sendMessage = u__('client.thank you for your email');
 
