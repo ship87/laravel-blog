@@ -19,6 +19,10 @@ class LoginController extends CustomFolderController
 
     use AuthenticatesUsers;
 
+	protected $maxAttempts;
+
+	protected $decayMinutes;
+
     /**
      * Create a new controller instance.
      *
@@ -29,6 +33,10 @@ class LoginController extends CustomFolderController
 		parent::__construct();
 
         $this->middleware('guest')->except('logout');
+
+		$this->maxAttempts = config('app.login_max_attempts');
+
+		$this->decayMinutes = config('app.login_decay_minutes');
     }
 
 	public function showLoginForm()

@@ -9,18 +9,17 @@ use App\Repositories\CategoryRepository;
 
 class CategoryComposer
 {
-	protected $categoryRepo;
+    protected $categoryRepo;
 
-	public function __construct(CategoryRepository $categoryRepository)
-	{
-		$this->categoryRepo = $categoryRepository;
-	}
+    public function __construct(CategoryRepository $categoryRepository)
+    {
+        $this->categoryRepo = $categoryRepository;
+    }
 
-	public function compose(View $view)
-	{
-		//$buildTree=new BuildTree($this->categoryRepo->getAll());
+    public function compose(View $view)
+    {
+        $buildTree = new BuildTree($this->categoryRepo->getAll());
 
-		//$view->with('categoriesWidget', $buildTree->getTree());
-	}
-
+        $view->with('categoriesWidget', $buildTree->getTree());
+    }
 }

@@ -2,7 +2,7 @@
 
 @section('admin-content')
 
-    @include(config('app.theme').'admin.header', ['dataHeader'=>['id'=>1,'actions'=>2,'title'=>5]])
+    @include(config('app.theme').'admin.header', ['dataName'=>'roles','dataHeader'=>['id'=>1,'actions'=>2,'title'=>5]])
 
     @foreach ($roles as $role)
         <div class="row">

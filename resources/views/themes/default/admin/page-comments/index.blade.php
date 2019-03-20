@@ -2,7 +2,7 @@
 
 @section('admin-content')
 
-    @include(config('app.theme').'admin.header', ['dataHeader'=>['id'=>1,'actions'=>2,'content'=>3,'created_user'=>1,'updated_user'=>1,'created_at'=>1]])
+    @include(config('app.theme').'admin.header', ['dataName'=>'page comments','dataHeader'=>['id'=>1,'actions'=>2,'content'=>3,'created'=>1,'updated'=>1,'created_at'=>1]])
 
     @foreach ($pageComments as $pageComment)
         <div class="row">

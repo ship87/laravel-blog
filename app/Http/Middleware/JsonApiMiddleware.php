@@ -2,9 +2,11 @@
 
 namespace App\Http\Middleware;
 
-use Closure;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+
+use Closure;
 
 class JsonApiMiddleware
 {
@@ -53,8 +55,10 @@ class JsonApiMiddleware
      * @param  \Closure $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next)
     {
+		$this->isLocalIp($request);
+
         if (in_array($request->getMethod(), self::PARSED_METHODS)) {
 
             $content = $request->json()->all();
@@ -84,6 +88,14 @@ class JsonApiMiddleware
 
         return $response;
     }
+
+    private function isLocalIp(Request $request){
+
+		if (!in_array($request->ip(), ['::1', '127.0.0.1', 'localhost'])) {
+			abort(403, 'Access denied');
+		}
+
+	}
 
     private function mergeNewData(&$request, $id, $type)
     {

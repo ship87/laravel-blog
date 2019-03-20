@@ -14,15 +14,15 @@
                 <title>{{ $metatag->content }}</title>
             @else
                 <meta name="{{ $metatag->name }}" content="{{ $metatag->content }}"/>
-            @endif
-        @empty
-        @endforelse
-    @endisset
+        @endif
+    @empty
+    @endforelse
+@endisset
 
 <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/client.css') }}" rel="stylesheet">
 </head>
-<body>
 <div id="app">
     <nav class="navbar navbar-default navbar-static-top">
         <div class="container">
@@ -82,9 +82,14 @@
         </div>
     </nav>
 
-    @yield('content')
+    <div class="container">
+        <div class="row">
+            @yield('content')
 
-    @include(config('app.theme').'layouts.sidebar')
+            @yield('sidebar')
+        </div>
+    </div>
+
 </div>
 
 <!-- Scripts -->

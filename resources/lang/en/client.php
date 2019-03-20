@@ -15,7 +15,11 @@ return [
 
     'your name' => 'your name',
     'comment' => 'comment',
+    'search on blog' => 'search on blog',
+    'find' => 'find',
     'add'=>'add',
+    'name'=>'name',
+    'content'=>'content',
     'message'=>'message',
     'e-mail address'=>'e-mail address',
     'submit'=>'submit',

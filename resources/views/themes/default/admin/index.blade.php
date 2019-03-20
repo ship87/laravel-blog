@@ -15,10 +15,10 @@
 
 			<div class="panel-body">
 
-				<div class="col-xs-3">
+				<div class="col-md-2 col-xs-12">
 					@include(config('app.theme').'admin.menu')
 				</div>
-				<div class="col-xs-8">
+				<div class="col-md-10 col-xs-12">
 					@yield('admin-content')
 				</div>
 			</div>

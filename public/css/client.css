@@ -1,0 +1,17 @@
+div.post_content {
+	margin-top: 10px;
+}
+
+div.post {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+div.page {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+body {
+	background-color: #fff;
+}
