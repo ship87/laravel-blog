@@ -13,10 +13,19 @@
 
 Auth::routes();
 
+Route::get('/deneme', function () {
+    echo url('deneme');
+});
+
+
+Route::get('/salla', function () {
+    echo 'sallamasyon';
+})->name('sallaURL');
+
 Route::namespace('Admin')->name(config('app.theme').'admin.')->middleware(['auth'])->prefix(config('app.url_admin'))->group(function (
 ) {
 
-    Route::get('', 'AdminController@index');
+    Route::get('', 'AdminController@index')->name('home');
     Route::get('images', 'ImageController@index');
     Route::resource('categories', 'CategoryController')->except('show');
     Route::resource('pages', 'PageController')->except('show');
