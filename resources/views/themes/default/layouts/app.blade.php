@@ -20,8 +20,10 @@
 @endisset
 
 <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/client.css') }}" rel="stylesheet">
+<link href="{{ asset('css/app.css') }}" rel="stylesheet">
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+<link href="{{ asset('css/client-styles.css') }}" rel="stylesheet">
+
 </head>
 <div id="app">
     <nav class="navbar navbar-default navbar-static-top">

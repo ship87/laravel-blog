@@ -1,0 +1,46 @@
+body {
+    background-color: #fff;
+}
+
+div.post_content {
+    margin-top: 10px;
+}
+
+div.post {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+div.page {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.sidebar__categories div.panel {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.sidebar__categories div.panel-group {
+    margin-bottom: 0px;
+    background-color: #fff;
+    border-color: #fff;
+}
+
+.sidebar__categories .panel-default,
+.sidebar__categories .panel-default > .panel-heading,
+.sidebar__categories .panel-group .panel-heading + .panel-collapse > .list-group, .panel-group .panel-heading + .panel-collapse > .panel-body {
+    background-color: #fff;
+    border-color: #fff;
+}
+
+.sidebar__categories .panel-heading .accordion-toggle:after {
+    font-family: 'Glyphicons Halflings';
+    content: "\e258";
+    float: right;
+    color: grey;
+}
+
+.sidebar__categories .panel-heading .accordion-toggle.collapsed:after {
+    content: "\e260";
+}
