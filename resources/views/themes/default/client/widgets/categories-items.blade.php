@@ -28,7 +28,7 @@
                     <div class="col-xs-2">
                     </div>
                     <div class="col-xs-10">
-                        <a href="#">{{ $item->slug }}</a>
+                        <a href="{{ url(config('app.url_blog').'/category/'.$item->slug) }}">{{ $item->title }}</a>
                     </div>
                 </div>
             </div>
