@@ -64,19 +64,20 @@ class BlogService
 
             $posts = $this->elasticsearchPostRepo->searchWithElasticsearch($search);
 
-            $posts = $this->postRepo->paginate($posts, config('app.blog_pagination'), null, ['path' => config('app.url_blog').'?search='.$search]);
         } else {
             $posts = $this->postRepo->search($search);
         }
 
-        return $posts;
+		$posts = $this->postRepo->paginate($posts, config('app.blog_pagination'), null, ['path' => config('app.url_blog').'?search='.$search]);
+
+        return $this->addUrl($posts);
     }
 
     public function addUrl($posts)
     {
         if (! empty($posts)) {
             foreach ($posts as $key => $post) {
-                $posts[$key]->url = config('app.url_blog').'/'.$post->id.'/'.$post->slug;
+                $posts[$key]->url = url(config('app.url_blog').'/'.$post->id.'/'.$post->slug);
             }
         }
 

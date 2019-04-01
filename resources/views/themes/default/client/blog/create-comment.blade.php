@@ -1,4 +1,4 @@
-<div class="form-body">
+<div class="row form-body">
     {{ Form::open(['method' => 'POST','route' => [config('app.theme').'admin.post-comments.store'],'style'=>'form-horizontal']) }}
     {{ csrf_field() }}
 

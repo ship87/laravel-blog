@@ -26,6 +26,7 @@ class BlogController extends Controller
 
         return view(config('app.theme').'client/blog/index', [
             'posts' => $posts,
+			'search' => $search
         ]);
     }
 

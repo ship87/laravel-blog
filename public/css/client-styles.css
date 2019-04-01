@@ -36,11 +36,23 @@ div.page {
 
 .sidebar__categories .panel-heading .accordion-toggle:after {
     font-family: 'Glyphicons Halflings';
-    content: "\e258";
+    content: "\e260";
     float: right;
     color: grey;
 }
 
 .sidebar__categories .panel-heading .accordion-toggle.collapsed:after {
-    content: "\e260";
+    content: "\e259";
+}
+
+div.add-comment {
+    padding-bottom: 20px;
+}
+
+div.comment_post {
+    padding-bottom: 30px;
+}
+
+div.comment_widget {
+    padding-bottom: 20px;
 }

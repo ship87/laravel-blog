@@ -8,7 +8,7 @@
                 <div class="row">
                     <div class="col-xs-2">
                         @if(count($category->childs) > 0)
-                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion"
+                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion"
                                href="#collapse-{{$category->slug}}">
                             </a>
                         @endif
@@ -29,3 +29,4 @@
     @endforelse
 
 </div>
+

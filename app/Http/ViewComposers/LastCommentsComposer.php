@@ -4,19 +4,19 @@ namespace App\Http\ViewComposers;
 
 use Illuminate\View\View;
 
-use App\Repositories\PostCommentRepository;
+use App\Services\PostCommentService;
 
 class LastCommentsComposer
 {
-    protected $postCommentRepo;
+    protected $postCommentService;
 
-    public function __construct(PostCommentRepository $postCommentRepository)
+    public function __construct(PostCommentService $postCommentService)
     {
-        $this->postCommentRepo = $postCommentRepository;
+        $this->postCommentService = $postCommentService;
     }
 
     public function compose(View $view)
     {
-        $view->with('lastCommentsWidget', $this->postCommentRepo->getAll());
+        $view->with('lastCommentsWidget', $this->postCommentService->getWithUrl(5));
     }
 }

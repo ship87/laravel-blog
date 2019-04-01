@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class PostComment extends Model
 {
+	public $url;
+
 	protected $guarded = [];
 
     public function createdUser()

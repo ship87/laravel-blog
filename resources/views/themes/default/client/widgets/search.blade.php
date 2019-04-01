@@ -3,7 +3,7 @@
     <div class="col-xs-9">
         {{ Form::text('search', old('search'), ['class'=>'form-control', 'placeholder'=>u__('client.search on blog') ]) }}
     </div>
-    <div class="col-xs-2">
+    <div class="col-xs-3">
         {{ Form::submit(u__('client.find'), ['class' => 'btn btn-info']) }}
     </div>
     {{ Form::close() }}

@@ -14,6 +14,8 @@ return [
     */
 
     'your name' => 'your name',
+    'your comment' => 'your comment',
+    'search results for:' => 'search results for:',
     'comment' => 'comment',
     'search on blog' => 'search on blog',
     'find' => 'find',

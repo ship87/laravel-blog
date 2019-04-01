@@ -8,7 +8,7 @@
                     <div class="panel-heading">
                         <div class="row">
                             <div class="col-xs-2">
-                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-{{$parent}}"
+                                <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion-{{$parent}}"
                                    href="#collapse-{{ $item->slug }}">
                                 </a>
                             </div>

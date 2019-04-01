@@ -2,6 +2,13 @@
 
 @section('content')
     <div class="col-md-9 col-xs-12">
+
+        @isset($search)
+            @if ($search)
+                <h3>{{ u__('client.search results for:').$search }}</h3>
+            @endif
+        @endisset
+
         @isset($posts)
             @foreach ($posts as $post)
                 <div class="row post">
