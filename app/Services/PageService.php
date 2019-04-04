@@ -79,7 +79,9 @@ class PageService
         $resultUrl = '';
         foreach ($urlArr as $url) {
             $page = $this->getUrl($url);
-            $resultUrl = $resultUrl.$page->slug.'/';
+            if (!empty($page->slug)) {
+                $resultUrl = $resultUrl.$page->slug.'/';
+            }
         }
 
         return $resultUrl.$lastSlug;

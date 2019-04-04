@@ -24,7 +24,7 @@ class BlogController extends Controller
 
         $this->isEmptyPaginated($posts, $request);
 
-        return view(config('app.theme').'client/blog/index', [
+        return view(config('app.theme').'client.blog.index', [
             'posts' => $posts,
 			'search' => $search
         ]);
@@ -36,7 +36,7 @@ class BlogController extends Controller
 
         $this->isEmptyPaginated($posts, $request);
 
-        return view(config('app.theme').'client/blog/index', [
+        return view(config('app.theme').'client.blog.index', [
             'posts' => $posts,
         ]);
     }

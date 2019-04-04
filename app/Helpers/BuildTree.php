@@ -4,19 +4,42 @@ namespace App\Helpers;
 
 class BuildTree
 {
-
-    public $childs;
-
     protected $data;
 
     public function __construct($data)
     {
-        $this->data = $data;
+        $this->setData($data);
     }
 
-    public function getTree()
+	/**
+	 * @return mixed
+	 */
+	public function getData() {
+
+		return $this->data;
+	}
+
+	/**
+	 * @param mixed $data
+	 */
+	public function setData($data) {
+
+		$this->data = $data;
+
+		return $this;
+	}
+
+
+	public function getTree()
     {
-        return $this->getBranch($this->data);
+    	$data=$this->getData();
+
+    	$tree=$this->getBranch($data);
+
+
+		///dd($tree);
+
+        return $tree;
     }
 
     private function getBranch(&$data, $parentId = 0)

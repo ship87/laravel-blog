@@ -17,7 +17,4 @@ class PermissionRoleRepository extends Repository
 	{
 		return $role->permissions()->sync($permissions);
 	}
-
-
-
 }

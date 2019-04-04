@@ -92,10 +92,11 @@ class PageController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request                   $request
      * @param $id
-     * @param \App\Services\PageService $pageService
+     * @param \App\Services\PageService                  $pageService
      * @param \Illuminate\Contracts\Auth\Authenticatable $auth
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(PageRequest $request, $id, PageService $pageService, Authenticatable $auth)

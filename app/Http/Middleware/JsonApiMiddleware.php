@@ -20,15 +20,15 @@ class JsonApiMiddleware
     protected $contentType = 'application/vnd.api+json';
 
     protected $typesServices = [
-        'categories' => 'App\Services\CategoryService',
-        'tags' => 'App\Services\TagService',
-        'pages' => 'App\Services\PageService',
-        'page-comments' => 'App\Services\PageCommentService',
-        'post-comments' => 'App\Services\PostCommentService',
-        'roles' => 'App\Services\RoleService',
-        'permissions' => 'App\Services\PermissionService',
-        'users' => 'App\Services\UserService',
-        'metatags' => 'App\Services\MetatagService',
+		'categories' => 'App\Services\CategoryService',
+		'tags' => 'App\Services\TagService',
+		'pages' => 'App\Services\PageService',
+		'page-comments' => 'App\Services\PageCommentService',
+		'post-comments' => 'App\Services\PostCommentService',
+		'roles' => 'App\Services\RoleService',
+		'permissions' => 'App\Services\PermissionService',
+		'users' => 'App\Services\UserService',
+		'metatags' => 'App\Services\MetatagService',
     ];
 
     /**
