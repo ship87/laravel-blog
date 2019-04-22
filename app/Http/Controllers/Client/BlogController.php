@@ -47,12 +47,12 @@ class BlogController extends Controller
 
         $this->isEmptyPaginated($posts, $request);
 
-        return view(config('app.theme').'client/blog/index', [
+        return view(config('app.theme').'client.blog.index', [
             'posts' => $posts,
         ]);
     }
 
-    public function page(BlogService $blogService, $id, $slug)
+    public function post(BlogService $blogService, $id, $slug)
     {
         $pageData = $blogService->getByIdSlug($id, $slug);
 
@@ -60,7 +60,7 @@ class BlogController extends Controller
             abort(404);
         }
 
-        return view(config('app.theme').'client/blog/post', [
+        return view(config('app.theme').'client.blog.post', [
             'pageData' => $pageData,
         ]);
     }

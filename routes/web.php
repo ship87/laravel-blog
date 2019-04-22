@@ -38,7 +38,7 @@ Route::group(['namespace' => 'Client'], function () {
     ) {
         Route::get('archive/{year}/{month?}/{day?}', 'BlogController@indexArchive');
         Route::get('category/{category}', 'BlogController@indexCategory');
-        Route::get('{id}/{slug}', 'BlogController@page');
+        Route::get('{id}/{slug}', 'BlogController@post');
         Route::get('{slug?}', 'BlogController@index');
     });
 

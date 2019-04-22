@@ -2,19 +2,36 @@
 
 namespace Tests\Feature\Http\Controllers\Admin;
 
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+
+use Tests\PostCreate;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class PostControllerTest extends TestCase
 {
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
-    public function testExample()
+    use DatabaseTransactions, PostCreate;
+
+    protected function setUp()
     {
-        $this->assertTrue(true);
+        parent::setUp();
+
+        $this->createPost();
+    }
+
+    public function testIndex()
+    {
+
+        $this->actingAs($this->user)->get(config('app.url_admin').'/posts/')->assertStatus(200);
+    }
+
+    public function testCreate()
+    {
+
+        $this->actingAs($this->user)->get(config('app.url_admin').'/posts/create/')->assertStatus(200);
+    }
+
+    public function testEdit()
+    {
+        $this->actingAs($this->user)->get(config('app.url_admin').'/posts/'.$this->post->id.'/edit/')->assertStatus(200);
     }
 }

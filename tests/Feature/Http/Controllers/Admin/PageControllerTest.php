@@ -2,19 +2,36 @@
 
 namespace Tests\Feature\Http\Controllers\Admin;
 
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+
+use Tests\PageCreate;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class PageControllerTest extends TestCase
 {
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
-    public function testExample()
+    use DatabaseTransactions, PageCreate;
+
+    protected function setUp()
     {
-        $this->assertTrue(true);
+        parent::setUp();
+
+        $this->createPage();
+    }
+
+    public function testCreate()
+    {
+
+        $this->actingAs($this->user)->get(config('app.url_admin').'/pages/create/')->assertStatus(200);
+    }
+
+    public function testIndex()
+    {
+        $this->actingAs($this->user)->get(config('app.url_admin').'/pages/')->assertStatus(200);
+    }
+
+    public function testEdit()
+    {
+
+        $this->actingAs($this->user)->get(config('app.url_admin').'/pages/'.$this->page->id.'/edit/')->assertStatus(200);
     }
 }

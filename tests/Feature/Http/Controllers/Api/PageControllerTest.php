@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Http\Controllers\Client;
+namespace Tests\Feature\Http\Controllers\Api;
 
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
@@ -18,8 +18,15 @@ class PageControllerTest extends TestCase
         $this->createPage();
     }
 
-    public function testPage()
+    public function testIndex()
     {
-        $this->get('/'.str_slug($this->page->slug))->assertStatus(200);
+
+        $this->actingAs($this->user)->get('/api/v1/pages/')->assertStatus(200);
+    }
+
+    public function testShow()
+    {
+
+        $this->actingAs($this->user)->get('/api/v1/pages/'.$this->page->id)->assertStatus(200);
     }
 }

@@ -4,74 +4,53 @@ namespace Tests\Unit\Services;
 
 use Tests\TestCase;
 
-use Elasticsearch\Client;
 use App\Services\BlogService;
 use App\Repositories\PostRepository;
+use App\Repositories\ElasticsearchPostRepository;
 
 class BlogServiceTest extends TestCase
 {
-    protected $postRepo;
-
-    protected $elasticsearchPostRepo;
-
     protected $blogService;
 
     protected function setUp()
     {
         parent::setUp();
 
-        $this->postRepo = $this->getMockBuilder(PostRepository::class)->disableOriginalConstructor()->getMock();
+        $postRepo = $this->createMock(PostRepository::class);
 
-        $this->elasticsearchPostRepo = $this->getMockBuilder(Client::class)->disableOriginalConstructor()->getMock();
+        $elasticsearchPostRepo = $this->createMock(ElasticsearchPostRepository::class);
 
-        $this->blogService = $this->getMockBuilder(BlogService::class)->disableOriginalConstructor()->getMock();
-
-
-        $this->setProtectedProperty($this->blogService,'postRepo', $this->postRepo);
-        $this->setProtectedProperty($this->blogService,'elasticsearchPostRepo', $this->elasticsearchPostRepo);
-
-
+        $this->blogService = new BlogService($postRepo, $elasticsearchPostRepo);
     }
 
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
-    public function testExample()
+    public function testAddUrl()
     {
-        $this->assertTrue(true);
+        $mockPostFirst = $this->getMockBuilder('Post')->getMock();
+
+        $mockPostFirst->id = 1;
+        $mockPostFirst->slug = 'post-one';
+
+        $mockPostSecond = $this->getMockBuilder('Post')->getMock();
+
+        $mockPostSecond->id = 2;
+        $mockPostSecond->slug = 'post-two';
+
+        $postsWithUrl = $this->blogService->addUrl([$mockPostFirst, $mockPostSecond]);
+
+        $this->assertEquals($postsWithUrl[0]->url, url(config('app.url_blog').'/'.$mockPostFirst->id.'/'.$mockPostFirst->slug));
+        $this->assertEquals($postsWithUrl[1]->url, url(config('app.url_blog').'/'.$mockPostSecond->id.'/'.$mockPostSecond->slug));
     }
 
-    /**
-     * Set protected property on a given object via reflection
-     *
-     * @param $object
-     * @param $property
-     * @param $value
-     * @throws \ReflectionException
-     */
-    public function setProtectedProperty($object, $property, $value)
+    public function testGetArchiveUrl()
     {
-        $reflection = new \ReflectionClass($object);
-        $reflection_property = $reflection->getProperty($property);
-        $reflection_property->setAccessible(true);
-        $reflection_property->setValue($object, $value);
-    }
+        $yearUrl = $this->blogService->getArchiveUrl(2010);
+        $yearMonthUrl = $this->blogService->getArchiveUrl(2010, 10);
+        $yearMonthDayUrl = $this->blogService->getArchiveUrl(2010, 10, 1);
+        $yearMonthDayDoubleUrl = $this->blogService->getArchiveUrl(2010, 10, 28);
 
-    /**
-     * Get protected property on a given object via reflection
-     *
-     * @param $object
-     * @param $property
-     * @param $value
-     * @throws \ReflectionException
-     */
-    public function getProtectedProperty($object, $property)
-    {
-        $reflection = new \ReflectionClass($object);
-        $reflection_property = $reflection->getProperty($property);
-        $reflection_property->setAccessible(true);
-        $reflection_property->getValue($object);
+        $this->assertEquals($yearUrl, config('app.url_blog').'/archive/2010');
+        $this->assertEquals($yearMonthUrl, config('app.url_blog').'/archive/2010/10');
+        $this->assertEquals($yearMonthDayUrl, config('app.url_blog').'/archive/2010/10/1');
+        $this->assertEquals($yearMonthDayDoubleUrl, config('app.url_blog').'/archive/2010/10/28');
     }
 }

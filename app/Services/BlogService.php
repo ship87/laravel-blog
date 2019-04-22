@@ -43,17 +43,9 @@ class BlogService
 
     public function getArchivePostsPaginated($year, $month = false, $day = false)
     {
-        $way = $year;
+    	$archiveUrl = $this->getArchiveUrl($year, $month, $day);
 
-        if ($day && $month) {
-
-            $way = $year.'/'.$month.'/'.$day;
-        } elseif ($month) {
-
-            $way = $year.'/'.$month;
-        }
-
-        $posts = $this->postRepo->getArchivePostsPaginated(config('app.url_blog').'/archive/'.$way, config('app.blog_pagination'), $year, $month, $day);
+        $posts = $this->postRepo->getArchivePostsPaginated($archiveUrl, config('app.blog_pagination'), $year, $month, $day);
 
         return $this->addUrl($posts);
     }
@@ -83,4 +75,20 @@ class BlogService
 
         return $posts;
     }
+
+	public function getArchiveUrl($year, $month = false, $day = false)
+	{
+		$way = $year;
+
+		if ($day && $month) {
+
+			$way = $year.'/'.$month.'/'.$day;
+		} elseif ($month) {
+
+			$way = $year.'/'.$month;
+		}
+
+		return config('app.url_blog').'/archive/'.$way;
+	}
+
 }
