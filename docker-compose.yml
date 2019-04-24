@@ -63,3 +63,13 @@
                 PHP_IDE_CONFIG: "serverName=docker"
                 PHP_XDEBUG_ENABLED: 1 # Set 1 to enable.
                 XDEBUG_CONFIG: remote_host=10.254.254.254
+        rabbitmq:
+            image: "rabbitmq:3-management"
+            environment:
+                RABBITMQ_DEFAULT_USER: rabbit
+                RABBITMQ_DEFAULT_PASS: rabbit
+            ports:
+            - "5672:5672"
+            - "15672:15672"
+            volumes:
+            - ./rabbitmq_enabled_plugins:/etc/rabbitmq/enabled_plugins

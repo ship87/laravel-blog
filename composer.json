@@ -12,7 +12,8 @@
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "5.5.*",
-        "unisharp/laravel-filemanager": "1.*"
+        "unisharp/laravel-filemanager": "1.*",
+        "php-amqplib/php-amqplib": "2.6.*"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",
