@@ -1,10 +1,11 @@
 # Laravel blog
 
-[![Latest Version on Packagist][ico-version]][link-packagist]
+[![Latest Stable Version](https://poser.pugx.org/ship87/laravel-blog/v/stable.svg)](https://packagist.org/packages/ship87/laravel-blog)
 [![Build Status](https://img.shields.io/travis/ship87/laravel-blog/master.svg)](https://travis-ci.org/ship87/laravel-blog)
+[![License](https://poser.pugx.org/ship87/laravel-blog/license.svg)](https://packagist.org/packages/ship87/laravel-blog)
 [![GitHub stars](https://img.shields.io/github/stars/ship87/laravel-blog.svg)](https://github.com/ship87/laravel-blog/stargazers)
 [![GitHub license](https://img.shields.io/github/license/ship87/laravel-blog.svg)](https://raw.githubusercontent.com/ship87/laravel-blog/master/LICENSE.md)
-[![Total Downloads][ico-downloads]][link-downloads]
+[![Total Downloads](https://poser.pugx.org/ship87/laravel-blog/downloads.svg)](https://packagist.org/packages/ship87/laravel-blog)
 
 > ### Example blog on PHP using Laravel framework, JSON:API, Elasticsearch, RabbitMQ.
 
