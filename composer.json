@@ -51,6 +51,7 @@
 				"Lfm": "UniSharp\\LaravelFilemanager\\Lfm"
 			},
             "dont-discover": [
+                "laravel/dusk"
             ]
         }
     },
