@@ -1,7 +1,7 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "name": "ship87/laravel-blog",
+    "description": "Example blog on PHP using Laravel framework, JSON:API, Elasticsearch, RabbitMQ.",
+    "keywords": ["laravel", "laravel framework", "laravel blog"],
     "license": "MIT",
     "type": "project",
     "require": {
