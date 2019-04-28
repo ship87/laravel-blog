@@ -4,24 +4,24 @@ namespace App\Traits\Services;
 
 trait FilterDataTrait
 {
-	public function filterData($data, $where=[])
-	{
-		if (empty($data['filter'])) {
-			return $where;
-		}
+    public function filterData($data, $where = [])
+    {
+        if (empty($data['filter'])) {
+            return $where;
+        }
 
-		$addWhere = [];
+        $addWhere = [];
 
-		foreach ($data['filter'] as $isFilter => $filterData) {
-			if (in_array($isFilter, $this->whereData)) {
-				$addWhere[$isFilter] = $filterData;
-			}
-		}
+        foreach ($data['filter'] as $isFilter => $filterData) {
+            if (in_array($isFilter, $this->whereData)) {
+                $addWhere[$isFilter] = $filterData;
+            }
+        }
 
-		if (empty($addWhere)) {
-			return $where;
-		}
+        if (empty($addWhere)) {
+            return $where;
+        }
 
-		return array_merge($where, $addWhere);
-	}
+        return array_merge($where, $addWhere);
+    }
 }

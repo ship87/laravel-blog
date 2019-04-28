@@ -34,16 +34,16 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         'App\Model' => 'App\Policies\ModelPolicy',
-		Page::class => PagePolicy::class,
-		Post::class => PostPolicy::class,
-		PageComment::class => PageCommentPolicy::class,
-		PostComment::class => PostCommentPolicy::class,
-		Category::class => CategoryPolicy::class,
-		Tag::class => TagPolicy::class,
-		Metatag::class => MetatagPolicy::class,
-		User::class => UserPolicy::class,
-		Role::class => RolePolicy::class,
-		Permission::class => PermissionPolicy::class,
+        Page::class => PagePolicy::class,
+        Post::class => PostPolicy::class,
+        PageComment::class => PageCommentPolicy::class,
+        PostComment::class => PostCommentPolicy::class,
+        Category::class => CategoryPolicy::class,
+        Tag::class => TagPolicy::class,
+        Metatag::class => MetatagPolicy::class,
+        User::class => UserPolicy::class,
+        Role::class => RolePolicy::class,
+        Permission::class => PermissionPolicy::class,
     ];
 
     /**
@@ -54,7 +54,6 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-
         //
     }
 }

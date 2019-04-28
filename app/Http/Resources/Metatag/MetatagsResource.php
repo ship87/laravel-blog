@@ -9,7 +9,7 @@ class MetatagsResource extends ResourceCollection
     /**
      * Transform the resource collection into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return array
      */
     public function toArray($request)
@@ -22,7 +22,7 @@ class MetatagsResource extends ResourceCollection
     public function with($request)
     {
         return [
-            'links'    => [
+            'links' => [
                 'self' => route('metatags.index'),
             ],
         ];

@@ -28,9 +28,9 @@ class UserController extends Controller
      */
     public function index(UserService $userService, Request $request, Authenticatable $auth)
     {
-		$this->indexPolicy($auth);
-		$canEdit = $auth->can('edit', $this->modelPolicy->first());
-		$canDelete = $auth->can('destroy', $this->modelPolicy->first());
+        $this->indexPolicy($auth);
+        $canEdit = $auth->can('edit', $this->modelPolicy->first());
+        $canDelete = $auth->can('destroy', $this->modelPolicy->first());
 
         $users = $userService->getPaginated(config('app.url_admin').'/users');
 
@@ -50,11 +50,11 @@ class UserController extends Controller
      */
     public function create(RoleService $roleService, Authenticatable $auth)
     {
-		$this->createPolicy($auth);
+        $this->createPolicy($auth);
 
-        return view(config('app.theme').'admin.users.create',[
-			'roles' => $roleService->getAllTitleId(),
-		]);
+        return view(config('app.theme').'admin.users.create', [
+            'roles' => $roleService->getAllTitleId(),
+        ]);
     }
 
     /**
@@ -64,13 +64,13 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(UserRequest $request, UserService $userService, Authenticatable $auth)
-	{
-		$this->storePolicy($auth);
+    {
+        $this->storePolicy($auth);
 
-		$userService->create($request->all());
+        $userService->create($request->all());
 
-		return redirect()->route(config('app.theme').'admin.users.index');
-	}
+        return redirect()->route(config('app.theme').'admin.users.index');
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -80,14 +80,14 @@ class UserController extends Controller
      */
     public function edit($id, UserService $userService, RoleService $roleService, Authenticatable $auth)
     {
-		$this->editPolicy($auth);
+        $this->editPolicy($auth);
 
         $user = $userService->getByIdOrFail($id);
 
-		return view(config('app.theme').'admin.users.edit', [
+        return view(config('app.theme').'admin.users.edit', [
             'user' => $user,
-			'roles' => $roleService->getAllTitleId(),
-			'selectedRoles' => $roleService->getId($user->role),
+            'roles' => $roleService->getAllTitleId(),
+            'selectedRoles' => $roleService->getId($user->role),
         ]);
     }
 
@@ -99,12 +99,12 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(UserRequest $request, $id, UserService $userService, Authenticatable $auth)
-	{
-		$this->updatePolicy($auth);
+    {
+        $this->updatePolicy($auth);
 
-		$userService->update($request->all(),$id);
+        $userService->update($request->all(), $id);
 
-		return redirect()->route(config('app.theme').'admin.users.index');
+        return redirect()->route(config('app.theme').'admin.users.index');
     }
 
     /**
@@ -115,7 +115,7 @@ class UserController extends Controller
      */
     public function destroy($id, UserService $userService, Authenticatable $auth)
     {
-		$this->destroyPolicy($auth);
+        $this->destroyPolicy($auth);
 
         $userService->destroy($id);
 

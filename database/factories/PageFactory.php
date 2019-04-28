@@ -14,12 +14,13 @@ use Faker\Generator as Faker;
 */
 
 $factory->define(App\Models\Page::class, function (Faker $faker) {
-	$name = $faker->name;
-	return [
-		'title' => $name,
-		'slug' => str_slug($name),
-		'created_user_id' => rand(1,50),
-		'updated_user_id' => rand(1,50),
-		'content' => $faker->text,
-	];
+    $name = $faker->name;
+
+    return [
+        'title' => $name,
+        'slug' => str_slug($name),
+        'created_user_id' => rand(1, 50),
+        'updated_user_id' => rand(1, 50),
+        'content' => $faker->text,
+    ];
 });

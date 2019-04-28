@@ -20,15 +20,15 @@ class JsonApiMiddleware
     protected $contentType = 'application/vnd.api+json';
 
     protected $typesServices = [
-		'categories' => 'App\Services\CategoryService',
-		'tags' => 'App\Services\TagService',
-		'pages' => 'App\Services\PageService',
-		'page-comments' => 'App\Services\PageCommentService',
-		'post-comments' => 'App\Services\PostCommentService',
-		'roles' => 'App\Services\RoleService',
-		'permissions' => 'App\Services\PermissionService',
-		'users' => 'App\Services\UserService',
-		'metatags' => 'App\Services\MetatagService',
+        'categories' => 'App\Services\CategoryService',
+        'tags' => 'App\Services\TagService',
+        'pages' => 'App\Services\PageService',
+        'page-comments' => 'App\Services\PageCommentService',
+        'post-comments' => 'App\Services\PostCommentService',
+        'roles' => 'App\Services\RoleService',
+        'permissions' => 'App\Services\PermissionService',
+        'users' => 'App\Services\UserService',
+        'metatags' => 'App\Services\MetatagService',
     ];
 
     /**
@@ -57,7 +57,7 @@ class JsonApiMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-		$this->isLocalIp($request);
+        $this->isLocalIp($request);
 
         if (in_array($request->getMethod(), self::PARSED_METHODS)) {
 
@@ -89,13 +89,13 @@ class JsonApiMiddleware
         return $response;
     }
 
-    private function isLocalIp(Request $request){
+    private function isLocalIp(Request $request)
+    {
 
-		if (!in_array($request->ip(), ['::1', '127.0.0.1', 'localhost'])) {
-			abort(403, 'Access denied');
-		}
-
-	}
+        if (! in_array($request->ip(), ['::1', '127.0.0.1', 'localhost'])) {
+            abort(403, 'Access denied');
+        }
+    }
 
     private function mergeNewData(&$request, $id, $type)
     {
@@ -107,9 +107,9 @@ class JsonApiMiddleware
 
         $chosenService = app($service);
 
-        $mergeData = $chosenService->mergeNewData($request->input('attributes')??[], $id);
+        $mergeData = $chosenService->mergeNewData($request->input('attributes') ?? [], $id);
 
-        if (!$mergeData){
+        if (! $mergeData) {
             abort(404);
         }
 

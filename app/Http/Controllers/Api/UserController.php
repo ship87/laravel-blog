@@ -28,8 +28,8 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(UserRequest $request, UserService $userService)
-	{
-		return $userService->create($request->get('attributes'));
+    {
+        return $userService->create($request->get('attributes'));
     }
 
     /**
@@ -67,7 +67,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id, UserService $userService)
-	{
-		return $userService->destroy($id);
-	}
+    {
+        return $userService->destroy($id);
+    }
 }

@@ -28,7 +28,7 @@ class RegisterController extends CustomFolderController
      */
     public function __construct()
     {
-		parent::__construct();
+        parent::__construct();
 
         $this->middleware('guest');
     }
@@ -36,7 +36,7 @@ class RegisterController extends CustomFolderController
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param  array  $data
+     * @param  array $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
@@ -51,7 +51,7 @@ class RegisterController extends CustomFolderController
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
+     * @param  array $data
      * @return \App\Models\User
      */
     protected function create(array $data)

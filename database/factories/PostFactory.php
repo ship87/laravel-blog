@@ -15,11 +15,12 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Models\Post::class, function (Faker $faker) {
     $name = $faker->name;
-	return [
-		'title' => $name,
+
+    return [
+        'title' => $name,
         'slug' => str_slug($name),
-        'created_user_id' => rand(1,50),
-        'updated_user_id' => rand(1,50),
-		'content' => $faker->text,
-	];
+        'created_user_id' => rand(1, 50),
+        'updated_user_id' => rand(1, 50),
+        'content' => $faker->text,
+    ];
 });

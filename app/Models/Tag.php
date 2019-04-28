@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tag extends Model
 {
-	public $timestamps = false;
+    public $timestamps = false;
 
-	protected $guarded = [];
+    protected $guarded = [];
 
-	public function posts()
-	{
-		return $this->belongsToMany('App\Models\Post');
-	}
+    public function posts()
+    {
+        return $this->belongsToMany('App\Models\Post');
+    }
 }

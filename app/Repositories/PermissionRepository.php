@@ -29,6 +29,6 @@ class PermissionRepository extends Repository
     {
         return $this->model->with('roles')->whereHas('roles', function ($q) use ($roleId) {
             $q->where('role_id', $roleId);
-        })->whereIn('slug',$slug)->first();
+        })->whereIn('slug', $slug)->first();
     }
 }

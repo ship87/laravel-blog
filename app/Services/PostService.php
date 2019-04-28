@@ -42,20 +42,20 @@ class PostService
 
     protected $postTagRepo;
 
-	protected $elasticsearchPostRepo;
+    protected $elasticsearchPostRepo;
 
     public function __construct(
         PostRepository $postRepo,
         MetatagRepository $metatagRepo,
         CategoryPostRepository $categoryPostRepo,
         PostTagRepository $postTagRepo,
-		ElasticsearchPostRepository $elasticsearchPostRepo
+        ElasticsearchPostRepository $elasticsearchPostRepo
     ) {
         $this->baseRepo = $postRepo;
         $this->metatagRepo = $metatagRepo;
         $this->categoryPostRepo = $categoryPostRepo;
         $this->postTagRepo = $postTagRepo;
-		$this->elasticsearchPostRepo = $elasticsearchPostRepo;
+        $this->elasticsearchPostRepo = $elasticsearchPostRepo;
     }
 
     public function update(array $data, array $relationData, $id, $authId)
@@ -113,23 +113,23 @@ class PostService
         $this->postTagRepo->saveMany($post, $tags);
     }
 
-	public function search($search)
-	{
-		if (config('services.search.enabled')) {
-			return $this->elasticsearchPostRepo->searchWithElasticsearch($search);
-		}
+    public function search($search)
+    {
+        if (config('services.search.enabled')) {
+            return $this->elasticsearchPostRepo->searchWithElasticsearch($search);
+        }
 
-		return $this->baseRepo->search($search);
-	}
+        return $this->baseRepo->search($search);
+    }
 
-	public function addUrl($posts)
-	{
-		if (! empty($posts)) {
-			foreach ($posts as $key => $post) {
-				$posts[$key]->url = config('app.url_blog').'/'.$post->id.'/'.$post->slug;
-			}
-		}
+    public function addUrl($posts)
+    {
+        if (! empty($posts)) {
+            foreach ($posts as $key => $post) {
+                $posts[$key]->url = config('app.url_blog').'/'.$post->id.'/'.$post->slug;
+            }
+        }
 
-		return $posts;
-	}
+        return $posts;
+    }
 }

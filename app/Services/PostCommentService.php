@@ -17,15 +17,14 @@ class PostCommentService
         $this->baseRepo = $postCommentRepo;
     }
 
-	public function getWithUrl($count = false)
-	{
-		$comments=$this->baseRepo->getWithUrl($count);
+    public function getWithUrl($count = false)
+    {
+        $comments = $this->baseRepo->getWithUrl($count);
 
-		foreach ($comments as $key=>$comment){
-			$comments[$key]->url = url(config('app.url_blog').'/'.$comment->id.'/'.$comment->post_slug);
-		}
+        foreach ($comments as $key => $comment) {
+            $comments[$key]->url = url(config('app.url_blog').'/'.$comment->id.'/'.$comment->post_slug);
+        }
 
-		return $comments;
-	}
-
+        return $comments;
+    }
 }

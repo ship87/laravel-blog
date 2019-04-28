@@ -6,15 +6,15 @@ use App\Models\Role;
 
 class PermissionRoleRepository extends Repository
 {
-	protected $permissionRepo;
+    protected $permissionRepo;
 
-	public function __construct(PermissionRepository $permissionRepository)
-	{
-		$this->permissionRepo = $permissionRepository;
-	}
+    public function __construct(PermissionRepository $permissionRepository)
+    {
+        $this->permissionRepo = $permissionRepository;
+    }
 
-	public function saveMany(Role $role, array $permissions)
-	{
-		return $role->permissions()->sync($permissions);
-	}
+    public function saveMany(Role $role, array $permissions)
+    {
+        return $role->permissions()->sync($permissions);
+    }
 }

@@ -28,9 +28,9 @@ class RoleController extends Controller
      */
     public function index(RoleService $roleService, Request $request, Authenticatable $auth)
     {
-		$this->indexPolicy($auth);
-		$canEdit = $auth->can('edit', $this->modelPolicy->first());
-		$canDelete = $auth->can('destroy', $this->modelPolicy->first());
+        $this->indexPolicy($auth);
+        $canEdit = $auth->can('edit', $this->modelPolicy->first());
+        $canDelete = $auth->can('destroy', $this->modelPolicy->first());
 
         $roles = $roleService->getPaginated(config('app.url_admin').'/roles');
 
@@ -50,11 +50,11 @@ class RoleController extends Controller
      */
     public function create(PermissionService $permissionService, Authenticatable $auth)
     {
-		$this->createPolicy($auth);
+        $this->createPolicy($auth);
 
-        return view(config('app.theme').'admin.roles.create',[
-			'permissions' => $permissionService->getAllTitleId(),
-		]);
+        return view(config('app.theme').'admin.roles.create', [
+            'permissions' => $permissionService->getAllTitleId(),
+        ]);
     }
 
     /**
@@ -65,7 +65,7 @@ class RoleController extends Controller
      */
     public function store(RoleRequest $request, RoleService $roleService, Authenticatable $auth)
     {
-		$this->storePolicy($auth);
+        $this->storePolicy($auth);
 
         $roleService->create($request->all(), $request->relationData);
 
@@ -78,9 +78,9 @@ class RoleController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id, RoleService $roleService,PermissionService $permissionService, Authenticatable $auth)
+    public function edit($id, RoleService $roleService, PermissionService $permissionService, Authenticatable $auth)
     {
-		$this->editPolicy($auth);
+        $this->editPolicy($auth);
 
         $role = $roleService->getByIdOrFail($id);
 
@@ -88,8 +88,8 @@ class RoleController extends Controller
 
         return view(config('app.theme').'admin.roles.edit', [
             'role' => $role,
-			'permissions' => $permissionService->getAllTitleId(),
-			'selectedPermissions' => $permissionService->getId($role->permissions),
+            'permissions' => $permissionService->getAllTitleId(),
+            'selectedPermissions' => $permissionService->getId($role->permissions),
         ]);
     }
 
@@ -102,7 +102,7 @@ class RoleController extends Controller
      */
     public function update(RoleRequest $request, $id, RoleService $roleService, Authenticatable $auth)
     {
-		$this->updatePolicy($auth);
+        $this->updatePolicy($auth);
 
         $roleService->update($request->all(), $request->relationData, $id);
 
@@ -117,7 +117,7 @@ class RoleController extends Controller
      */
     public function destroy($id, RoleService $roleService, Authenticatable $auth)
     {
-		$this->destroyPolicy($auth);
+        $this->destroyPolicy($auth);
 
         $roleService->destroy($id);
 

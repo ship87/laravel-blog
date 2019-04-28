@@ -29,11 +29,11 @@ class PostController extends Controller
      */
     public function index(PostService $postService, Request $request, Authenticatable $auth)
     {
-		$this->indexPolicy($auth);
-		$canEdit = $auth->can('edit', $this->modelPolicy->first());
-		$canDelete = $auth->can('destroy', $this->modelPolicy->first());
+        $this->indexPolicy($auth);
+        $canEdit = $auth->can('edit', $this->modelPolicy->first());
+        $canDelete = $auth->can('destroy', $this->modelPolicy->first());
 
-        $posts = $postService->getPaginated(config('app.url_admin').'/posts', ['createdUser','updatedUser']);
+        $posts = $postService->getPaginated(config('app.url_admin').'/posts', ['createdUser', 'updatedUser']);
 
         $this->isEmptyPaginated($posts, $request);
 
@@ -51,7 +51,7 @@ class PostController extends Controller
      */
     public function create(CategoryService $categoryService, TagService $tagService, Authenticatable $auth)
     {
-		$this->createPolicy($auth);
+        $this->createPolicy($auth);
 
         return view(config('app.theme').'admin.posts.create', [
             'tags' => $tagService->getAllNameId(),
@@ -67,7 +67,7 @@ class PostController extends Controller
      */
     public function store(PostRequest $request, PostService $postService, Authenticatable $auth)
     {
-		$this->storePolicy($auth);
+        $this->storePolicy($auth);
 
         $postService->create($request->all(), $request->relationData, $auth->id);
 
@@ -80,9 +80,14 @@ class PostController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id, PostService $postService, CategoryService $categoryService, TagService $tagService, Authenticatable $auth)
-    {
-		$this->editPolicy($auth);
+    public function edit(
+        $id,
+        PostService $postService,
+        CategoryService $categoryService,
+        TagService $tagService,
+        Authenticatable $auth
+    ) {
+        $this->editPolicy($auth);
 
         $post = $postService->getByIdWithSeo($id);
 
@@ -104,7 +109,7 @@ class PostController extends Controller
      */
     public function update(PostRequest $request, $id, PostService $postService, Authenticatable $auth)
     {
-		$this->updatePolicy($auth);
+        $this->updatePolicy($auth);
 
         $postService->update($request->all(), $request->relationData, $id, $auth->id);
 
@@ -119,7 +124,7 @@ class PostController extends Controller
      */
     public function destroy($id, PostService $postService, Authenticatable $auth)
     {
-		$this->destroyPolicy($auth);
+        $this->destroyPolicy($auth);
 
         $postService->destroy($id);
 

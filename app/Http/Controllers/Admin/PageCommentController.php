@@ -31,7 +31,10 @@ class PageCommentController extends Controller
         $canEdit = $auth->can('edit', $this->modelPolicy->first());
         $canDelete = $auth->can('destroy', $this->modelPolicy->first());
 
-        $pageComments = $pageCommentService->getPaginated(config('app.url_admin').'/page-comments', ['createdUser','updatedUser']);
+        $pageComments = $pageCommentService->getPaginated(config('app.url_admin').'/page-comments', [
+            'createdUser',
+            'updatedUser',
+        ]);
 
         $this->isEmptyPaginated($pageComments, $request);
 
@@ -73,7 +76,7 @@ class PageCommentController extends Controller
      */
     public function edit($id, PageCommentService $pageCommentService, Authenticatable $auth)
     {
-		$this->editPolicy($auth);
+        $this->editPolicy($auth);
 
         $pageComment = $pageCommentService->getByIdOrFail($id);
 
@@ -89,9 +92,13 @@ class PageCommentController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(PageCommentRequest $request, $id, PageCommentService $pageCommentService, Authenticatable $auth)
-    {
-		$this->updatePolicy($auth);
+    public function update(
+        PageCommentRequest $request,
+        $id,
+        PageCommentService $pageCommentService,
+        Authenticatable $auth
+    ) {
+        $this->updatePolicy($auth);
 
         $pageCommentService->update($request->all(), $id, $auth->id);
 
@@ -106,7 +113,7 @@ class PageCommentController extends Controller
      */
     public function destroy($id, PageCommentService $pageCommentService, Authenticatable $auth)
     {
-		$this->destroyPolicy($auth);
+        $this->destroyPolicy($auth);
 
         $pageCommentService->destroy($id);
 

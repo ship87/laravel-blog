@@ -27,11 +27,11 @@ class PageController extends Controller
      */
     public function index(PageService $pageService, Request $request, Authenticatable $auth)
     {
-		$this->indexPolicy($auth);
-		$canEdit = $auth->can('edit', $this->modelPolicy->first());
-		$canDelete = $auth->can('destroy', $this->modelPolicy->first());
+        $this->indexPolicy($auth);
+        $canEdit = $auth->can('edit', $this->modelPolicy->first());
+        $canDelete = $auth->can('destroy', $this->modelPolicy->first());
 
-        $pages = $pageService->getPaginated(config('app.url_admin').'/pages', ['createdUser','updatedUser']);
+        $pages = $pageService->getPaginated(config('app.url_admin').'/pages', ['createdUser', 'updatedUser']);
 
         $this->isEmptyPaginated($pages, $request);
 
@@ -49,7 +49,7 @@ class PageController extends Controller
      */
     public function create(PageService $pageService, Authenticatable $auth)
     {
-		$this->createPolicy($auth);
+        $this->createPolicy($auth);
 
         return view(config('app.theme').'admin.pages.create', [
             'parentPages' => $pageService->getAllTitleId(),
@@ -64,7 +64,7 @@ class PageController extends Controller
      */
     public function store(PageRequest $request, PageService $pageService, Authenticatable $auth)
     {
-		$this->storePolicy($auth);
+        $this->storePolicy($auth);
 
         $pageService->create($request->all(), $request->relationData, $auth->id);
 
@@ -79,7 +79,7 @@ class PageController extends Controller
      */
     public function edit($id, PageService $pageService, Authenticatable $auth)
     {
-		$this->editPolicy($auth);
+        $this->editPolicy($auth);
 
         $page = $pageService->getByIdWithSeo($id);
 
@@ -92,16 +92,16 @@ class PageController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request                   $request
+     * @param \Illuminate\Http\Request $request
      * @param $id
-     * @param \App\Services\PageService                  $pageService
+     * @param \App\Services\PageService $pageService
      * @param \Illuminate\Contracts\Auth\Authenticatable $auth
      *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(PageRequest $request, $id, PageService $pageService, Authenticatable $auth)
     {
-		$this->updatePolicy($auth);
+        $this->updatePolicy($auth);
 
         $pageService->update($request->all(), $request->relationData, $id, $auth->id);
 
@@ -116,7 +116,7 @@ class PageController extends Controller
      */
     public function destroy($id, PageService $pageService, Authenticatable $auth)
     {
-		$this->destroyPolicy($auth);
+        $this->destroyPolicy($auth);
 
         $pageService->destroy($id);
 

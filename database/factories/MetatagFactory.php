@@ -14,12 +14,13 @@ use Faker\Generator as Faker;
 */
 
 $factory->define(App\Models\Metatag::class, function (Faker $faker) {
-	$name = $faker->name;
-	return [
-		'title' => $name,
-		'slug' => str_slug($name),
-		'type' => 'post',
-		'name' => 'title',
-		'content' => $faker->text,
-	];
+    $name = $faker->name;
+
+    return [
+        'title' => $name,
+        'slug' => str_slug($name),
+        'type' => 'post',
+        'name' => 'title',
+        'content' => $faker->text,
+    ];
 });

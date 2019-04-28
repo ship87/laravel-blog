@@ -23,27 +23,25 @@ class PageRepository extends Repository
 
     public function getAllTitleId()
     {
-        return $this->model->pluck('title','id')->all();
+        return $this->model->pluck('title', 'id')->all();
     }
 
-	public function search(string $query = "")
-	{
-		return $this->model->where('content', 'like', "%{$query}%")
-			->orWhere('title', 'like', "%{$query}%")
-			->get();
-	}
+    public function search(string $query = "")
+    {
+        return $this->model->where('content', 'like', "%{$query}%")->orWhere('title', 'like', "%{$query}%")->get();
+    }
 
-	public function getUrlByPage($page)
-	{
-		$url = '/' . $page->slug;
-		$parentId = (int)$page->parent_id;
+    public function getUrlByPage($page)
+    {
+        $url = '/'.$page->slug;
+        $parentId = (int) $page->parent_id;
 
-		while ($parentId > 0) {
-			$parent = $this->getById($parentId);
-			$url = '/' . $parent->slug . $url;
-			$parentId = (int)$parent->parent_id;
-		}
+        while ($parentId > 0) {
+            $parent = $this->getById($parentId);
+            $url = '/'.$parent->slug.$url;
+            $parentId = (int) $parent->parent_id;
+        }
 
-		return $url;
-	}
+        return $url;
+    }
 }

@@ -7,19 +7,18 @@ use App\Models\Tag;
 
 class PostTagRepository
 {
-	protected $modelPost;
+    protected $modelPost;
 
-	protected $modelTag;
+    protected $modelTag;
 
-	public function __construct(Post $modelPost, Tag $modelTag)
-	{
-		$this->modelPost = $modelPost;
-		$this->modelTag = $modelTag;
-	}
+    public function __construct(Post $modelPost, Tag $modelTag)
+    {
+        $this->modelPost = $modelPost;
+        $this->modelTag = $modelTag;
+    }
 
     public function saveMany(Post $post, array $tags)
     {
         return $post->tags()->sync($tags);
     }
-
 }

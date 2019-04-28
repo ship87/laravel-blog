@@ -20,10 +20,9 @@ class AppServiceProvider extends ServiceProvider
     {
         Validator::extend('recaptcha', 'App\\Validators\\ReCaptcha@validate');
 
-		Carbon::serializeUsing(function ($carbon) {
-			return $carbon->format(Carbon::ISO8601);
-		});
-
+        Carbon::serializeUsing(function ($carbon) {
+            return $carbon->format(Carbon::ISO8601);
+        });
     }
 
     /**
@@ -34,9 +33,7 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(Client::class, function () {
-            return ClientBuilder::create()
-                ->setHosts(config('services.search.hosts'))
-                ->build();
+            return ClientBuilder::create()->setHosts(config('services.search.hosts'))->build();
         });
     }
 }

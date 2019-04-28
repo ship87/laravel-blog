@@ -4,16 +4,15 @@ namespace App\Traits\Services;
 
 trait CreateUpdateTrait
 {
-	protected $baseRepo;
+    protected $baseRepo;
 
-	public function create(array $data)
-	{
-		return $this->baseRepo->create($data);
-	}
+    public function create(array $data)
+    {
+        return $this->baseRepo->create($data);
+    }
 
-	public function update(array $data, $id)
-	{
-		return $this->baseRepo->update($data, $id);
-	}
-
+    public function update(array $data, $id)
+    {
+        return $this->baseRepo->update($data, $id);
+    }
 }

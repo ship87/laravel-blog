@@ -30,7 +30,7 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request, CategoryService $categoryService)
     {
-		return $categoryService->create($request->get('attributes'));
+        return $categoryService->create($request->get('attributes'));
     }
 
     /**
@@ -61,7 +61,6 @@ class CategoryController extends Controller
         return $categoryService->update($attributes, $id, $attributes['updated_user_id']);
     }
 
-
     /**
      * Remove the specified resource from storage.
      *
@@ -70,6 +69,6 @@ class CategoryController extends Controller
      */
     public function destroy($id, CategoryService $categoryService)
     {
-		return $categoryService->destroy($id);
+        return $categoryService->destroy($id);
     }
 }

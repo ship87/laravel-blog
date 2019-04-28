@@ -29,9 +29,9 @@ class TagController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(TagRequest $request, TagService $tagService)
-	{
-		return $tagService->create($request->get('attributes'));
-	}
+    {
+        return $tagService->create($request->get('attributes'));
+    }
 
     /**
      * Display the specified resource.
@@ -68,7 +68,7 @@ class TagController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id, TagService $tagService)
-	{
-		return $tagService->destroy($id);
-	}
+    {
+        return $tagService->destroy($id);
+    }
 }

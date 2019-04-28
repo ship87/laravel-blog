@@ -88,13 +88,13 @@ trait PolicyTrait
         }
     }
 
-	/**
-	 * @param $check
-	 */
-	protected function checkSystemAttribute($check)
-	{
-		if ($check->system || $check->system == 'Y') {
-			$this->checkAuthorize(false);
-		}
-	}
+    /**
+     * @param $check
+     */
+    protected function checkSystemAttribute($check)
+    {
+        if ($check->system || $check->system == 'Y') {
+            $this->checkAuthorize(false);
+        }
+    }
 }

@@ -135,12 +135,12 @@ abstract class Repository implements RepositoryInterface
         return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
     }
 
-	public function getCount(array $where=[])
-	{
-		if (!empty($where)) {
-			return DB::table($this->model->getTable())->where($where)->count();
-		}
+    public function getCount(array $where = [])
+    {
+        if (! empty($where)) {
+            return DB::table($this->model->getTable())->where($where)->count();
+        }
 
-		return DB::table($this->model->getTable())->count();
-	}
+        return DB::table($this->model->getTable())->count();
+    }
 }

@@ -11,7 +11,7 @@ class PostCommentRequest extends FormRequest
 {
     use PreviousPageTrait;
 
-	use JsonApiTrait;
+    use JsonApiTrait;
 
     /**
      * Determine if the user is authorized to make this request.
@@ -31,26 +31,26 @@ class PostCommentRequest extends FormRequest
     public function rules()
     {
         return [
-			'content'=>'required',
-			'post_id'=>'required',
+            'content' => 'required',
+            'post_id' => 'required',
         ];
     }
 
-	/**
-	 * Get data to be validated from the request.
-	 *
-	 * @return array
-	 */
-	protected function validationData()
-	{
-		$jsonApiRequest = $this->validationDataJsonApiRequest('post-comments');
+    /**
+     * Get data to be validated from the request.
+     *
+     * @return array
+     */
+    protected function validationData()
+    {
+        $jsonApiRequest = $this->validationDataJsonApiRequest('post-comments');
 
-		if ($jsonApiRequest !== null) {
-			return $jsonApiRequest;
-		}
+        if ($jsonApiRequest !== null) {
+            return $jsonApiRequest;
+        }
 
-		$this->filterPreviousPage();
+        $this->filterPreviousPage();
 
-		return parent::validationData();
-	}
+        return parent::validationData();
+    }
 }

@@ -23,7 +23,7 @@ trait JsonApiTrait
     {
         $accept = $this->isJsonApiRequest();
 
-        if ($accept && $accept== $this->acceptJsonApi) {
+        if ($accept && $accept == $this->acceptJsonApi) {
 
             if ($this->get('type') == $type) {
 

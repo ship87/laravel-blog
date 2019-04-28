@@ -11,13 +11,13 @@ class TagRepository extends Repository
         $this->model = $model;
     }
 
-	public function getAllNameId()
-	{
-		return $this->model->pluck('title','id')->all();
-	}
+    public function getAllNameId()
+    {
+        return $this->model->pluck('title', 'id')->all();
+    }
 
-	public function getId($tags)
-	{
-		return $tags->pluck('id')->all();
-	}
+    public function getId($tags)
+    {
+        return $tags->pluck('id')->all();
+    }
 }

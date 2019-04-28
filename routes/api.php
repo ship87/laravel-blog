@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 
 /**
  *  JSON:API v1.0
- * 	url: /api/v1
+ *    url: /api/v1
  */
 Route::namespace('Api')->prefix('v1')->middleware(['api', 'return-json'])->group(function () {
 

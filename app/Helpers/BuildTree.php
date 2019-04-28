@@ -11,33 +11,33 @@ class BuildTree
         $this->setData($data);
     }
 
-	/**
-	 * @return mixed
-	 */
-	public function getData() {
-
-		return $this->data;
-	}
-
-	/**
-	 * @param mixed $data
-	 */
-	public function setData($data) {
-
-		$this->data = $data;
-
-		return $this;
-	}
-
-
-	public function getTree()
+    /**
+     * @return mixed
+     */
+    public function getData()
     {
-    	$data=$this->getData();
 
-    	$tree=$this->getBranch($data);
+        return $this->data;
+    }
 
+    /**
+     * @param mixed $data
+     */
+    public function setData($data)
+    {
 
-		///dd($tree);
+        $this->data = $data;
+
+        return $this;
+    }
+
+    public function getTree()
+    {
+        $data = $this->getData();
+
+        $tree = $this->getBranch($data);
+
+        ///dd($tree);
 
         return $tree;
     }

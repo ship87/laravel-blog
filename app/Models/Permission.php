@@ -8,10 +8,8 @@ class Permission extends Model
 {
     protected $guarded = [];
 
-	public function roles()
-	{
-		return $this->belongsToMany('App\Models\Role');
-	}
-
-
+    public function roles()
+    {
+        return $this->belongsToMany('App\Models\Role');
+    }
 }

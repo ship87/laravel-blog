@@ -43,7 +43,7 @@ class BlogService
 
     public function getArchivePostsPaginated($year, $month = false, $day = false)
     {
-    	$archiveUrl = $this->getArchiveUrl($year, $month, $day);
+        $archiveUrl = $this->getArchiveUrl($year, $month, $day);
 
         $posts = $this->postRepo->getArchivePostsPaginated($archiveUrl, config('app.blog_pagination'), $year, $month, $day);
 
@@ -55,12 +55,11 @@ class BlogService
         if (config('services.search.enabled')) {
 
             $posts = $this->elasticsearchPostRepo->searchWithElasticsearch($search);
-
         } else {
             $posts = $this->postRepo->search($search);
         }
 
-		$posts = $this->postRepo->paginate($posts, config('app.blog_pagination'), null, ['path' => config('app.url_blog').'?search='.$search]);
+        $posts = $this->postRepo->paginate($posts, config('app.blog_pagination'), null, ['path' => config('app.url_blog').'?search='.$search]);
 
         return $this->addUrl($posts);
     }
@@ -76,19 +75,18 @@ class BlogService
         return $posts;
     }
 
-	public function getArchiveUrl($year, $month = false, $day = false)
-	{
-		$way = $year;
+    public function getArchiveUrl($year, $month = false, $day = false)
+    {
+        $way = $year;
 
-		if ($day && $month) {
+        if ($day && $month) {
 
-			$way = $year.'/'.$month.'/'.$day;
-		} elseif ($month) {
+            $way = $year.'/'.$month.'/'.$day;
+        } elseif ($month) {
 
-			$way = $year.'/'.$month;
-		}
+            $way = $year.'/'.$month;
+        }
 
-		return config('app.url_blog').'/archive/'.$way;
-	}
-
+        return config('app.url_blog').'/archive/'.$way;
+    }
 }

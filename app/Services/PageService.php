@@ -41,18 +41,18 @@ class PageService
         'slug',
     ];
 
-	protected $elasticsearchPageRepo;
+    protected $elasticsearchPageRepo;
 
     public function __construct(
         PageRepository $pageRepo,
         MetatagRepository $metatagRepo,
         PageCommentRepository $pageCommentRepo,
-		ElasticsearchPageRepository $elasticsearchPageRepo
+        ElasticsearchPageRepository $elasticsearchPageRepo
     ) {
         $this->baseRepo = $pageRepo;
         $this->metatagRepo = $metatagRepo;
         $this->pageCommentRepo = $pageCommentRepo;
-		$this->elasticsearchPageRepo = $elasticsearchPageRepo;
+        $this->elasticsearchPageRepo = $elasticsearchPageRepo;
     }
 
     public function getBySlug($slug)
@@ -79,7 +79,7 @@ class PageService
         $resultUrl = '';
         foreach ($urlArr as $url) {
             $page = $this->getUrl($url);
-            if (!empty($page->slug)) {
+            if (! empty($page->slug)) {
                 $resultUrl = $resultUrl.$page->slug.'/';
             }
         }
@@ -138,25 +138,25 @@ class PageService
     private function syncRelations($page, array $relationData)
     {
         if (! empty($relationData['metatags']['data'])) {
-            $this->syncRelation($this->metatagRepo, $relationData['metatags']['data'],'metatags','page_id', $page->id);
+            $this->syncRelation($this->metatagRepo, $relationData['metatags']['data'], 'metatags', 'page_id', $page->id);
         }
 
         if (! empty($relationData['comments']['data'])) {
-            $this->syncRelation($this->pageCommentRepo, $relationData['comments']['data'],'page-comments','page_id', $page->id);
+            $this->syncRelation($this->pageCommentRepo, $relationData['comments']['data'], 'page-comments', 'page_id', $page->id);
         }
     }
 
-	public function search($search)
-	{
-		if (config('services.search.enabled')) {
-			return $this->elasticsearchPageRepo->searchWithElasticsearch($search);
-		}
+    public function search($search)
+    {
+        if (config('services.search.enabled')) {
+            return $this->elasticsearchPageRepo->searchWithElasticsearch($search);
+        }
 
-		return $this->baseRepo->search($search);
-	}
+        return $this->baseRepo->search($search);
+    }
 
-	public function getUrlByPage($page)
-	{
-		return $this->baseRepo->getUrlByPage($page);
-	}
+    public function getUrlByPage($page)
+    {
+        return $this->baseRepo->getUrlByPage($page);
+    }
 }

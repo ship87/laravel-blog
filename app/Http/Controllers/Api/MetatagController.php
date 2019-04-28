@@ -29,9 +29,9 @@ class MetatagController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(MetatagRequest $request, MetatagService $metatagService)
-	{
-		return $metatagService->create($request->get('attributes'));
-	}
+    {
+        return $metatagService->create($request->get('attributes'));
+    }
 
     /**
      * Display the specified resource.
@@ -69,7 +69,7 @@ class MetatagController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id, MetatagService $metatagService)
-	{
-		return $metatagService->destroy($id);
-	}
+    {
+        return $metatagService->destroy($id);
+    }
 }

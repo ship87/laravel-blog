@@ -14,24 +14,27 @@ class PermissionService
 
     protected $permissionRoleRepository;
 
-    public function __construct(PermissionRepository $permissionRepo, PermissionRoleRepository $permissionRoleRepository)
-    {
+    public function __construct(
+        PermissionRepository $permissionRepo,
+        PermissionRoleRepository $permissionRoleRepository
+    ) {
         $this->baseRepo = $permissionRepo;
         $this->permissionRoleRepository = $permissionRoleRepository;
     }
 
-	public function getAllTitleId($excludePermission = false)
-	{
-		return $this->baseRepo->getAllTitleId($excludePermission);
-	}
+    public function getAllTitleId($excludePermission = false)
+    {
+        return $this->baseRepo->getAllTitleId($excludePermission);
+    }
 
-	public function getId($permissions)
-	{
-		return $this->baseRepo->getId($permissions);
-	}
+    public function getId($permissions)
+    {
+        return $this->baseRepo->getId($permissions);
+    }
 
-	public function getPermissionBySlugRoleId(array $slug, $roleId){
+    public function getPermissionBySlugRoleId(array $slug, $roleId)
+    {
 
-    	return $this->baseRepo->getPermissionBySlugRoleId($slug, $roleId);
-	}
+        return $this->baseRepo->getPermissionBySlugRoleId($slug, $roleId);
+    }
 }

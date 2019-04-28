@@ -8,12 +8,12 @@ use App\Traits\Repositories\ElasticsearchTrait;
 
 class ElasticsearchPageRepository extends PageRepository
 {
-	use ElasticsearchTrait;
+    use ElasticsearchTrait;
 
-	public function __construct(Page $model, Client $client)
-	{
-		$this->model = $model;
-		$this->search = $client;
-		$this->fields = ['title','content'];
-	}
+    public function __construct(Page $model, Client $client)
+    {
+        $this->model = $model;
+        $this->search = $client;
+        $this->fields = ['title', 'content'];
+    }
 }

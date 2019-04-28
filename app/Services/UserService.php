@@ -10,7 +10,7 @@ use App\Traits\Services\MergeNewDataTrait;
 
 class UserService
 {
-    use AdminPageTrait,CreateUpdateTrait, MergeNewDataTrait;
+    use AdminPageTrait, CreateUpdateTrait, MergeNewDataTrait;
 
     public function __construct(UserRepository $userRepo)
     {

@@ -29,9 +29,9 @@ class PostCommentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(PostCommentRequest $request, PostCommentService $postComment)
-	{
-		return $postComment->create($request->get('attributes'));
-	}
+    {
+        return $postComment->create($request->get('attributes'));
+    }
 
     /**
      * Display the specified resource.
@@ -68,7 +68,7 @@ class PostCommentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id, PostCommentService $postCommentService)
-	{
-		return $postCommentService->destroy($id);
-	}
+    {
+        return $postCommentService->destroy($id);
+    }
 }

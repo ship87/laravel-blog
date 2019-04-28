@@ -19,13 +19,13 @@ class PostController extends Controller
      */
     public function index(PostService $postService, Request $request)
     {
-		$search = $request->input('search');
+        $search = $request->input('search');
 
-		if (!empty( $search)){
-			$posts = $postService->search($search);
-		} else {
-			$posts = $postService->getPaginated('posts');
-		}
+        if (! empty($search)) {
+            $posts = $postService->search($search);
+        } else {
+            $posts = $postService->getPaginated('posts');
+        }
 
         return new PostsResource($posts);
     }

@@ -49,7 +49,7 @@ class PermissionController extends Controller
      */
     public function create(Authenticatable $auth)
     {
-		$this->createPolicy($auth);
+        $this->createPolicy($auth);
 
         return view(config('app.theme').'admin.permissions.create');
     }
@@ -62,7 +62,7 @@ class PermissionController extends Controller
      */
     public function store(PermissionRequest $request, PermissionService $permissionService, Authenticatable $auth)
     {
-		$this->storePolicy($auth);
+        $this->storePolicy($auth);
 
         $permissionService->create($request->all());
 
@@ -77,11 +77,11 @@ class PermissionController extends Controller
      */
     public function edit($id, PermissionService $permissionService, Authenticatable $auth)
     {
-		$this->editPolicy($auth);
+        $this->editPolicy($auth);
 
         $permission = $permissionService->getByIdOrFail($id);
 
-		$this->checkSystemAttribute($permission);
+        $this->checkSystemAttribute($permission);
 
         return view(config('app.theme').'admin.permissions.edit', [
             'permission' => $permission,
@@ -97,9 +97,9 @@ class PermissionController extends Controller
      */
     public function update(PermissionRequest $request, $id, PermissionService $permissionService, Authenticatable $auth)
     {
-		$this->updatePolicy($auth);
+        $this->updatePolicy($auth);
 
-        $permissionService->update($request->all(),$id);
+        $permissionService->update($request->all(), $id);
 
         return redirect()->route(config('app.theme').'admin.permissions.index');
     }
@@ -112,7 +112,7 @@ class PermissionController extends Controller
      */
     public function destroy($id, PermissionService $permissionService, Authenticatable $auth)
     {
-		$this->destroyPolicy($auth);
+        $this->destroyPolicy($auth);
 
         $permissionService->destroy($id);
 

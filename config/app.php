@@ -54,7 +54,7 @@ return [
 
     'url' => env('APP_URL', 'http://localhost'),
 
-	'url_admin' => env('APP_URL_ADMIN', '/admin'),
+    'url_admin' => env('APP_URL_ADMIN', '/admin'),
 
     'url_blog' => env('APP_URL_BLOG', '/blog'),
 
@@ -64,9 +64,9 @@ return [
 
     'theme' => 'themes/'.env('APP_THEME', 'default').'/',
 
-	'login_max_attempts' => env('APP_LOGIN_MAX_ATTEMPTS', 5),
+    'login_max_attempts' => env('APP_LOGIN_MAX_ATTEMPTS', 5),
 
-	'login_decay_minutes' => env('APP_LOGIN_DECAY_MINUTES', 1),
+    'login_decay_minutes' => env('APP_LOGIN_DECAY_MINUTES', 1),
 
     'posts_google_recaptcha' => env('APP_CONTACT_GOOGLE_RECAPTCHA', false),
 
@@ -206,7 +206,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-		App\Providers\RabbitMQServiceProvider::class,
+        App\Providers\RabbitMQServiceProvider::class,
 
     ],
 
