@@ -1,6 +1,6 @@
 # Laravel blog
 
-[![Latest Stable Version](https://img.shields.io/packagist/v/ship87/laravel-blog.svg)](https://packagist.org/packages/ship87/laravel-blog)
+[![Latest Stable Version](https://img.shields.io/github/release/ship87/laravel-blog.svg)](https://packagist.org/packages/ship87/laravel-blog)
 [![Build Status](https://img.shields.io/travis/ship87/laravel-blog/master.svg)](https://travis-ci.org/ship87/laravel-blog)
 [![License](https://poser.pugx.org/ship87/laravel-blog/license.svg)](https://packagist.org/packages/ship87/laravel-blog)
 [![GitHub stars](https://img.shields.io/github/stars/ship87/laravel-blog.svg)](https://github.com/ship87/laravel-blog/stargazers)
