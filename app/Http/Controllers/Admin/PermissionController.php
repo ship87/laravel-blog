@@ -28,8 +28,8 @@ class PermissionController extends Controller
     public function index(PermissionService $permissionService, Request $request, Authenticatable $auth)
     {
         $this->indexPolicy($auth);
-        $canEdit = $auth->can('edit', $this->modelPolicy->find(1));
-        $canDelete = $auth->can('destroy', $this->modelPolicy->find(1));
+        $canEdit = $auth->can('edit', $this->modelPolicy->first());
+        $canDelete = $auth->can('destroy', $this->modelPolicy->first());
 
         $permissions = $permissionService->getPaginated(config('app.url_admin').'/permissions');
 

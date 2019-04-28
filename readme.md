@@ -4,7 +4,6 @@
 [![Build Status](https://img.shields.io/travis/ship87/laravel-blog/master.svg)](https://travis-ci.org/ship87/laravel-blog)
 [![License](https://poser.pugx.org/ship87/laravel-blog/license.svg)](https://packagist.org/packages/ship87/laravel-blog)
 [![GitHub stars](https://img.shields.io/github/stars/ship87/laravel-blog.svg)](https://github.com/ship87/laravel-blog/stargazers)
-[![GitHub license](https://img.shields.io/github/license/ship87/laravel-blog.svg)](https://raw.githubusercontent.com/ship87/laravel-blog/master/LICENSE.md)
 [![Total Downloads](https://poser.pugx.org/ship87/laravel-blog/downloads.svg)](https://packagist.org/packages/ship87/laravel-blog)
 
 > ### Example blog on PHP using Laravel framework, JSON:API, Elasticsearch, RabbitMQ.
@@ -44,10 +43,6 @@ Generate a new application key
 
     php artisan key:generate
 
-Generate a new JWT authentication secret key
-
-    php artisan jwt:generate
-
 Run the database migrations (**Set the database connection in .env before migrating**)
 
     php artisan migrate
@@ -69,12 +64,11 @@ http://localhost:8072/ - PHP 7.2
 **TL;DR command list**
 
     git clone git@github.com:ship87/laravel-blog.git
-    cd laravel-realworld-example-app
+    cd laravel-blog
     composer install
     npm install
     cp .env.example .env
     php artisan key:generate
-    php artisan jwt:generate 
     
 **Make sure you set the correct database connection information before running the migrations** [Environment variables](#environment-variables)
 

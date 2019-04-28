@@ -14,24 +14,25 @@ class PageControllerTest extends TestCase
     protected function setUp()
     {
         parent::setUp();
-
-        $this->createPage();
     }
 
     public function testCreate()
     {
+        $this->createPage();
 
         $this->actingAs($this->user)->get(config('app.url_admin').'/pages/create/')->assertStatus(200);
     }
 
     public function testIndex()
     {
+        $this->createPage();
+
         $this->actingAs($this->user)->get(config('app.url_admin').'/pages/')->assertStatus(200);
     }
 
     public function testEdit()
     {
-
+        $this->createPage();
         $this->actingAs($this->user)->get(config('app.url_admin').'/pages/'.$this->page->id.'/edit/')->assertStatus(200);
     }
 }

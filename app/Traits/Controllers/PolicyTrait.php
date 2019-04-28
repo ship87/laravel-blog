@@ -29,7 +29,7 @@ trait PolicyTrait
      */
     public function indexPolicy(Authenticatable $auth)
     {
-        $check = $auth->can('index', $this->modelPolicy->find(1));
+        $check = $auth->can('index', $this->modelPolicy->first());
         $this->checkAuthorize($check);
     }
 
@@ -56,7 +56,7 @@ trait PolicyTrait
      */
     public function editPolicy(Authenticatable $auth)
     {
-        $check = $auth->can('edit', $this->modelPolicy->find(1));
+        $check = $auth->can('edit', $this->modelPolicy->first());
         $this->checkAuthorize($check);
     }
 
@@ -65,7 +65,7 @@ trait PolicyTrait
      */
     public function updatePolicy(Authenticatable $auth)
     {
-        $check = $auth->can('update', $this->modelPolicy->find(1));
+        $check = $auth->can('update', $this->modelPolicy->first());
         $this->checkAuthorize($check);
     }
 
@@ -74,7 +74,7 @@ trait PolicyTrait
      */
     public function destroyPolicy(Authenticatable $auth)
     {
-        $check = $auth->can('destroy', $this->modelPolicy->find(1));
+        $check = $auth->can('destroy', $this->modelPolicy->first());
         $this->checkAuthorize($check);
     }
 

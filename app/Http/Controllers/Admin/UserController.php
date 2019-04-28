@@ -29,8 +29,8 @@ class UserController extends Controller
     public function index(UserService $userService, Request $request, Authenticatable $auth)
     {
 		$this->indexPolicy($auth);
-		$canEdit = $auth->can('edit', $this->modelPolicy->find(1));
-		$canDelete = $auth->can('destroy', $this->modelPolicy->find(1));
+		$canEdit = $auth->can('edit', $this->modelPolicy->first());
+		$canDelete = $auth->can('destroy', $this->modelPolicy->first());
 
         $users = $userService->getPaginated(config('app.url_admin').'/users');
 

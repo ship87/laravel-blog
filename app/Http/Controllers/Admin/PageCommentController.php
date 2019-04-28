@@ -28,8 +28,8 @@ class PageCommentController extends Controller
     public function index(PageCommentService $pageCommentService, Request $request, Authenticatable $auth)
     {
         $this->indexPolicy($auth);
-        $canEdit = $auth->can('edit', $this->modelPolicy->find(1));
-        $canDelete = $auth->can('destroy', $this->modelPolicy->find(1));
+        $canEdit = $auth->can('edit', $this->modelPolicy->first());
+        $canDelete = $auth->can('destroy', $this->modelPolicy->first());
 
         $pageComments = $pageCommentService->getPaginated(config('app.url_admin').'/page-comments', ['createdUser','updatedUser']);
 

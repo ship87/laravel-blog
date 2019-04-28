@@ -28,8 +28,8 @@ class PageController extends Controller
     public function index(PageService $pageService, Request $request, Authenticatable $auth)
     {
 		$this->indexPolicy($auth);
-		$canEdit = $auth->can('edit', $this->modelPolicy->find(1));
-		$canDelete = $auth->can('destroy', $this->modelPolicy->find(1));
+		$canEdit = $auth->can('edit', $this->modelPolicy->first());
+		$canDelete = $auth->can('destroy', $this->modelPolicy->first());
 
         $pages = $pageService->getPaginated(config('app.url_admin').'/pages', ['createdUser','updatedUser']);
 

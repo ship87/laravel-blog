@@ -14,24 +14,27 @@ class PostControllerTest extends TestCase
     protected function setUp()
     {
         parent::setUp();
-
-        $this->createPost();
     }
 
     public function testIndex()
     {
+
+        $this->createPost();
 
         $this->actingAs($this->user)->get(config('app.url_admin').'/posts/')->assertStatus(200);
     }
 
     public function testCreate()
     {
+        $this->createPost();
 
         $this->actingAs($this->user)->get(config('app.url_admin').'/posts/create/')->assertStatus(200);
     }
 
     public function testEdit()
     {
+        $this->createPost();
+
         $this->actingAs($this->user)->get(config('app.url_admin').'/posts/'.$this->post->id.'/edit/')->assertStatus(200);
     }
 }
